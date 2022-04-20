@@ -4,11 +4,13 @@ import { UsersService } from "./users.service";
 import { User } from "./entities/users.entity";
 import { CreateUserInput } from "./dto/create-user.input";
 import { UpdateUserInput } from "./dto/update-user.input";
+import { SkipAuth } from "@fd-wereact/nest-common";
 
 @Resolver(() => User)
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
+  @SkipAuth()
   @Mutation(() => User)
   createUser(@Args("createUserInput") createUserInput: CreateUserInput) {
     return this.usersService.create(createUserInput);
@@ -20,8 +22,8 @@ export class UsersResolver {
   }
 
   @Query(() => User, { name: "user" })
-  findOne(@Args("id", { type: () => ID }) id: string) {
-    return this.usersService.findOne(id);
+  findById(@Args("id", { type: () => ID }) id: string) {
+    return this.usersService.findById(id);
   }
 
   @Mutation(() => User)
