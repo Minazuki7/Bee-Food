@@ -10,4 +10,6 @@ export class AuthResult {
   refreshToken: string;
   @Field(() => User, { description: "logged in user" })
   user: User;
+  @Field(() => String)
+  expiresIn: string;
 }
