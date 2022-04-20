@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int } from "@nestjs/graphql";
+import { ObjectType, Field } from "@nestjs/graphql";
 import { Prop, SchemaFactory } from "@nestjs/mongoose";
 import * as mongoose from "mongoose";
 
@@ -20,4 +20,4 @@ export class RefreshToken {
   expires: Date;
 }
 
-export const RefreshTokenSchema = SchemaFactory.createForClass(User);
+export const RefreshTokenSchema = SchemaFactory.createForClass(RefreshToken);

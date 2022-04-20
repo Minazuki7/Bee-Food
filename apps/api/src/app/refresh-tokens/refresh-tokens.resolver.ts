@@ -7,7 +7,7 @@ export class RefreshTokensResolver {
   constructor(private readonly refreshTokensService: RefreshTokensService) {}
 
   @Mutation(() => RefreshToken)
-  refresh(@Args() refreshToken: string) {
+  refresh(@Args("refreshToken", { type: () => String }) refreshToken: string) {
     return this.refreshTokensService.handleRefresh(refreshToken);
   }
 }

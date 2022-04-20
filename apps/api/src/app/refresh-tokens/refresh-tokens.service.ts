@@ -11,13 +11,14 @@ import {
 } from "./entities/refresh-token.entity";
 
 import { AuthenticationError } from "apollo-server-express";
+import { UsersService } from "../users/users.service";
 
 @Injectable()
 export class RefreshTokensService {
   constructor(
     @InjectModel(RefreshToken.name)
     private refreshTokenModel: Model<RefreshTokenDocument>,
-    private userModel: Model<UserDocument>
+    private userService: UsersService
   ) {}
 
   remove(id: string) {
@@ -42,7 +43,9 @@ export class RefreshTokensService {
     });
     if (!token) throw new AuthenticationError("Invalid token");
 
-    const user = await this.userModel.findById(token.user);
+    const user = await this.userService.findById(
+      token.user as unknown as string
+    );
     if (!user) throw new AuthenticationError("Invalid token");
 
     const newToken = await this.generate(user);

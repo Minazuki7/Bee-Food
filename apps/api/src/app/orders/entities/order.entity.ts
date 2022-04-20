@@ -5,6 +5,7 @@ import * as mongoose from "mongoose";
 import { Zone } from "./../../zones/entities/zone.entity";
 import { Client } from "./../../clients/entities/client.entity";
 import { Driver } from "./../../drivers/entities/driver.entity";
+import { status } from "@fd-wereact/nest-common";
 
 //impoprt {Orders,order}
 
@@ -37,8 +38,9 @@ export class Order {
   @Field(() => Int, { description: "order's deliveryFees" })
   deliveryFees: number;
 
-  /*@Prop()
- @Field(() => [String], { description: "order's status" })
- type: [string] = [Status.order] */
+  @Prop()
+  @Field(() => [status], { description: "order's status" })
+  status: status[];
 }
+
 export const OrderSchema = SchemaFactory.createForClass(Order);

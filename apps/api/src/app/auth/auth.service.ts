@@ -1,4 +1,3 @@
-import { RefreshTokensService } from "./../refresh-tokens/refresh-tokens.service";
 import {
   Injectable,
   NotFoundException,
@@ -9,6 +8,7 @@ import * as bcrypt from "bcrypt";
 
 import { User } from "./../users/entities/users.entity";
 import { UsersService } from "../users/users.service";
+import { RefreshTokensService } from "../refresh-tokens/refresh-tokens.service";
 import moment = require("moment");
 
 @Injectable()
