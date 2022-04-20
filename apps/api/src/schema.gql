@@ -20,17 +20,40 @@ type User {
 
   """user's phone number"""
   phone: Int!
+
+  """user's roles"""
+  roles: [String!]!
+}
+
+type AuthResult {
+  """JWT authorization token"""
+  token: String!
+
+  """JWT authorization refresh token"""
+  refreshToken: String!
+
+  """logged in user"""
+  user: User!
 }
 
 type Query {
   users: [User!]!
   user(id: ID!): User!
+  userm(mail: String!): User!
+  whoAmI: User!
 }
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: ID!): User!
+  login(
+    """user's login email"""
+    email: String!
+
+    """user's login password"""
+    password: String!
+  ): AuthResult!
 }
 
 input CreateUserInput {
