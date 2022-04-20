@@ -1,1 +1,1 @@
-export * from './lib/nest-common';
+export * from "./lib/nest-common";

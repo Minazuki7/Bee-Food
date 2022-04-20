@@ -1,5 +1,5 @@
 export function nestCommon(): string {
-    return 'nest-common';
+  return "nest-common";
 }
 
-//export data = []
+export * from "./enums";
