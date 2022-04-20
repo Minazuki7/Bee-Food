@@ -17,7 +17,7 @@ export class AuthService {
   ) {}
 
   async validate(id: string) {
-    return this.usersService.findOne(id);
+    return this.usersService.findById(id);
   }
 
   async login(

@@ -1,13 +1,13 @@
+import { Roles } from "@fd-wereact/nest-common";
 import { InputType, Int, Field } from "@nestjs/graphql";
 
 import {
-  IsArray,
   IsEmail,
   IsNotEmpty,
-  Matches,
   MaxLength,
   MinLength,
   IsString,
+  IsArray,
 } from "class-validator";
 
 @InputType()
@@ -36,8 +36,9 @@ export class CreateUserInput {
   @IsNotEmpty()
   @Field(() => Int, { description: "user's phone number" })
   phone: number;
-  /*@IsArray()
+
+  @IsArray()
   @IsNotEmpty()
-  @Field(() => [String], { description: "user's roles" })
-  roles: [string]*/
+  @Field(() => [Roles], { description: "user's roles" })
+  roles: Roles[];
 }

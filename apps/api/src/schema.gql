@@ -2,6 +2,178 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Zone {
+  """Zone's _id"""
+  id: ID!
+
+  """Zone's city"""
+  city: String!
+
+  """Zone's  name"""
+  name: String!
+
+  """Zone Raduis in Km"""
+  raduis: Int!
+}
+
+type Client {
+  """client's _id"""
+  id: ID!
+
+  """client's email"""
+  email: String!
+
+  """client's First name"""
+  firstName: String!
+
+  """client's last name"""
+  lastName: String!
+
+  """client's phone number"""
+  phone: String!
+}
+
+type Driver {
+  """driver's _id"""
+  id: ID!
+
+  """driver's email"""
+  email: String!
+
+  """driver's First name"""
+  firstName: String!
+
+  """driver's last name"""
+  lastName: String!
+
+  """driver's phone number"""
+  phone: String!
+}
+
+type Location {
+  """longitude"""
+  longitude: Float!
+
+  """latitude"""
+  latitude: Float!
+}
+
+type Franchise {
+  """franchise's _id"""
+  id: ID!
+
+  """franchise's name"""
+  name: String!
+
+  """franchise's picture"""
+  picture: String!
+
+  """franchise's email"""
+  email: String!
+
+  """franchise's description"""
+  description: String!
+}
+
+type Branch {
+  """branch's _id"""
+  id: ID!
+
+  """branch's name"""
+  name: String!
+
+  """branch's picture"""
+  picture: String!
+
+  """branch's description"""
+  description: String!
+
+  """branch's opening hour"""
+  openAt: String!
+
+  """branch closing hour"""
+  closeAt: String!
+
+  """branch's status"""
+  status: Boolean!
+}
+
+type Item {
+  """item's _id"""
+  id: ID!
+
+  """item's title """
+  title: String!
+
+  """item's picture"""
+  picture: String!
+
+  """item's description"""
+  description: String!
+
+  """item's slug"""
+  slug: String!
+
+  """item's status"""
+  status: Boolean!
+
+  """item's price"""
+  price: Int!
+}
+
+type Menu {
+  """menu's _id"""
+  id: ID!
+
+  """menu's name"""
+  name: String!
+
+  """menu's picture"""
+  picture: String!
+
+  """menu's description"""
+  description: String!
+
+  """menu's status"""
+  status: Boolean!
+}
+
+type Order {
+  """order's _id"""
+  id: ID!
+
+  """order's price"""
+  price: Int!
+
+  """order's deliveryprice"""
+  deliveryprice: Int!
+
+  """order's deliveryFees"""
+  deliveryFees: Int!
+}
+
+type OrderDetail {
+  """order's _id"""
+  id: ID!
+
+  """total order's price"""
+  totalPrice: Int!
+
+  """order's price"""
+  originalPrice: Int!
+}
+
+type Stock {
+  """stock's _id"""
+  id: ID!
+
+  """orginal value"""
+  intial: Int!
+
+  """remaning stock"""
+  rest: Int!
+}
+
 type User {
   """user's _id"""
   id: ID!
@@ -22,7 +194,16 @@ type User {
   phone: Int!
 
   """user's roles"""
-  roles: [String!]!
+  roles: [Roles!]!
+}
+
+enum Roles {
+  admin
+  client
+  driver
+  owner
+  manger
+  worker
 }
 
 type AuthResult {
@@ -39,8 +220,28 @@ type AuthResult {
 type Query {
   users: [User!]!
   user(id: ID!): User!
-  userm(mail: String!): User!
   whoAmI: User!
+  zones: [Zone!]!
+  zone(id: Int!): Zone!
+  locations: [Location!]!
+  location(id: Int!): Location!
+  clients: [Client!]!
+  client(id: Int!): Client!
+  drivers: [Driver!]!
+  driver(id: Int!): Driver!
+  franchises: [Franchise!]!
+  franchise(id: Int!): Franchise!
+  branches: [Branch!]!
+  branch(id: Int!): Branch!
+  items: [Item!]!
+  item(id: Int!): Item!
+  menus: [Menu!]!
+  menu(id: Int!): Menu!
+  orders: [Order!]!
+  order(id: Int!): Order!
+  orderDetails: [OrderDetail!]!
+  orderDetail(id: Int!): OrderDetail!
+  stock(id: Int!): Stock!
 }
 
 type Mutation {
@@ -54,6 +255,39 @@ type Mutation {
     """user's login password"""
     password: String!
   ): AuthResult!
+  createZone(createZoneInput: CreateZoneInput!): Zone!
+  updateZone(updateZoneInput: UpdateZoneInput!): Zone!
+  removeZone(id: Int!): Zone!
+  createLocation(createLocationInput: CreateLocationInput!): Location!
+  updateLocation(updateLocationInput: UpdateLocationInput!): Location!
+  removeLocation(id: Int!): Location!
+  createClient(createClientInput: CreateClientInput!): Client!
+  updateClient(updateClientInput: UpdateClientInput!): Client!
+  removeClient(id: Int!): Client!
+  createDriver(createDriverInput: CreateDriverInput!): Driver!
+  updateDriver(updateDriverInput: UpdateDriverInput!): Driver!
+  removeDriver(id: Int!): Driver!
+  createFranchise(createFranchiseInput: CreateFranchiseInput!): Franchise!
+  updateFranchise(updateFranchiseInput: UpdateFranchiseInput!): Franchise!
+  removeFranchise(id: Int!): Franchise!
+  createBranch(createBranchInput: CreateBranchInput!): Branch!
+  updateBranch(updateBranchInput: UpdateBranchInput!): Branch!
+  removeBranch(id: Int!): Branch!
+  createItem(createItemInput: CreateItemInput!): Item!
+  updateItem(updateItemInput: UpdateItemInput!): Item!
+  removeItem(id: Int!): Item!
+  createMenu(createMenuInput: CreateMenuInput!): Menu!
+  updateMenu(updateMenuInput: UpdateMenuInput!): Menu!
+  removeMenu(id: Int!): Menu!
+  createOrder(createOrderInput: CreateOrderInput!): Order!
+  updateOrder(updateOrderInput: UpdateOrderInput!): Order!
+  removeOrder(id: Int!): Order!
+  createOrderDetail(createOrderDetailInput: CreateOrderDetailInput!): OrderDetail!
+  updateOrderDetail(updateOrderDetailInput: UpdateOrderDetailInput!): OrderDetail!
+  removeOrderDetail(id: Int!): OrderDetail!
+  createStock(createStockInput: CreateStockInput!): Stock!
+  updateStock(updateStockInput: UpdateStockInput!): Stock!
+  removeStock(id: Int!): Stock!
 }
 
 input CreateUserInput {
@@ -91,4 +325,125 @@ input UpdateUserInput {
 
   """user's id"""
   id: String!
+}
+
+input CreateZoneInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateZoneInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateLocationInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateLocationInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateClientInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateClientInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateDriverInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateDriverInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateFranchiseInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateFranchiseInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateBranchInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateBranchInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateItemInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateItemInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateMenuInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateMenuInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateOrderInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateOrderInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateOrderDetailInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateOrderDetailInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateStockInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateStockInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }

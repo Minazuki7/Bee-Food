@@ -33,8 +33,8 @@ export class User {
   phone: number;
 
   @Prop()
-  @Field(() => [String], { description: "user's roles" })
-  roles: [string] = [Roles.user];
-  
+  @Field(() => [Roles], { description: "user's roles" })
+  roles: Roles[];
 }
+
 export const UserSchema = SchemaFactory.createForClass(User);
