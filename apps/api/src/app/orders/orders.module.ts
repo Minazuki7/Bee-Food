@@ -1,9 +1,11 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
+import { registerEnumType } from "@nestjs/graphql";
 
 import { OrdersService } from "./orders.service";
 import { OrdersResolver } from "./orders.resolver";
 import { Order, OrderSchema } from "./entities/order.entity";
+import { status } from "@fd-wereact/nest-common";
 
 @Module({
   imports: [
@@ -11,4 +13,10 @@ import { Order, OrderSchema } from "./entities/order.entity";
   ],
   providers: [OrdersResolver, OrdersService],
 })
-export class OrdersModule {}
+export class OrdersModule {
+  constructor() {
+    registerEnumType(status, {
+      name: "status",
+    });
+  }
+}

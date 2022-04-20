@@ -119,6 +119,14 @@ type Item {
 
   """item's price"""
   price: Int!
+
+  """food's type"""
+  roles: [foodType!]!
+}
+
+enum foodType {
+  food
+  addon
 }
 
 type Menu {
@@ -150,6 +158,20 @@ type Order {
 
   """order's deliveryFees"""
   deliveryFees: Int!
+
+  """order's status"""
+  status: [status!]!
+}
+
+enum status {
+  sent
+  confirmed
+  canceled
+  preparing
+  ready
+  delivery
+  delivered
+  rejected
 }
 
 type OrderDetail {
@@ -206,6 +228,17 @@ enum Roles {
   worker
 }
 
+type RefreshToken {
+  """Refresh token"""
+  token: String!
+  expires: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type AuthResult {
   """JWT authorization token"""
   token: String!
@@ -215,6 +248,7 @@ type AuthResult {
 
   """logged in user"""
   user: User!
+  expiresIn: String!
 }
 
 type Query {
@@ -255,6 +289,7 @@ type Mutation {
     """user's login password"""
     password: String!
   ): AuthResult!
+  refresh(refreshToken: String!): RefreshToken!
   createZone(createZoneInput: CreateZoneInput!): Zone!
   updateZone(updateZoneInput: UpdateZoneInput!): Zone!
   removeZone(id: Int!): Zone!
@@ -305,6 +340,9 @@ input CreateUserInput {
 
   """user's phone number"""
   phone: Int!
+
+  """user's roles"""
+  roles: [Roles!]!
 }
 
 input UpdateUserInput {
@@ -322,6 +360,9 @@ input UpdateUserInput {
 
   """user's phone number"""
   phone: Int
+
+  """user's roles"""
+  roles: [Roles!]
 
   """user's id"""
   id: String!

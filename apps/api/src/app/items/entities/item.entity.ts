@@ -1,3 +1,4 @@
+import { foodType } from "@fd-wereact/nest-common";
 import { ObjectType, Field, ID, Int } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import * as mongoose from "mongoose";
@@ -39,8 +40,9 @@ export class Item {
   @Field(() => Int, { description: "item's price" })
   price: number;
 
-  /*@Prop()
-  @Field(() => [String], { description: "item's type" })
-  type: [string] = [foodType.item];*/
+  @Prop()
+  @Field(() => [foodType], { description: "food's type" })
+  roles: foodType[];
 }
+
 export const ItemSchema = SchemaFactory.createForClass(Item);
