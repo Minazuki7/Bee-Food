@@ -1,7 +1,6 @@
 import { ObjectType, Field, Int, ID } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
-
 import { Roles } from "@fd-wereact/nest-common";
 
 export type UserDocument = User & Document;

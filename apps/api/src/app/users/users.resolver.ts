@@ -1,10 +1,10 @@
 import { Resolver, Query, Mutation, Args, ID } from "@nestjs/graphql";
+import { SkipAuth } from "@fd-wereact/nest-common";
 
 import { UsersService } from "./users.service";
 import { User } from "./entities/users.entity";
 import { CreateUserInput } from "./dto/create-user.input";
 import { UpdateUserInput } from "./dto/update-user.input";
-import { SkipAuth } from "@fd-wereact/nest-common";
 
 @Resolver(() => User)
 export class UsersResolver {
