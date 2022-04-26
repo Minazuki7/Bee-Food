@@ -1,35 +1,38 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
-import { MenusService } from './menus.service';
-import { Menu } from './entities/menu.entity';
-import { CreateMenuInput } from './dto/create-menu.input';
-import { UpdateMenuInput } from './dto/update-menu.input';
+import { Resolver, Query, Mutation, Args, ID } from "@nestjs/graphql";
+import { MenusService } from "./menus.service";
+import { Menu } from "./entities/menu.entity";
+import { CreateMenuInput } from "./dto/create-menu.input";
+import { UpdateMenuInput } from "./dto/update-menu.input";
 
 @Resolver(() => Menu)
 export class MenusResolver {
   constructor(private readonly menusService: MenusService) {}
 
   @Mutation(() => Menu)
-  createMenu(@Args('createMenuInput') createMenuInput: CreateMenuInput) {
+  createMenu(@Args("createMenuInput") createMenuInput: CreateMenuInput) {
     return this.menusService.create(createMenuInput);
   }
 
-  @Query(() => [Menu], { name: 'menus' })
+  @Query(() => [Menu], { name: "menus" })
   findAll() {
     return this.menusService.findAll();
   }
 
-  @Query(() => Menu, { name: 'menu' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  @Query(() => Menu, { name: "menu" })
+  findOne(@Args("id", { type: () => ID }) id: string) {
     return this.menusService.findOne(id);
   }
 
   @Mutation(() => Menu)
-  updateMenu(@Args('updateMenuInput') updateMenuInput: UpdateMenuInput) {
-    return this.menusService.update(updateMenuInput.id, updateMenuInput);
+  updateMenu(
+    @Args("updateMenuInput") updateMenuInput: UpdateMenuInput,
+    @Args("id", { type: () => String }) id: string
+  ) {
+    return this.menusService.update(id, updateMenuInput);
   }
 
   @Mutation(() => Menu)
-  removeMenu(@Args('id', { type: () => Int }) id: number) {
+  removeMenu(@Args("id", { type: () => ID }) id: string) {
     return this.menusService.remove(id);
   }
 }

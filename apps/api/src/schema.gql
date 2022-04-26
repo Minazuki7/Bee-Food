@@ -150,10 +150,13 @@ type Menu {
   name: String!
 
   """menu's picture"""
-  picture: String!
+  picture: String
 
   """menu's description"""
   description: String!
+
+  """menu's price"""
+  price: Int!
 
   """menu's status"""
   status: Boolean!
@@ -283,7 +286,7 @@ type Query {
   items: [Item!]!
   item(id: Int!): Item!
   menus: [Menu!]!
-  menu(id: Int!): Menu!
+  menu(id: ID!): Menu!
   orders: [Order!]!
   order(id: Int!): Order!
   orderDetails: [OrderDetail!]!
@@ -329,8 +332,8 @@ type Mutation {
   updateItem(updateItemInput: UpdateItemInput!): Item!
   removeItem(id: Int!): Item!
   createMenu(createMenuInput: CreateMenuInput!): Menu!
-  updateMenu(updateMenuInput: UpdateMenuInput!): Menu!
-  removeMenu(id: Int!): Menu!
+  updateMenu(updateMenuInput: UpdateMenuInput!, id: String!): Menu!
+  removeMenu(id: ID!): Menu!
   createOrder(createOrderInput: CreateOrderInput!): Order!
   updateOrder(updateOrderInput: UpdateOrderInput!): Order!
   removeOrder(id: Int!): Order!
@@ -469,14 +472,43 @@ input UpdateItemInput {
 }
 
 input CreateMenuInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """items list"""
+  items: ID!
+
+  """menu's name"""
+  name: String!
+
+  """menu's picture"""
+  picture: String
+
+  """menu's description"""
+  description: String!
+
+  """menu's price"""
+  price: Int!
+
+  """menu's status"""
+  status: Boolean!
 }
 
 input UpdateMenuInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """items list"""
+  items: ID
+
+  """menu's name"""
+  name: String
+
+  """menu's picture"""
+  picture: String
+
+  """menu's description"""
+  description: String
+
+  """menu's price"""
+  price: Int
+
+  """menu's status"""
+  status: Boolean
 }
 
 input CreateOrderInput {
