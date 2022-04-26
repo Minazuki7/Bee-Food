@@ -2,12 +2,25 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Country {
+  """country's _id"""
+  id: ID!
+
+  """country's name"""
+  name: String!
+}
+
+type City {
+  """city's _id"""
+  id: ID!
+
+  """city's name"""
+  name: String!
+}
+
 type Zone {
   """Zone's _id"""
   id: ID!
-
-  """Zone's city"""
-  city: String!
 
   """Zone's  name"""
   name: String!
@@ -276,6 +289,10 @@ type Query {
   orderDetails: [OrderDetail!]!
   orderDetail(id: Int!): OrderDetail!
   stock(id: Int!): Stock!
+  countries: [Country!]!
+  country(id: ID!): Country!
+  cites: [City!]!
+  cite(id: ID!): City!
 }
 
 type Mutation {
@@ -323,6 +340,12 @@ type Mutation {
   createStock(createStockInput: CreateStockInput!): Stock!
   updateStock(updateStockInput: UpdateStockInput!): Stock!
   removeStock(id: Int!): Stock!
+  createCountry(createCountryInput: CreateCountryInput!): Country!
+  updateCountry(updateCountryInput: UpdateCountryInput!, id: String!): Country!
+  removeCountry(id: ID!): Country!
+  createCity(createCityInput: CreateCityInput!): City!
+  updateCity(updateCityInput: UpdateCityInput!, id: String!): City!
+  removeCity(id: ID!): City!
 }
 
 input CreateUserInput {
@@ -487,4 +510,30 @@ input UpdateStockInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!
+}
+
+input CreateCountryInput {
+  """country's  name"""
+  name: String!
+}
+
+input UpdateCountryInput {
+  """country's  name"""
+  name: String
+}
+
+input CreateCityInput {
+  """city's  name"""
+  name: String!
+
+  """country's id"""
+  country: ID!
+}
+
+input UpdateCityInput {
+  """city's  name"""
+  name: String
+
+  """country's id"""
+  country: ID
 }

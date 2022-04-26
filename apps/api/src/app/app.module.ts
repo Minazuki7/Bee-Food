@@ -24,6 +24,8 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { AuthModule } from "./auth/auth.module";
 import { RefreshTokensModule } from "./refresh-tokens/refresh-tokens.module";
+import { CountriesModule } from './countries/countries.module';
+import { CitesModule } from './cites/cites.module';
 @Module({
   imports: [
     MongooseModule.forRoot(process.env.MONGO_URI),
@@ -46,6 +48,8 @@ import { RefreshTokensModule } from "./refresh-tokens/refresh-tokens.module";
     OrderDetailsModule,
     StockModule,
     RefreshTokensModule,
+    CountriesModule,
+    CitesModule,
   ],
   controllers: [AppController],
   providers: [
