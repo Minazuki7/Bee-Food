@@ -288,7 +288,7 @@ type Query {
   menus: [Menu!]!
   menu(id: ID!): Menu!
   orders: [Order!]!
-  order(id: Int!): Order!
+  order(id: ID!): Order!
   orderDetails: [OrderDetail!]!
   orderDetail(id: ID!): OrderDetail!
   stock(id: Int!): Stock!
@@ -335,8 +335,8 @@ type Mutation {
   updateMenu(updateMenuInput: UpdateMenuInput!, id: String!): Menu!
   removeMenu(id: ID!): Menu!
   createOrder(createOrderInput: CreateOrderInput!): Order!
-  updateOrder(updateOrderInput: UpdateOrderInput!): Order!
-  removeOrder(id: Int!): Order!
+  updateOrder(updateOrderInput: UpdateOrderInput!, id: String!): Order!
+  removeOrder(id: ID!): Order!
   createOrderDetail(createOrderDetailInput: CreateOrderDetailInput!): OrderDetail!
   updateOrderDetail(id: String!, updateOrderDetailInput: UpdateOrderDetailInput!): OrderDetail!
   removeOrderDetail(id: ID!): OrderDetail!
@@ -553,14 +553,49 @@ input UpdateMenuInput {
 }
 
 input CreateOrderInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """zone's id"""
+  zone: ID!
+
+  """client's id"""
+  client: ID!
+
+  """driver's id"""
+  driver: ID!
+
+  """order's price"""
+  price: Int!
+
+  """order's deliveryprice"""
+  deliveryprice: Int!
+
+  """order's deliveryFees"""
+  deliveryFees: Int!
+
+  """user's roles"""
+  status: [status!]!
 }
 
 input UpdateOrderInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """zone's id"""
+  zone: ID
+
+  """client's id"""
+  client: ID
+
+  """driver's id"""
+  driver: ID
+
+  """order's price"""
+  price: Int
+
+  """order's deliveryprice"""
+  deliveryprice: Int
+
+  """order's deliveryFees"""
+  deliveryFees: Int
+
+  """user's roles"""
+  status: [status!]
 }
 
 input CreateOrderDetailInput {
