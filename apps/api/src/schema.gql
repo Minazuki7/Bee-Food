@@ -502,8 +502,11 @@ input UpdateOrderDetailInput {
 }
 
 input CreateStockInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """item's id"""
+  item: ID!
+
+  """orginal value"""
+  intial: Int!
 }
 
 input UpdateStockInput {

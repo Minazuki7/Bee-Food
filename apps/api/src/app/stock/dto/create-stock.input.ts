@@ -1,7 +1,16 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { Item } from "./../../items/entities/item.entity";
+import { InputType, Int, Field, ID } from "@nestjs/graphql";
 
 @InputType()
 export class CreateStockInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @IsString()
+  @IsNotEmpty()
+  @Field(() => ID, { description: "item's id" })
+  item: Item;
+
+  @IsNumber()
+  @IsNotEmpty()
+  @Field(() => Int, { description: "orginal value" })
+  intial: number;
 }

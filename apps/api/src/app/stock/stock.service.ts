@@ -1,26 +1,35 @@
-import { Injectable } from '@nestjs/common';
-import { CreateStockInput } from './dto/create-stock.input';
-import { UpdateStockInput } from './dto/update-stock.input';
+import { Model } from "mongoose";
+import { Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+
+import { CreateStockInput } from "./dto/create-stock.input";
+import { UpdateStockInput } from "./dto/update-stock.input";
+import { Stock, StockDocument } from "./entities/stock.entity";
 
 @Injectable()
 export class StockService {
-  create(createStockInput: CreateStockInput) {
-    return 'This action adds a new stock';
+  constructor(
+    @InjectModel(Stock.name)
+    private stockModel: Model<StockDocument>
+  ) {}
+  async create(createStockInput: CreateStockInput): Promise<Stock> {
+    const createdstock = new this.stockModel(createStockInput);
+    return createdstock.save();
   }
 
-  findAll() {
-    return `This action returns all stock`;
+  async findAll() {
+    return this.stockModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} stock`;
+  async findOne(id: string) {
+    return this.stockModel.findById(id).exec();
   }
 
-  update(id: number, updateStockInput: UpdateStockInput) {
-    return `This action updates a #${id} stock`;
+  async update(id: string, updateStockInput: UpdateStockInput) {
+    return this.stockModel.findByIdAndUpdate(id, updateStockInput).exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} stock`;
+  remove(id: string) {
+    return this.stockModel.findByIdAndRemove(id).exec();
   }
 }
