@@ -2,8 +2,9 @@ import { ObjectType, Field, ID, Int } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import * as mongoose from "mongoose";
 
-import { Branch } from "./../../branches/entities/branch.entity";
 import { foodType } from "@fd-wereact/nest-common";
+import { Category } from "../../categories/entities/category.entity";
+import { Branch } from "./../../branches/entities/branch.entity";
 
 export type ItemDocument = Item & Document;
 
@@ -12,6 +13,9 @@ export type ItemDocument = Item & Document;
 export class Item {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Branch" })
   branch: Branch;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "categorie" })
+  category: Category;
 
   @Field(() => ID, { description: "item's _id" })
   id: string;
