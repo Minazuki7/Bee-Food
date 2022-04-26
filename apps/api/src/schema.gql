@@ -290,7 +290,7 @@ type Query {
   orders: [Order!]!
   order(id: Int!): Order!
   orderDetails: [OrderDetail!]!
-  orderDetail(id: Int!): OrderDetail!
+  orderDetail(id: ID!): OrderDetail!
   stock(id: Int!): Stock!
   countries: [Country!]!
   country(id: ID!): Country!
@@ -338,8 +338,8 @@ type Mutation {
   updateOrder(updateOrderInput: UpdateOrderInput!): Order!
   removeOrder(id: Int!): Order!
   createOrderDetail(createOrderDetailInput: CreateOrderDetailInput!): OrderDetail!
-  updateOrderDetail(updateOrderDetailInput: UpdateOrderDetailInput!): OrderDetail!
-  removeOrderDetail(id: Int!): OrderDetail!
+  updateOrderDetail(id: String!, updateOrderDetailInput: UpdateOrderDetailInput!): OrderDetail!
+  removeOrderDetail(id: ID!): OrderDetail!
   createStock(createStockInput: CreateStockInput!): Stock!
   updateStock(updateStockInput: UpdateStockInput!): Stock!
   removeStock(id: Int!): Stock!
@@ -523,14 +523,43 @@ input UpdateOrderInput {
 }
 
 input CreateOrderDetailInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """order's id"""
+  order: ID!
+
+  """branch's id"""
+  branch: ID!
+
+  """items list"""
+  items: ID
+
+  """menus list"""
+  menus: ID
+
+  """total order's price"""
+  totalPrice: Int!
+
+  """order's price"""
+  originalPrice: Int!
 }
 
 input UpdateOrderDetailInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """order's id"""
+  order: ID
+
+  """branch's id"""
+  branch: ID
+
+  """items list"""
+  items: ID
+
+  """menus list"""
+  menus: ID
+
+  """total order's price"""
+  totalPrice: Int
+
+  """order's price"""
+  originalPrice: Int
 }
 
 input CreateStockInput {
