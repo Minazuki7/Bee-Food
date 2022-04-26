@@ -2,6 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+
+type Location {
+  """longitude"""
+  longitude: Float!
+
+  """latitude"""
+  latitude: Float!
+
 type Country {
   """country's _id"""
   id: ID!
@@ -16,6 +24,7 @@ type City {
 
   """city's name"""
   name: String!
+
 }
 
 type Zone {
@@ -61,14 +70,6 @@ type Driver {
 
   """driver's phone number"""
   phone: String!
-}
-
-type Location {
-  """longitude"""
-  longitude: Float!
-
-  """latitude"""
-  latitude: Float!
 }
 
 type Franchise {

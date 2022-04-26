@@ -1,6 +1,8 @@
 import * as mongoose from "mongoose";
 import { ObjectType, Field, Int, ID } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import * as mongoose from "mongoose";
+import { Location } from "../../locations/entities/location.entity";
 
 import { City } from "./../../cites/entities/city.entity";
 
@@ -20,8 +22,11 @@ export class Zone {
   @Field(() => Int, { description: "Zone Raduis in Km" })
   raduis: number;
 
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Location" })
+  location: Location;
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Country" })
   city: City;
+
 }
 
 export const ZoneSchema = SchemaFactory.createForClass(Zone);

@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { ObjectType, Field, ID } from "@nestjs/graphql";
+import * as mongoose from "mongoose";
 
 export type DriverDocument = Driver & Document;
 @Schema()
@@ -23,5 +24,8 @@ export class Driver {
   @Prop({ unique: true })
   @Field(() => String, { description: "driver's phone number" })
   phone: string;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Location" })
+  location: Location[];
 }
 export const DriverSchema = SchemaFactory.createForClass(Driver);

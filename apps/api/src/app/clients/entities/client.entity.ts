@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { ObjectType, Field, ID } from "@nestjs/graphql";
+import * as mongoose from "mongoose";
 
 export type ClientDocument = Client & Document;
 @Schema()
@@ -23,5 +24,8 @@ export class Client {
   @Prop({ unique: true })
   @Field(() => String, { description: "client's phone number" })
   phone: string;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Location" })
+  location: Location[];
 }
 export const ClientSchema = SchemaFactory.createForClass(Client);
