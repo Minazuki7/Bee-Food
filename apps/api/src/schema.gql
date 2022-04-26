@@ -111,6 +111,20 @@ type Branch {
   status: Boolean!
 }
 
+type Category {
+  """category's _id"""
+  id: ID!
+
+  """category's title """
+  title: String!
+
+  """category's description"""
+  description: String!
+
+  """category's slug"""
+  slug: String!
+}
+
 type Item {
   """item's _id"""
   id: ID!
@@ -292,6 +306,8 @@ type Query {
   orderDetails: [OrderDetail!]!
   orderDetail(id: ID!): OrderDetail!
   stock(id: Int!): Stock!
+  categories: [Category!]!
+  category(id: String!): Category!
   countries: [Country!]!
   country(id: ID!): Country!
   cites: [City!]!
@@ -343,6 +359,9 @@ type Mutation {
   createStock(createStockInput: CreateStockInput!): Stock!
   updateStock(updateStockInput: UpdateStockInput!): Stock!
   removeStock(id: Int!): Stock!
+  createCategory(createCategoryInput: CreateCategoryInput!): Category!
+  updateCategory(updateCategoryInput: UpdateCategoryInput!, id: String!): Category!
+  removeCategory(id: String!): Category!
   createCountry(createCountryInput: CreateCountryInput!): Country!
   updateCountry(updateCountryInput: UpdateCountryInput!, id: String!): Country!
   removeCountry(id: ID!): Country!
@@ -687,6 +706,26 @@ input UpdateStockInput {
   id: Int!
 }
 
+input CreateCategoryInput {
+  """category's title"""
+  title: String!
+
+  """category's description"""
+  description: String!
+
+  """category's slug"""
+  slug: String!
+}
+
+input UpdateCategoryInput {
+  """category's title"""
+  title: String
+
+  """category's description"""
+  description: String
+
+  """category's slug"""
+  slug: String
 input CreateCountryInput {
   """country's  name"""
   name: String!
@@ -711,4 +750,5 @@ input UpdateCityInput {
 
   """country's id"""
   country: ID
+
 }
