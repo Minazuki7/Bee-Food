@@ -28,8 +28,8 @@ export class User {
   password: string;
 
   @Prop({ unique: true })
-  @Field(() => Int, { description: "user's phone number" })
-  phone: number;
+  @Field(() => String, { description: "user's phone number" })
+  phone: string;
 
   @Prop()
   @Field(() => [Roles], { description: "user's roles" })

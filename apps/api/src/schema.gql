@@ -80,7 +80,7 @@ type Franchise {
   name: String!
 
   """franchise's picture"""
-  picture: String!
+  picture: String
 
   """franchise's email"""
   email: String!
@@ -244,7 +244,7 @@ type User {
   password: String!
 
   """user's phone number"""
-  phone: Int!
+  phone: String!
 
   """user's roles"""
   roles: [Roles!]!
@@ -295,7 +295,7 @@ type Query {
   drivers: [Driver!]!
   driver(id: Int!): Driver!
   franchises: [Franchise!]!
-  franchise(id: Int!): Franchise!
+  franchise(id: String!): Franchise!
   branches: [Branch!]!
   branch(id: String!): Branch!
   items: [Item!]!
@@ -340,8 +340,8 @@ type Mutation {
   updateDriver(updateDriverInput: UpdateDriverInput!): Driver!
   removeDriver(id: Int!): Driver!
   createFranchise(createFranchiseInput: CreateFranchiseInput!): Franchise!
-  updateFranchise(updateFranchiseInput: UpdateFranchiseInput!): Franchise!
-  removeFranchise(id: Int!): Franchise!
+  updateFranchise(updateFranchiseInput: UpdateFranchiseInput!, id: String!): Franchise!
+  removeFranchise(id: String!): Franchise!
   createBranch(createBranchInput: CreateBranchInput!): Branch!
   updateBranch(updateBranchInput: UpdateBranchInput!, id: String!): Branch!
   removeBranch(id: String!): Branch!
@@ -385,7 +385,7 @@ input CreateUserInput {
   password: String!
 
   """user's phone number"""
-  phone: Int!
+  phone: String!
 
   """user's roles"""
   roles: [Roles!]!
@@ -405,7 +405,7 @@ input UpdateUserInput {
   password: String
 
   """user's phone number"""
-  phone: Int
+  phone: String
 
   """user's roles"""
   roles: [Roles!]
@@ -459,14 +459,31 @@ input UpdateDriverInput {
 }
 
 input CreateFranchiseInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """franchise's name"""
+  name: String!
+
+  """franchise's picture"""
+  picture: String
+
+  """franchise's description"""
+  description: String!
+
+  """franchise's email"""
+  email: String!
 }
 
 input UpdateFranchiseInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """franchise's name"""
+  name: String
+
+  """franchise's picture"""
+  picture: String
+
+  """franchise's description"""
+  description: String
+
+  """franchise's email"""
+  email: String
 }
 
 input CreateBranchInput {
