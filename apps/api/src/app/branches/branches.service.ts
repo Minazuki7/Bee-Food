@@ -1,26 +1,35 @@
-import { Injectable } from '@nestjs/common';
-import { CreateBranchInput } from './dto/create-branch.input';
-import { UpdateBranchInput } from './dto/update-branch.input';
+import { Model } from "mongoose";
+import { Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+
+import { CreateBranchInput } from "./dto/create-branch.input";
+import { UpdateBranchInput } from "./dto/update-branch.input";
+import { Branch, BranchDocument } from "./entities/branch.entity";
 
 @Injectable()
 export class BranchesService {
-  create(createBranchInput: CreateBranchInput) {
-    return 'This action adds a new branch';
+  constructor(
+    @InjectModel(Branch.name)
+    private branchModel: Model<BranchDocument>
+  ) {}
+  async create(createBranchInput: CreateBranchInput): Promise<Branch> {
+    const createdbranch = new this.branchModel(createBranchInput);
+    return createdbranch.save();
   }
 
-  findAll() {
-    return `This action returns all branches`;
+  async findAll() {
+    return this.branchModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} branch`;
+  async findOne(id: string) {
+    return this.branchModel.findById(id).exec();
   }
 
-  update(id: number, updateBranchInput: UpdateBranchInput) {
-    return `This action updates a #${id} branch`;
+  async update(id: string, updateBranchInput: UpdateBranchInput) {
+    return this.branchModel.findByIdAndUpdate(id, updateBranchInput).exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} branch`;
+  remove(id: string) {
+    return this.branchModel.findByIdAndRemove(id).exec();
   }
 }

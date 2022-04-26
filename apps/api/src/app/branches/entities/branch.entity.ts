@@ -9,8 +9,12 @@ export type BranchDocument = Branch & Document;
 @Schema()
 @ObjectType()
 export class Branch {
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "franchise" })
-  Franchise: Franchise;
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Franchise",
+    autopopulate: true,
+  })
+  franchise: Franchise;
 
   @Field(() => ID, { description: "branch's _id" })
   id: string;
