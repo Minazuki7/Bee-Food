@@ -282,7 +282,7 @@ type Query {
   franchises: [Franchise!]!
   franchise(id: Int!): Franchise!
   branches: [Branch!]!
-  branch(id: Int!): Branch!
+  branch(id: String!): Branch!
   items: [Item!]!
   item(id: ID!): Item!
   menus: [Menu!]!
@@ -326,8 +326,8 @@ type Mutation {
   updateFranchise(updateFranchiseInput: UpdateFranchiseInput!): Franchise!
   removeFranchise(id: Int!): Franchise!
   createBranch(createBranchInput: CreateBranchInput!): Branch!
-  updateBranch(updateBranchInput: UpdateBranchInput!): Branch!
-  removeBranch(id: Int!): Branch!
+  updateBranch(updateBranchInput: UpdateBranchInput!, id: String!): Branch!
+  removeBranch(id: String!): Branch!
   createItem(createItemInput: CreateItemInput!): Item!
   updateItem(updateItemInput: UpdateItemInput!, id: String!): Item!
   removeItem(id: ID!): Item!
@@ -450,14 +450,49 @@ input UpdateFranchiseInput {
 }
 
 input CreateBranchInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """branch's name"""
+  name: String!
+
+  """branch's franchise"""
+  franchise: ID!
+
+  """branch's picture"""
+  picture: String
+
+  """branch's description"""
+  description: String!
+
+  """branch's opening hour"""
+  openAt: String!
+
+  """branch closing hour"""
+  closeAt: String!
+
+  """branch's status"""
+  status: Boolean!
 }
 
 input UpdateBranchInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """branch's name"""
+  name: String
+
+  """branch's franchise"""
+  franchise: ID
+
+  """branch's picture"""
+  picture: String
+
+  """branch's description"""
+  description: String
+
+  """branch's opening hour"""
+  openAt: String
+
+  """branch closing hour"""
+  closeAt: String
+
+  """branch's status"""
+  status: Boolean
 }
 
 input CreateItemInput {
