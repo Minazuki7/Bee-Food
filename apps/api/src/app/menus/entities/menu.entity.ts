@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID } from "@nestjs/graphql";
+import { ObjectType, Field, ID, Int } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import * as mongoose from "mongoose";
 
@@ -20,12 +20,16 @@ export class Menu {
   name: string;
 
   @Prop()
-  @Field(() => String, { description: "menu's picture" })
-  picture: string;
+  @Field(() => String, { description: "menu's picture", nullable: true })
+  picture?: string;
 
   @Prop()
   @Field(() => String, { description: "menu's description" })
   description: string;
+
+  @Prop()
+  @Field(() => Int, { description: "menu's price" })
+  price: number;
 
   @Prop()
   @Field(() => Boolean, { description: "menu's status" })
