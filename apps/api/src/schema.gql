@@ -119,7 +119,7 @@ type Item {
   title: String!
 
   """item's picture"""
-  picture: String!
+  picture: String
 
   """item's description"""
   description: String!
@@ -284,7 +284,7 @@ type Query {
   branches: [Branch!]!
   branch(id: Int!): Branch!
   items: [Item!]!
-  item(id: Int!): Item!
+  item(id: ID!): Item!
   menus: [Menu!]!
   menu(id: ID!): Menu!
   orders: [Order!]!
@@ -329,8 +329,8 @@ type Mutation {
   updateBranch(updateBranchInput: UpdateBranchInput!): Branch!
   removeBranch(id: Int!): Branch!
   createItem(createItemInput: CreateItemInput!): Item!
-  updateItem(updateItemInput: UpdateItemInput!): Item!
-  removeItem(id: Int!): Item!
+  updateItem(updateItemInput: UpdateItemInput!, id: String!): Item!
+  removeItem(id: ID!): Item!
   createMenu(createMenuInput: CreateMenuInput!): Menu!
   updateMenu(updateMenuInput: UpdateMenuInput!, id: String!): Menu!
   removeMenu(id: ID!): Menu!
@@ -461,14 +461,55 @@ input UpdateBranchInput {
 }
 
 input CreateItemInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """branch's id"""
+  branch: ID!
+
+  """item's title """
+  title: String!
+
+  """item's picture"""
+  picture: String
+
+  """item's description"""
+  description: String!
+
+  """item's slug"""
+  slug: String!
+
+  """item's status"""
+  status: Boolean!
+
+  """item's price"""
+  price: Int!
+
+  """food's type"""
+  foodType: [foodType!]!
 }
 
 input UpdateItemInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """branch's id"""
+  branch: ID
+
+  """item's title """
+  title: String
+
+  """item's picture"""
+  picture: String
+
+  """item's description"""
+  description: String
+
+  """item's slug"""
+  slug: String
+
+  """item's status"""
+  status: Boolean
+
+  """item's price"""
+  price: Int
+
+  """food's type"""
+  foodType: [foodType!]
 }
 
 input CreateMenuInput {
