@@ -1,5 +1,5 @@
 import { Roles } from "@fd-wereact/nest-common";
-import { InputType, Int, Field } from "@nestjs/graphql";
+import { InputType, Field } from "@nestjs/graphql";
 
 import {
   IsEmail,
@@ -34,8 +34,8 @@ export class CreateUserInput {
   password: string;
 
   @IsNotEmpty()
-  @Field(() => Int, { description: "user's phone number" })
-  phone: number;
+  @Field(() => String, { description: "user's phone number" })
+  phone: string;
 
   @IsArray()
   @IsNotEmpty()

@@ -13,9 +13,9 @@ export class Franchise {
   @Field(() => String, { description: "franchise's name" })
   name: string;
 
-  @Prop()
-  @Field(() => String, { description: "franchise's picture" })
-  picture: string;
+  @Prop({ required: false })
+  @Field(() => String, { description: "franchise's picture", nullable: true })
+  picture?: string;
 
   @Prop({ unique: true })
   @Field(() => String, { description: "franchise's email" })

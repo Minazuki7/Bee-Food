@@ -1,26 +1,37 @@
-import { Injectable } from '@nestjs/common';
-import { CreateFranchiseInput } from './dto/create-franchise.input';
-import { UpdateFranchiseInput } from './dto/update-franchise.input';
+import { Model } from "mongoose";
+import { Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+
+import { CreateFranchiseInput } from "./dto/create-franchise.input";
+import { UpdateFranchiseInput } from "./dto/update-franchise.input";
+import { Franchise, FranchiseDocument } from "./entities/franchise.entity";
 
 @Injectable()
 export class FranchisesService {
-  create(createFranchiseInput: CreateFranchiseInput) {
-    return 'This action adds a new franchise';
+  constructor(
+    @InjectModel(Franchise.name)
+    private franchiseModel: Model<FranchiseDocument>
+  ) {}
+  async create(createFranchiseInput: CreateFranchiseInput): Promise<Franchise> {
+    const createdfranchise = new this.franchiseModel(createFranchiseInput);
+    return createdfranchise.save();
   }
 
-  findAll() {
-    return `This action returns all franchises`;
+  async findAll() {
+    return this.franchiseModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} franchise`;
+  async findOne(id: string) {
+    return this.franchiseModel.findById(id).exec();
   }
 
-  update(id: number, updateFranchiseInput: UpdateFranchiseInput) {
-    return `This action updates a #${id} franchise`;
+  async update(id: string, updateFranchiseInput: UpdateFranchiseInput) {
+    return this.franchiseModel
+      .findByIdAndUpdate(id, updateFranchiseInput)
+      .exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} franchise`;
+  remove(id: string) {
+    return this.franchiseModel.findByIdAndRemove(id).exec();
   }
 }
