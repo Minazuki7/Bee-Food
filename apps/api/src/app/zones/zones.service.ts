@@ -1,26 +1,35 @@
-import { Injectable } from '@nestjs/common';
-import { CreateZoneInput } from './dto/create-zone.input';
-import { UpdateZoneInput } from './dto/update-zone.input';
+import { Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from "mongoose";
+
+import { CreateZoneInput } from "./dto/create-zone.input";
+import { UpdateZoneInput } from "./dto/update-zone.input";
+import { Zone, ZoneDocument } from "./entities/zone.entity";
 
 @Injectable()
 export class ZonesService {
-  create(createZoneInput: CreateZoneInput) {
-    return 'This action adds a new zone';
+  constructor(
+    @InjectModel(Zone.name)
+    private zoneModel: Model<ZoneDocument>
+  ) {}
+  async create(createZoneInput: CreateZoneInput): Promise<Zone> {
+    const createdzone = new this.zoneModel(createZoneInput);
+    return createdzone.save();
   }
 
-  findAll() {
-    return `This action returns all zones`;
+  async findAll() {
+    return this.zoneModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} zone`;
+  async findOne(id: string) {
+    return this.zoneModel.findById(id).exec();
   }
 
-  update(id: number, updateZoneInput: UpdateZoneInput) {
-    return `This action updates a #${id} zone`;
+  async update(id: string, updateZoneInput: UpdateZoneInput) {
+    return this.zoneModel.findByIdAndUpdate(id, updateZoneInput).exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} zone`;
+  remove(id: string) {
+    return this.zoneModel.findByIdAndRemove(id).exec();
   }
 }
