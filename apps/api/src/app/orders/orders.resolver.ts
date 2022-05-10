@@ -1,4 +1,6 @@
 import { Resolver, Query, Mutation, Args, ID } from "@nestjs/graphql";
+import { SkipAuth } from "@fd-wereact/nest-common";
+
 import { OrderesService } from "./orders.service";
 import { Order } from "./entities/order.entity";
 import { CreateOrderInput } from "./dto/create-order.input";
@@ -12,7 +14,8 @@ export class OrdersResolver {
   createOrder(@Args("createOrderInput") createOrderInput: CreateOrderInput) {
     return this.ordersService.create(createOrderInput);
   }
-
+  
+  @SkipAuth()
   @Query(() => [Order], { name: "orders" })
   findAll() {
     return this.ordersService.findAll();

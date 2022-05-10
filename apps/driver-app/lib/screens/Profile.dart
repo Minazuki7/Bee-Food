@@ -57,7 +57,7 @@ class _ProfileState extends State<Profile> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(top: 8),
         child: Column(
-          children: [
+          children: const [
             Center(
               child: Text("Profile",
                 style: TextStyle(

@@ -96,8 +96,7 @@ class _LoginState extends State<Login> {
                     children: [
                       const SizedBox(height: 50.0),
                       const SingleChildScrollView(
-                        padding:
-                        EdgeInsets.only(right: 25, left: 25),
+                        padding: EdgeInsets.only(right: 25, left: 25),
                         child: Text(
                           "Sign in.",
                           style: TextStyle(

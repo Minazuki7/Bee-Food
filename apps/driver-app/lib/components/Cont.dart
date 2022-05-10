@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
@@ -37,8 +39,7 @@ class Cont {
             info,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
-              fontFamily: 'CircularStd',
-              fontSize: 25.0,
+              fontSize: 20.0,
               color: Colors.black,
             ),  maxLines: 3,
 
