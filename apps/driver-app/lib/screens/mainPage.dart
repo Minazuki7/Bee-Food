@@ -3,8 +3,11 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:driver_app/const/Colors.dart';
 import 'package:driver_app/components/Cont.dart';
 import 'package:driver_app/components/BottomNavBar.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
-import 'Profile.dart';
+import '../const/String.dart';
+import 'Navigation.dart';
+import 'Orders.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -14,165 +17,154 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+
   bool status = false;
+  String User = "Username";
+  double Cash = 2160.150;
+  double Wallet = 12125.560;
+
+  String query = r'''
+  query login($id:ID!){
+  user(
+    id:$id
+  ){
+    firstName
+    lastName
+    email
+    password
+    roles
+  }
+}
+  ''';
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: Builder(
-          builder: (context) => Padding(
-            padding: const EdgeInsets.only(left: 20, top: 20),
-            child: Container(
-              height: 45,
-              width: 45,
-              decoration: BoxDecoration(
-                color: colors.MainColor,
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: Center(
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.person,
-                    size: 20,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context)=> const Profile()));},
-                ),
-              ),
-            ),
-          ),
+    return Query(
+        options: QueryOptions(
+          document: gql(query),
+          variables: {
+            'id': '${Strings.ID}',
+          },
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(top: 20, right: 20),
-            child: FlutterSwitch(
-              width: 60,
-              value: status,
-              activeColor: colors.MainColor,
-              onToggle: (val) {
-                setState(() {
-                  status = val;
-                });
-              },
-            ),
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 30),
-
-            Center(
-              child: Text("Welcome, Username",
-                style: TextStyle(
-                  fontFamily: 'CircularStd',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30.0,
-                  color:colors.MainColor,
+        builder: (QueryResult result, { VoidCallback? refetch, FetchMore? fetchMore }) {
+          return Scaffold(
+            drawer: Navigation(),
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              leading: Builder(
+                builder: (context) => Padding(
+                  padding: const EdgeInsets.only(left: 10, top: 10),
+                  child: IconButton(
+                    icon: const Icon(Icons.menu,size: 40,),
+                    color: colors.MainColor,
+                    onPressed: () {
+                      Scaffold.of(context).openDrawer();
+                    },
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 40),
-            SizedBox(
-              height: 200,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.only(left: 10, right: 10),
-                children: [
-                  Cont.InformationContainer(
-                    width: (MediaQuery.of(context).size.width / 2) - 10,
-                    height: 200,
-                    icon: Icon(
-                      Icons.account_balance_wallet,
-                      size: 40,
-                      color: colors.MainColor,
-                    ),
-                    title: "Wallet",
-                    info: "150TND",
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 20, right: 20),
+                  child: FlutterSwitch(
+                    width: 60,
+                    value: status,
+                    activeColor: colors.MainColor,
+                    onToggle: (val) {
+                      setState(() {
+                        status = val;
+                      });
+                    },
                   ),
-                  Cont.InformationContainer(
-                    width: (MediaQuery.of(context).size.width / 2) - 20,
+                ),
+              ],
+            ),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 30),
+                  Center(
+                    child: Text("Welcome",
+                      style: const TextStyle(
+                        fontFamily: 'CircularStd',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30.0,
+                        color:colors.MainColor,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 40),
+                  SizedBox(
                     height: 200,
-                    icon: Icon(
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      children: [
+                        Cont.InformationContainer(
+                          width: (MediaQuery.of(context).size.width / 2) - 10,
+                          height: 200,
+                          icon: const Icon(
+                            Icons.account_balance_wallet,
+                            size: 40,
+                            color: colors.MainColor,
+                          ),
+                          title: "Wallet",
+                          info: Cash.toString() + " TND",
+                        ),
+                        Cont.InformationContainer(
+                          width: (MediaQuery.of(context).size.width / 2) - 20,
+                          height: 200,
+                          icon: const Icon(
+                            Icons.monetization_on,
+                            size: 40,
+                            color: colors.MainColor,
+                          ),
+                          title: "Cash",
+                          info: Wallet.toString() + " TND",
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Cont.ContentContainer(
+                    width: MediaQuery.of(context).size.width,
+                    height: 400,
+                    icon: const Icon(
                       Icons.monetization_on,
                       size: 40,
                       color: colors.MainColor,
                     ),
-                    title: "Cash",
-                    info: "300TND",
-                    link:"Change value",
-                    Tap: () {Navigator.push(context, MaterialPageRoute(builder: (context)=> const Profile()));},
+                    title: "Delivery List",
+                    content: SizedBox(
+                      height: 300,
+                      width: MediaQuery.of(context).size.width,
+                      child: ListView.builder(
+                          itemCount: 5,
+                          itemBuilder: (context, index){
+                            // ignore: deprecated_member_use
+                            return ListTile(
+                              title: Text("Order ${index+1}"),
+                              subtitle: Text("Subtitle ${index+1}"),
+                              trailing: const Icon(Icons.arrow_forward_outlined),
+                              onTap: (){
+
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => Order(index+1)));
+                              },
+                            );
+                          }
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-            Cont.ContentContainer(
-                width: MediaQuery.of(context).size.width,
-                height: 500,
-                icon: Icon(
-                  Icons.monetization_on,
-                  size: 40,
-                  color: colors.MainColor,
-                ),
-                title: "Delivery List",
-                content: SizedBox(
-                  height: 400,
-                  width: MediaQuery.of(context).size.width,
-                  child: ListView.builder(
-                      itemCount: 5,
-                      itemBuilder: (context, index){
-                        // ignore: deprecated_member_use
-                        return Column(
-                          children: [
-                            // ignore: deprecated_member_use
-                            FlatButton(
-                            onPressed: () {  },
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 40, right: 40, top: 16, bottom: 16),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children:[
-                                  Column(
-                                    children: const [
-                                      Text(
-                                        "Order name",
-                                        style: TextStyle(
-                                          fontSize: 30,
-                                        ),
-                                      ),
-                                      Text(
-                                        "Order distance",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          const Divider(color: Colors.grey,),
-                          ],
-                        );
-                      }
-                  ),
-                ),
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: Bottom(
-          context: context,
-          First: Colors.grey,
-          Second: colors.MainColor,
-          Third: Colors.grey),
-    );
+            bottomNavigationBar: Bottom(
+                context: context,
+                First: Colors.grey,
+                Second: colors.MainColor,
+                Third: Colors.grey),
+          );
+        });
   }
 }

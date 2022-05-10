@@ -4,6 +4,7 @@ import { AuthService } from "./auth.service";
 import { SkipAuth } from "@fd-wereact/nest-common";
 import { GqlUserDecorator } from "@fd-wereact/nest-common";
 import { AuthArgs } from "./dto/auth.args";
+import { AuthDriverArgs } from "./dto/authDriver.args";
 import { AuthResult } from "./entities/auth-jwt.entity";
 import { User } from "../users/entities/users.entity";
 
@@ -16,6 +17,14 @@ export class AuthResolver {
   async login(@Args() { email, password }: AuthArgs) {
     return this.authService.login(email, password);
   }
+
+
+  @Mutation(() => AuthResult)
+  @SkipAuth()
+  async loginDriver(@Args() { phone, password }: AuthDriverArgs) {
+    return this.authService.loginDriver(phone, password);
+  }
+
 
   @Query(() => User)
   async whoAmI(@GqlUserDecorator() user: User): Promise<User> {

@@ -1,4 +1,4 @@
-import { ObjectType, Field, Float } from "@nestjs/graphql";
+ import { ObjectType, Field, Float } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 export type LocationDocument = Location & Document;
