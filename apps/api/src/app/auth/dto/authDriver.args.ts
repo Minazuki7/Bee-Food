@@ -1,13 +1,12 @@
 import { ArgsType, Field } from "@nestjs/graphql";
 import { IsEmail, IsNotEmpty, IsString } from "class-validator";
-
+  
 @ArgsType()
-export class AuthArgs {
-  @IsEmail()
+export class AuthDriverArgs {
   @IsNotEmpty()
-  @Field(() => String, { description: "user's login email",})
-  email: string;
-
+  @Field(() => String, { description: "user's login phone",})
+  phone: string;
+  
   @IsString()
   @IsNotEmpty()
   @Field(() => String, { description: "user's login password" })

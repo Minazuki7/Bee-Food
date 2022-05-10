@@ -36,6 +36,10 @@ export class UsersService {
     return this.userModel.findOne({ email }).exec();
   }
 
+  async findByPhone(phone: string) {
+    return this.userModel.findOne({ phone }).exec();
+  }
+
   async findOne<T extends Record<string, string>>(param: T) {
     return this.userModel.findOne({ param }).exec();
   }

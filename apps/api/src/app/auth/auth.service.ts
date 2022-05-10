@@ -59,4 +59,41 @@ export class AuthService {
 
     throw new UnauthorizedException();
   }
+
+  async loginDriver(
+    phone: string,
+    password: string
+  ): Promise<{
+    token: string;
+    refreshToken: string;
+    user: User;
+    expiresIn: moment.Moment;
+  }> {
+    const user = await this.usersService.findByPhone(phone);
+    
+    if (!user) {
+      throw new NotFoundException({ message: "User not found" });
+    }
+    const expiresIn = moment().add("10h", "minutes");
+    const { password: encryptedPassword } = user;
+
+    const payload = user.toJSON();
+
+    delete payload.password;
+
+    const token = this.jwtService.sign(payload);
+
+    const refreshToken = await this.refreshTokenService.generate(user);
+
+    if (await bcrypt.compare(password, encryptedPassword)) {
+      return {
+        token,
+        refreshToken: refreshToken.token,
+        user,
+        expiresIn,
+      };
+    }
+
+    throw new UnauthorizedException();
+  }
 }

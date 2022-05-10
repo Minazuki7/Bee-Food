@@ -6,16 +6,17 @@ import 'package:driver_app/const/Colors.dart';
 
 import 'Navigation.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+class Order extends StatefulWidget {
+  final int index;
+
+  Order(this.index);
 
   @override
-  State<Profile> createState() => _ProfileState();
+  State<Order> createState() => _OrderState();
 }
 
-class _ProfileState extends State<Profile> {
+class _OrderState extends State<Order> {
   bool status = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,12 +60,13 @@ class _ProfileState extends State<Profile> {
         child: Column(
           children: [
             Center(
-              child: Text("Profile",
+              child: Text(
+                "Order ${widget.index}",
                 style: TextStyle(
                   fontFamily: 'CircularStd',
                   fontWeight: FontWeight.bold,
                   fontSize: 30.0,
-                  color:colors.MainColor,
+                  color: colors.MainColor,
                 ),
               ),
             ),

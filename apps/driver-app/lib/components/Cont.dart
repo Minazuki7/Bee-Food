@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class Cont {
   // ignore: non_constant_identifier_names
   static Widget InformationContainer({
     String title = "",
     String info = "",
-    String link = "",
-    var Tap,
     required double width,
     required double height,
     required Icon icon,
@@ -34,29 +33,15 @@ class Cont {
             ],
           ),
           const SizedBox(height: 10),
-          Text(
+          AutoSizeText(
             info,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 35.0,
+              fontFamily: 'CircularStd',
+              fontSize: 25.0,
               color: Colors.black,
-            ),
-          ),
-          const SizedBox(height: 50),
-          InkWell(
-            child: Container(
-              alignment: Alignment.bottomRight,
-              child: Text(
-                link,
-                style: const TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.blue,
-                ),
-              ),
-            ),
-            onTap: () {
-              Tap;
-            },
+            ),  maxLines: 3,
+
           ),
         ],
       ),
@@ -110,7 +95,10 @@ class Cont {
         ],
       ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(30),
+          topLeft: Radius.circular(30),
+        ),
         color: Colors.white,
         boxShadow:[
           BoxShadow(

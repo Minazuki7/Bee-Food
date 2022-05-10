@@ -30,6 +30,9 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_switch: ^0.3.2
+  graphql_flutter: ^5.1.0
+  auto_size_text: ^3.0.0
+  shared_preferences: ^2.0.13
 
 
 
