@@ -27,7 +27,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.bottomRight,
             end: Alignment.topLeft,

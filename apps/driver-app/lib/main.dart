@@ -2,6 +2,7 @@ import 'package:driver_app/screens/LoadingScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
+
 void main() async {
   await initHiveForFlutter();
 
@@ -11,8 +12,6 @@ void main() async {
 
   final AuthLink authLink = AuthLink(
     getToken: () async => 'Bearer <YOUR_PERSONAL_ACCESS_TOKEN>',
-    // OR
-    // getToken: () => 'Bearer <YOUR_PERSONAL_ACCESS_TOKEN>',
   );
 
   final Link link = authLink.concat(httpLink);
@@ -26,7 +25,7 @@ void main() async {
 
   runApp(GraphQLProvider(
     client: client,
-    child: MaterialApp(home: MyApp()),
+    child: const MaterialApp(home: MyApp()),
   ));
 }
 

@@ -140,12 +140,11 @@ class _MainPageState extends State<MainPage> {
                       height: 300,
                       width: MediaQuery.of(context).size.width,
                       child: ListView.builder(
-                          itemCount: 5,
+                          itemCount: result.data?['orders'].length,
                           itemBuilder: (context, index){
-                            // ignore: deprecated_member_use
                             return ListTile(
-                              title: Text("Order ${index+1}"),
-                              subtitle: Text("Subtitle ${index+1}"),
+                              title: Text("Order ${index +1} : Price : ${result.data!['orders'][index]['price'].toString()}"),
+                              subtitle: Text("Status : ${result.data!['orders'][index]['status'].toString()}"),
                               trailing: const Icon(Icons.arrow_forward_outlined),
                               onTap: (){
 

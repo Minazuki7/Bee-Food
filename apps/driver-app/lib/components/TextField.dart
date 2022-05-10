@@ -1,7 +1,11 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:driver_app/const/Colors.dart';
 
+// ignore: camel_case_types
 class textField{
+  // ignore: non_constant_identifier_names
   static Widget TextZone({
     required IconData? icon,
     required controller,
@@ -13,7 +17,7 @@ class textField{
   }){
     return
       Container(
-        padding: EdgeInsets.only(right: 15.0, left: 15.0),
+        padding: const EdgeInsets.only(right: 15.0, left: 15.0),
         decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
@@ -21,10 +25,10 @@ class textField{
                 color: Colors.grey.withOpacity(0.5),
                 spreadRadius: 1,
                 blurRadius: 8,
-                offset: Offset(4, 6),
+                offset: const Offset(4, 6),
               ),
             ],
-            borderRadius: BorderRadius.all(Radius.circular(24))),
+            borderRadius: const BorderRadius.all(Radius.circular(24))),
         child: TextFormField(
           onChanged: onChanged,
           validator: validator,
@@ -36,7 +40,7 @@ class textField{
             border: InputBorder.none,
             hintText: title,
             prefixIcon: Icon(icon, color: colors.MainColor),
-            labelStyle: TextStyle(
+            labelStyle: const TextStyle(
               color: Colors.grey,
               fontWeight: FontWeight.bold,
             ),
