@@ -1,0 +1,43 @@
+
+.display {
+  border-bottom: 1px solid rgba(255, 255, 255);
+  width: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 62px;
+  position: relative;
+  margin-left: 40px;
+  color: white;
+  height: 60px;
+}
+.display:last-child {
+  border-right: none;
+}
+.errorDisplay {
+  border-bottom: 1px solid #F87272;
+}
+
+
+.wrap {
+  display: inline-block;
+  position: relative;
+  display: flex;
+}
+.input {
+  position: absolute;
+  border: none;
+  font-size: 62px;
+  text-align: center;
+  background-color: transparent;
+  outline: none;
+  color: white;
+
+}
+.shadows {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}

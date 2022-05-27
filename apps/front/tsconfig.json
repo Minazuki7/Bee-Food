@@ -1,0 +1,34 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@hooks/*": ["apps/front/src/app/hooks/*"],
+      "@components/*": ["apps/front/src/app/components/*"],
+      "@pages/*": ["apps/front/src/app/pages/*"],
+      "@utils/*": ["apps/front/src/app/utils/*"],
+      "@config/*": ["apps/front/src/app/config/*"],
+      "@assets/*": ["apps/front/src/app/assets/*"],
+      "@requests/*": ["libs/requests/src/*"],
+      "@shared/*": ["libs/shared/src/lib/*"],
+      "@contexts/*": ["apps/front/src/app/contexts/*"]
+    }
+  },
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
+}

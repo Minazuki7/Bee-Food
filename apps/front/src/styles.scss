@@ -1,0 +1,12 @@
+@tailwind components;
+@tailwind base;
+@tailwind utilities;
+
+body {
+  color: #242424;
+}
+
+* {
+  box-sizing: border-box;
+  flex: 0 0 auto;
+}
