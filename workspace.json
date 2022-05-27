@@ -3,6 +3,10 @@
   "projects": {
     "api": "apps/api",
     "driver-app": "apps/driver-app",
-    "nest-common": "libs/nest-common"
+    "front": "apps/front",
+    "requests": "libs/requests",
+    "nest-common": "libs/nest-common",
+
+    "shared": "libs/shared"
   }
 }

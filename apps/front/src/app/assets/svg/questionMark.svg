@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="Groupe_132" data-name="Groupe 132" transform="translate(-1373 -70)">
+    <g id="Groupe_131" data-name="Groupe 131" transform="translate(-187.787 -176)">
+      <g id="Ellipse_6" data-name="Ellipse 6" transform="translate(1560.787 246)" fill="#1a2631" stroke="#f15010" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+        <circle cx="12" cy="12" r="12" stroke="none"/>
+        <circle cx="12" cy="12" r="11" fill="none"/>
+      </g>
+      <path id="Tracé_994" data-name="Tracé 994" d="M4.533-3.1H6.31v1.858H4.533Zm-3.01-7.154a4.381,4.381,0,0,1,1.09-3.1A3.88,3.88,0,0,1,5.6-14.531a3.923,3.923,0,0,1,2.818,1,3.385,3.385,0,0,1,1.058,2.568,2.746,2.746,0,0,1-.388,1.536A12.228,12.228,0,0,1,7.525-7.69,5.012,5.012,0,0,0,6.413-6.284a4.391,4.391,0,0,0-.255,1.7H4.569a5.789,5.789,0,0,1,.3-2.059A5.547,5.547,0,0,1,6.2-8.432l.714-.706a2.956,2.956,0,0,0,.518-.634,2.269,2.269,0,0,0,.357-1.206A2.334,2.334,0,0,0,7.27-12.5a2.1,2.1,0,0,0-1.728-.643,2.113,2.113,0,0,0-2.063,1.107,4.294,4.294,0,0,0-.366,1.777Z" transform="translate(1567.117 265.575)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

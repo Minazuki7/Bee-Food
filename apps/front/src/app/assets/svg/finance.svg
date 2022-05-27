@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20">
+  <g transform="translate(-1731 -606)">
+    <g transform="translate(1731 606)" fill="none" stroke="currentColor" stroke-width="2.5">
+      <rect width="26" height="20" rx="5" stroke="none" />
+      <rect x="1.25" y="1.25" width="23.5" height="17.5" rx="3.75" fill="none" />
+    </g>
+    <rect width="8" height="8" rx="2" transform="translate(1749 612)" fill="currentColor" />
+  </g>
+</svg>
