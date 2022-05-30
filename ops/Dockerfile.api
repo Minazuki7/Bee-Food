@@ -2,8 +2,9 @@ FROM node:lts-alpine
 WORKDIR /app
 COPY ./dist/apps/api .
 COPY ./dist/apps/api/package.json ./
+COPY ./node_modules ./
 COPY ./package-lock.json ./
 ENV PORT=3333
 EXPOSE ${PORT}
-RUN npm install
+RUN npm install --production
 CMD node ./main.js
