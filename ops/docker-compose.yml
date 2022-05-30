@@ -1,0 +1,19 @@
+version: "2"
+services:
+  food-server:
+    container_name: delivery-api
+    env_file:
+      - ../.env
+    build:
+      context: .
+      dockerfile: ./Dockerfile.api
+    ports:
+      - "3051:3333"
+    restart: always
+  food-client:
+    container_name: delivery-front
+    build:
+      context: ../front/.
+      dockerfile: ./Dockerfile.front
+    ports:
+      - "3050:80"
