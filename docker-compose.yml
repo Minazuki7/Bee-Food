@@ -11,7 +11,7 @@ services:
   food-client:
     container_name: delivery-front
     build:
-      context: ../front/.
+      context: .
       dockerfile: ./ops/Dockerfile.front
     ports:
       - "3050:80"
