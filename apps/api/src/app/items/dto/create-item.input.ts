@@ -1,4 +1,4 @@
-import { foodType } from "@fd-wereact/nest-common";
+import { FOOD_TYPE } from "@fd-wereact/nest-common";
 import { InputType, Int, Field, ID } from "@nestjs/graphql";
 import {
   IsArray,
@@ -9,13 +9,14 @@ import {
   IsString,
 } from "class-validator";
 import { Branch } from "../../branches/entities/branch.entity";
+import { Stock } from "../../stock/entities/stock.entity";
 
 @InputType()
 export class CreateItemInput {
   @IsString()
   @IsNotEmpty()
   @Field(() => ID, { description: "branch's id" })
-  branch: Branch;
+  branch: string;
 
   @IsString()
   @IsNotEmpty()
@@ -50,6 +51,11 @@ export class CreateItemInput {
 
   @IsArray()
   @IsNotEmpty()
-  @Field(() => [foodType], { description: "food's type" })
-  foodType: foodType[];
+  @Field(() => FOOD_TYPE, { description: "food's type" })
+  foodType: FOOD_TYPE;
+
+  // @IsString()
+  // @IsNotEmpty()
+  // @Field(() => ID, { description: "stock's id" })
+  // stock: Stock;
 }

@@ -1,21 +1,30 @@
+import { BranchesModule } from "./../branches/branches.module";
+import { OrderDetailsModule } from "./../order-details/order-details.module";
+import { ItemsModule } from "./../items/items.module";
+import { StockModule } from "./../stock/stock.module";
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { registerEnumType } from "@nestjs/graphql";
 
-import { OrderesService } from "./orders.service";
+import { OrdersService } from "./orders.service";
 import { OrdersResolver } from "./orders.resolver";
 import { Order, OrderSchema } from "./entities/order.entity";
-import { status } from "@fd-wereact/nest-common";
+import { ORDER_STATUS } from "@fd-wereact/nest-common";
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Order.name, schema: OrderSchema }]),
+    StockModule,
+    ItemsModule,
+    OrderDetailsModule,
+    BranchesModule,
   ],
-  providers: [OrdersResolver, OrderesService],
+  providers: [OrdersResolver, OrdersService],
+  exports: [OrdersService],
 })
 export class OrdersModule {
   constructor() {
-    registerEnumType(status, {
+    registerEnumType(ORDER_STATUS, {
       name: "status",
     });
   }

@@ -7,7 +7,7 @@ export class CreateStockInput {
   @IsString()
   @IsNotEmpty()
   @Field(() => ID, { description: "item's id" })
-  item: Item;
+  item: string;
 
   @IsNumber()
   @IsNotEmpty()

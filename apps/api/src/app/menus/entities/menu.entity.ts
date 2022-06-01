@@ -9,8 +9,8 @@ export type MenuDocument = Menu & Document;
 @Schema()
 @ObjectType()
 export class Menu {
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: "item" }] })
-  item: Item[];
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Item" }] })
+  items: Item[];
 
   @Field(() => ID, { description: "menu's _id" })
   id: string;

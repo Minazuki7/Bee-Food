@@ -5,7 +5,7 @@ import { registerEnumType } from "@nestjs/graphql";
 import { Item, ItemSchema } from "./entities/item.entity";
 import { ItemsService } from "./items.service";
 import { ItemsResolver } from "./items.resolver";
-import { foodType } from "@fd-wereact/nest-common";
+import { FOOD_TYPE } from "@fd-wereact/nest-common";
 
 @Module({
   imports: [
@@ -13,11 +13,12 @@ import { foodType } from "@fd-wereact/nest-common";
   ],
 
   providers: [ItemsResolver, ItemsService],
+  exports: [ItemsService],
 })
 export class ItemsModule {
   constructor() {
-    registerEnumType(foodType, {
-      name: "foodType",
+    registerEnumType(FOOD_TYPE, {
+      name: "FOOD_TYPE",
     });
   }
 }

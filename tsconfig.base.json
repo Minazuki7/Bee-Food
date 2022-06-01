@@ -12,7 +12,9 @@
     "module": "esnext",
     "lib": [
       "es2017",
-      "dom"
+      "dom",
+      "DOM.Iterable"
+
     ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,

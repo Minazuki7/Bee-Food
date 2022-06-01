@@ -1,3 +1,4 @@
+import { Item } from "./../items/entities/item.entity";
 import { Resolver, Query, Mutation, Args, ID } from "@nestjs/graphql";
 
 import { StockService } from "./stock.service";
@@ -20,8 +21,8 @@ export class StockResolver {
   }
 
   @Query(() => Stock, { name: "stock" })
-  findOne(@Args("id", { type: () => ID }) id: string) {
-    return this.stockService.findOne(id);
+  findById(@Args("id", { type: () => ID }) id: string) {
+    return this.stockService.findById(id);
   }
 
   @Mutation(() => Stock)
@@ -35,5 +36,17 @@ export class StockResolver {
   @Mutation(() => Stock)
   removeStock(@Args("id", { type: () => ID }) id: string) {
     return this.stockService.remove(id);
+  }
+  @Mutation(() => Stock)
+  updateStockCount(
+    @Args("id", { type: () => String }) id: string,
+    @Args("iditem", { type: () => String }) idItem: string
+  ) {
+    return this.stockService.updateCount(id, idItem);
+  }
+
+  @Query(() => Stock, { name: "stockone" })
+  findItem(@Args("itemID", { type: () => ID }) item: string) {
+    return this.stockService.findItem(item);
   }
 }

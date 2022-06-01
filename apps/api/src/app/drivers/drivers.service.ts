@@ -1,26 +1,54 @@
-import { Injectable } from '@nestjs/common';
-import { CreateDriverInput } from './dto/create-driver.input';
-import { UpdateDriverInput } from './dto/update-driver.input';
+import { Model } from "mongoose";
+import { InjectModel } from "@nestjs/mongoose";
+import { Injectable } from "@nestjs/common";
+
+import { ROLES } from "@fd-wereact/nest-common";
+import { CreateUserInput } from "./../users/dto/create-user.input";
+import { UsersService } from "./../users/users.service";
+import { UpdateDriverInput } from "./dto/update-driver.input";
+import { Driver, DriverDocument } from "./entities/driver.entity";
 
 @Injectable()
 export class DriversService {
-  create(createDriverInput: CreateDriverInput) {
-    return 'This action adds a new driver';
+  constructor(
+    @InjectModel(Driver.name) private driverModel: Model<DriverDocument>,
+    private usersService: UsersService
+  ) {}
+  async createDriver(createUserInput: CreateUserInput): Promise<Driver> {
+    const { role, lastName, firstName, email, phone } =
+      await this.usersService.create(createUserInput);
+    if (role !== ROLES.driver) return;
+
+    const createdDriver = new this.driverModel({
+      ...createUserInput,
+      lastName,
+      firstName,
+      email,
+      phone,
+    });
+
+    return createdDriver.save();
+
+    return;
   }
 
-  findAll() {
-    return `This action returns all drivers`;
+  async findAll() {
+    return this.driverModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} driver`;
+  async findOne(id: string) {
+    return this.driverModel.findById(id).exec();
   }
 
-  update(id: number, updateDriverInput: UpdateDriverInput) {
-    return `This action updates a #${id} driver`;
+  async findAvailable() {
+    return this.driverModel.find({ status: true }).exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} driver`;
+  async update(id: string, updateDriverInput: UpdateDriverInput) {
+    return this.driverModel.findByIdAndUpdate(id, updateDriverInput).exec();
+  }
+
+  async remove(id: string) {
+    return this.driverModel.findByIdAndRemove(id).exec();
   }
 }

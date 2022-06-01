@@ -17,6 +17,12 @@ export class CreateBranchInput {
   @IsNotEmpty()
   @Field(() => ID, { description: "branch's franchise" })
   franchise: string;
+  @IsNotEmpty()
+  @Field(() => ID, { description: "branch's company" })
+  company: string;
+  @IsNotEmpty()
+  @Field(() => ID, { description: "branch's zone" })
+  zone: string;
 
   @IsOptional()
   @Field(() => String, { description: "branch's picture", nullable: true })

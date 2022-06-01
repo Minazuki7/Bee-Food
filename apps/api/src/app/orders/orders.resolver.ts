@@ -1,20 +1,43 @@
-import { Resolver, Query, Mutation, Args, ID } from "@nestjs/graphql";
-import { SkipAuth } from "@fd-wereact/nest-common";
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ID,
+  Subscription,
+} from "@nestjs/graphql";
+import { PubSub } from "graphql-subscriptions";
 
-import { OrderesService } from "./orders.service";
+import { CurrentUser } from "@fd-wereact/nest-common";
+import { OrdersService } from "./orders.service";
+import { SkipAuth } from "@fd-wereact/nest-common";
 import { Order } from "./entities/order.entity";
 import { CreateOrderInput } from "./dto/create-order.input";
 import { UpdateOrderInput } from "./dto/update-order.input";
+import { Client } from "../clients/entities/client.entity";
 
+const pubSub = new PubSub();
 @Resolver(() => Order)
 export class OrdersResolver {
-  constructor(private readonly ordersService: OrderesService) {}
+  constructor(private readonly ordersService: OrdersService) {}
+
+  @Subscription(() => Order)
+  orderAdded() {
+    return pubSub.asyncIterator("orderAdded");
+  }
 
   @Mutation(() => Order)
-  createOrder(@Args("createOrderInput") createOrderInput: CreateOrderInput) {
-    return this.ordersService.create(createOrderInput);
+  async createOrder(
+    @CurrentUser() client: Client,
+    @Args("createOrderInput") createOrderInput: CreateOrderInput
+  ) {
+    const order = await this.ordersService.create(createOrderInput, client);
+    pubSub.publish("orderAdded", {
+      orderAdded: order,
+    });
+    return order;
   }
-  
+
   @SkipAuth()
   @Query(() => [Order], { name: "orders" })
   findAll() {
@@ -25,6 +48,14 @@ export class OrdersResolver {
   findOne(@Args("id", { type: () => ID }) id: string) {
     return this.ordersService.findOne(id);
   }
+  @Mutation(() => Order, { name: "acceptOrder" })
+  acceptOrder(@Args("id", { type: () => String }) id: string) {
+    return this.ordersService.statusUpdate(id);
+  }
+  @Mutation(() => Order, { name: "updateOrderStatus" })
+  updateOrderStatus(@Args("id", { type: () => String }) id: string) {
+    return this.ordersService.statusUpdate(id);
+  }
 
   @Mutation(() => Order)
   updateOrder(
@@ -32,6 +63,14 @@ export class OrdersResolver {
     @Args("id", { type: () => String }) id: string
   ) {
     return this.ordersService.update(id, updateOrderInput);
+  }
+  @Mutation(() => Order)
+  statusUpdate(@Args("id", { type: () => String }) id: string) {
+    return this.ordersService.statusUpdate(id);
+  }
+  @Mutation(() => Order)
+  cancelOrder(@Args("id", { type: () => String }) id: string) {
+    return this.ordersService.orderCancling(id);
   }
 
   @Mutation(() => Order)

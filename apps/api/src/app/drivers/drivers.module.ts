@@ -1,3 +1,4 @@
+import { UsersModule } from "./../users/users.module";
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 
@@ -8,6 +9,7 @@ import { Driver, DriverSchema } from "./entities/driver.entity";
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Driver.name, schema: DriverSchema }]),
+    UsersModule,
   ],
   providers: [DriversResolver, DriversService],
 })

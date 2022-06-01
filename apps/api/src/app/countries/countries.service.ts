@@ -13,8 +13,8 @@ export class CountriesService {
     private countryModel: Model<CountryDocument>
   ) {}
   async create(createCountryInput: CreateCountryInput): Promise<Country> {
-    const createdcountry = new this.countryModel(createCountryInput);
-    return createdcountry.save();
+    const createdCountry = new this.countryModel(createCountryInput);
+    return createdCountry.save();
   }
 
   async findAll() {

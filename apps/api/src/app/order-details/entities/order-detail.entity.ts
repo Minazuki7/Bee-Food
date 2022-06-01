@@ -3,7 +3,6 @@ import { ObjectType, Field, Int, ID } from "@nestjs/graphql";
 import * as mongoose from "mongoose";
 
 import { Item } from "./../../items/entities/item.entity";
-import { Branch } from "./../../branches/entities/branch.entity";
 import { Order } from "./../../orders/entities/order.entity";
 import { Menu } from "../../menus/entities/menu.entity";
 
@@ -28,8 +27,7 @@ export class OrderDetail {
   menu: Menu[];
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Order" })
   order: Order;
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Branch" })
-  branch: Branch;
+
   @Field(() => ID, { description: "order's _id" })
   id: string;
   @Prop()

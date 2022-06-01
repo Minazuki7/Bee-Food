@@ -1,4 +1,4 @@
-import { Roles } from "@fd-wereact/nest-common";
+import { ROLES } from "@fd-wereact/nest-common";
 import { InputType, Field } from "@nestjs/graphql";
 
 import {
@@ -39,6 +39,6 @@ export class CreateUserInput {
 
   @IsArray()
   @IsNotEmpty()
-  @Field(() => [Roles], { description: "user's roles" })
-  roles: Roles[];
+  @Field(() => ROLES, { description: "user's roles" })
+  roles: ROLES;
 }

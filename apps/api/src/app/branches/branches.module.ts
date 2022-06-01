@@ -10,5 +10,6 @@ import { BranchesResolver } from "./branches.resolver";
     MongooseModule.forFeature([{ name: Branch.name, schema: BranchSchema }]),
   ],
   providers: [BranchesResolver, BranchesService],
+  exports: [BranchesService],
 })
 export class BranchesModule {}

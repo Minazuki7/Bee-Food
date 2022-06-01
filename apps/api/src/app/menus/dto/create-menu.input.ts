@@ -12,8 +12,8 @@ import { Item } from "../../items/entities/item.entity";
 @InputType()
 export class CreateMenuInput {
   @IsArray()
-  @Field(() => ID, { description: "items list" })
-  items: Item[];
+  @Field(() => [ID], { description: "items list" })
+  items: string[];
 
   @IsNotEmpty()
   @IsString()

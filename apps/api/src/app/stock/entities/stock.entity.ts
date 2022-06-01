@@ -9,8 +9,9 @@ export type StockDocument = Stock & Document;
 @Schema()
 @ObjectType()
 export class Stock {
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: "item" }] })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Item" })
   item: Item;
+
   @Field(() => ID, { description: "stock's _id" })
   id: string;
   @Prop()

@@ -1,3 +1,4 @@
+import { ItemsModule } from "./../items/items.module";
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 
@@ -8,7 +9,9 @@ import { StockResolver } from "./stock.resolver";
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Stock.name, schema: StockSchema }]),
+    ItemsModule,
   ],
   providers: [StockResolver, StockService],
+  exports: [StockService],
 })
 export class StockModule {}
