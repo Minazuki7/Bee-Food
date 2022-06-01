@@ -24,13 +24,18 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { AuthModule } from "./auth/auth.module";
 import { RefreshTokensModule } from "./refresh-tokens/refresh-tokens.module";
-import { CountriesModule } from './countries/countries.module';
-import { CitesModule } from './cites/cites.module';
+import { CountriesModule } from "./countries/countries.module";
+import { CitesModule } from "./cites/cites.module";
+
+import { CompaniesModule } from "./companies/companies.module";
 @Module({
   imports: [
     MongooseModule.forRoot(process.env.MONGO_URI),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
+      subscriptions: {
+        "graphql-ws": true,
+      },
       autoSchemaFile: join(process.cwd(), "apps/api/src/schema.gql"),
     }),
     ConfigModule.forRoot(),
@@ -50,6 +55,8 @@ import { CitesModule } from './cites/cites.module';
     RefreshTokensModule,
     CountriesModule,
     CitesModule,
+
+    CompaniesModule,
   ],
   controllers: [AppController],
   providers: [

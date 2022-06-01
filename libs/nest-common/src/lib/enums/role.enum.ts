@@ -1,4 +1,4 @@
-export enum Roles {
+export enum ROLES {
   admin = "admin",
   client = "client",
   driver = "driver",

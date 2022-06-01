@@ -2,7 +2,7 @@ import { Args, Resolver, Mutation, Query } from "@nestjs/graphql";
 
 import { AuthService } from "./auth.service";
 import { SkipAuth } from "@fd-wereact/nest-common";
-import { GqlUserDecorator } from "@fd-wereact/nest-common";
+import { CurrentUser } from "@fd-wereact/nest-common";
 import { AuthArgs } from "./dto/auth.args";
 import { AuthDriverArgs } from "./dto/authDriver.args";
 import { AuthResult } from "./entities/auth-jwt.entity";
@@ -27,7 +27,7 @@ export class AuthResolver {
 
 
   @Query(() => User)
-  async whoAmI(@GqlUserDecorator() user: User): Promise<User> {
+  async whoAmI(@CurrentUser() user: User): Promise<User> {
     return user;
   }
 }

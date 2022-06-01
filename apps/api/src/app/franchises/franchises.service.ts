@@ -13,8 +13,8 @@ export class FranchisesService {
     private franchiseModel: Model<FranchiseDocument>
   ) {}
   async create(createFranchiseInput: CreateFranchiseInput): Promise<Franchise> {
-    const createdfranchise = new this.franchiseModel(createFranchiseInput);
-    return createdfranchise.save();
+    const createdFranchise = new this.franchiseModel(createFranchiseInput);
+    return createdFranchise.save();
   }
 
   async findAll() {

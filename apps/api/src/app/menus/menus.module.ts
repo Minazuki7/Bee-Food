@@ -10,5 +10,6 @@ import { MenusResolver } from "./menus.resolver";
     MongooseModule.forFeature([{ name: Menu.name, schema: MenuSchema }]),
   ],
   providers: [MenusResolver, MenusService],
+  exports: [MenusService],
 })
 export class MenusModule {}

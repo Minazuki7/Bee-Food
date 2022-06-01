@@ -2,9 +2,10 @@ import { ObjectType, Field, ID, Int } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import * as mongoose from "mongoose";
 
-import { foodType } from "@fd-wereact/nest-common";
+import { FOOD_TYPE } from "@fd-wereact/nest-common";
 import { Category } from "../../categories/entities/category.entity";
 import { Branch } from "./../../branches/entities/branch.entity";
+import { Stock } from "../../stock/entities/stock.entity";
 
 export type ItemDocument = Item & Document;
 
@@ -16,6 +17,9 @@ export class Item {
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "categorie" })
   category: Category;
+
+  // @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: "stock" }] })
+  // stock: Stock;
 
   @Field(() => ID, { description: "item's _id" })
   id: string;
@@ -43,9 +47,9 @@ export class Item {
   @Field(() => Int, { description: "item's price" })
   price: number;
 
-  @Prop()
-  @Field(() => [foodType], { description: "food's type" })
-  roles: foodType[];
+  @Prop({ type: "string", enum: FOOD_TYPE })
+  @Field(() => FOOD_TYPE, { description: "food's type" })
+  foodType: FOOD_TYPE;
 }
 
 export const ItemSchema = SchemaFactory.createForClass(Item);

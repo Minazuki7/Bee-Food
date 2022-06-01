@@ -13,8 +13,8 @@ export class ItemsService {
     private itemModel: Model<ItemDocument>
   ) {}
   async create(createItemInput: CreateItemInput): Promise<Item> {
-    const createditem = new this.itemModel(createItemInput);
-    return createditem.save();
+    const createdItem = new this.itemModel(createItemInput);
+    return createdItem.save();
   }
 
   async findAll() {
@@ -25,11 +25,43 @@ export class ItemsService {
     return this.itemModel.findById(id).exec();
   }
 
+  async findItems(catgory?: string, branch?: string) {
+    let filter: { catgory?: string; branch?: string } = {};
+    if (catgory) {
+      filter = { ...filter, catgory };
+    }
+    if (branch) {
+      filter = { ...filter, branch };
+    }
+
+    return this.itemModel.find(filter).exec();
+  }
+
   async update(id: string, updateItemInput: UpdateItemInput) {
     return this.itemModel.findByIdAndUpdate(id, updateItemInput).exec();
   }
 
   remove(id: string) {
     return this.itemModel.findByIdAndRemove(id).exec();
+  }
+  async findMany(ids: string[]) {
+    return this.itemModel.find({ _id: { $in: ids } }).exec();
+  }
+  async itemPrice(ids: string[]) {
+    const findDuplicates = (arr) =>
+      arr.filter((item, index) => arr.indexOf(item) != index);
+
+    const itemList = await this.findMany(ids);
+    const duplicatedElements = findDuplicates(ids);
+    const duplicatedItems = duplicatedElements
+      .map((id) => itemList.filter((item) => item._id.toString() === id))
+      .flat();
+
+    const price = [...itemList, ...duplicatedItems].reduce(
+      (pervPrice, itemList) => pervPrice + itemList.price,
+      0
+    );
+
+    return price;
   }
 }

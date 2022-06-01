@@ -13,8 +13,8 @@ export class BranchesService {
     private branchModel: Model<BranchDocument>
   ) {}
   async create(createBranchInput: CreateBranchInput): Promise<Branch> {
-    const createdbranch = new this.branchModel(createBranchInput);
-    return createdbranch.save();
+    const createdBranch = new this.branchModel(createBranchInput);
+    return createdBranch.save();
   }
 
   async findAll() {

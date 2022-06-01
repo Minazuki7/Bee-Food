@@ -12,8 +12,8 @@ export class CategoriesService {
     @InjectModel(Category.name) private categoryModel: Model<CategoryDocument>
   ) {}
   async create(createCategoryInput: CreateCategoryInput): Promise<Category> {
-    const createdcategory = new this.categoryModel(createCategoryInput);
-    return createdcategory.save();
+    const createdCategory = new this.categoryModel(createCategoryInput);
+    return createdCategory.save();
   }
 
   async findAll() {

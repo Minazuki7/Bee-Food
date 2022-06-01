@@ -1,8 +1,10 @@
 import { ObjectType, Field, ID } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import * as mongoose from "mongoose";
+import { Company } from "../../companies/entities/company.entity";
 
 import { Franchise } from "../../franchises/entities/franchise.entity";
+import { Zone } from "../../zones/entities/zone.entity";
 
 export type BranchDocument = Branch & Document;
 
@@ -15,6 +17,13 @@ export class Branch {
     autopopulate: true,
   })
   franchise: Franchise;
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Company",
+  })
+  company: Company;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Zone" })
+  zone: Zone;
 
   @Field(() => ID, { description: "branch's _id" })
   id: string;
