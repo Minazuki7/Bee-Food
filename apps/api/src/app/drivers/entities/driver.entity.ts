@@ -34,8 +34,15 @@ export class Driver {
   phone: string;
 
   @Prop()
+  @Field(() => String, { description: "driver's wallet" })
+  wallet: string;
+  
+  @Prop()
+  @Field(() => String, { description: "driver's cash" })
+  cash: string;
+  
   @Field(() => Boolean, { description: "driver's status" })
-  active: boolean;
+  status: boolean;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Location" })
   location: Location[];

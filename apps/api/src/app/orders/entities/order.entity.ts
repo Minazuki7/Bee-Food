@@ -8,6 +8,7 @@ import { Driver } from "./../../drivers/entities/driver.entity";
 import { ORDER_STATUS } from "@fd-wereact/nest-common";
 import { Company } from "../../companies/entities/company.entity";
 import { Branch } from "../../branches/entities/branch.entity";
+import { Item } from "../../items/entities/item.entity";
 
 //impoprt {Orders,order}
 
@@ -16,20 +17,25 @@ export type OrderDocument = Order & Document;
 @Schema()
 @ObjectType()
 export class Order {
+  @Field()
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Zone" })
   zone: Zone;
-
+  @Field()
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Client" })
   client: Client;
-
+  @Field()
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Driver" })
   driver: Driver;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Company" })
   compnay: Company;
 
+  @Field()
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Branch" })
   branch: Branch;
+
+  @Field(() => [String], { description: "order's items" })
+  items: String[];
 
   @Field(() => ID, { description: "order's _id" })
   id: string;
@@ -75,5 +81,6 @@ export class Order {
   @Field(() => Date, { description: "order's time" })
   canceledAt: string;
 }
+
 
 export const OrderSchema = SchemaFactory.createForClass(Order);

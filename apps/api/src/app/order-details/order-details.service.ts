@@ -106,4 +106,18 @@ export class OrderDetailsService {
   remove(id: string) {
     return this.orderDetailModel.findByIdAndRemove(id).exec();
   }
+
+  
+  async findAllByOrder(order: string){
+    return await this.orderDetailModel.find({ order }).exec();
+  }
+  
+  async findItems(item: string){
+    return await this.orderDetailModel.find({ item }).exec();
+  }
+
+  async findByOrder(order: string){
+    const orderdetail = await this.orderDetailModel.findOne({ order }).populate({path : 'order',populate : {path : 'client branch'}});;
+    return orderdetail;
+  }
 }

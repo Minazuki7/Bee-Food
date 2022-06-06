@@ -1,21 +1,30 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 
-import '../components/BottomNavBar.dart';
 import 'package:driver_app/const/Colors.dart';
 
+import '../components/BottomNavBar.dart';
+import '../requests/OrderDetails.dart';
 import 'Navigation.dart';
 
 class Order extends StatefulWidget {
-  final int index;
+  final String order;
 
-  Order(this.index);
+  const Order(this.order);
 
   @override
   State<Order> createState() => _OrderState();
 }
 
 class _OrderState extends State<Order> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   bool status = false;
   @override
   Widget build(BuildContext context) {
@@ -57,27 +66,9 @@ class _OrderState extends State<Order> {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(top: 8),
-        child: Column(
-          children: [
-            Center(
-              child: Text(
-                "Order ${widget.index}",
-                style: TextStyle(
-                  fontFamily: 'CircularStd',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30.0,
-                  color: colors.MainColor,
-                ),
-              ),
-            ),
-          ],
-        ),
+        child:OrderDetails(widget.order),
       ),
-      bottomNavigationBar: Bottom(
-          context: context,
-          First: Colors.grey,
-          Second: colors.MainColor,
-          Third: Colors.grey),
+      bottomNavigationBar: Bottom(context: context),
     );
   }
 }

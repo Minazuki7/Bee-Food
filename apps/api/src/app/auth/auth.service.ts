@@ -10,6 +10,7 @@ import { User } from "./../users/entities/users.entity";
 import { UsersService } from "../users/users.service";
 import { RefreshTokensService } from "../refresh-tokens/refresh-tokens.service";
 import moment = require("moment");
+import { UpdateUserInput } from "../users/dto/update-user.input";
 
 @Injectable()
 export class AuthService {
@@ -60,6 +61,7 @@ export class AuthService {
     throw new UnauthorizedException();
   }
 
+
   async loginDriver(
     phone: string,
     password: string
@@ -95,5 +97,19 @@ export class AuthService {
     }
 
     throw new UnauthorizedException();
+  }
+
+  async ChangePassword(
+    id:string,
+    password:string,
+    updateUserInput:UpdateUserInput
+  ){
+    const user = await this.usersService.findById(id);   
+    const { password: encryptedPassword } = user;
+    
+    if (await bcrypt.compare(password, encryptedPassword)) {
+      return this.usersService.update(id,updateUserInput);
+    }
+    throw new NotFoundException({ message: "Please enter your old password" });
   }
 }

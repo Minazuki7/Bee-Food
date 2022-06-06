@@ -1,3 +1,2 @@
-class Strings{
-  static String ID = "";
+class Strings {
 }

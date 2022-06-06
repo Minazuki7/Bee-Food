@@ -28,8 +28,6 @@ export class ClientsService {
     });
 
     return createdClient.save();
-
-    return;
   }
 
   async findAll() {

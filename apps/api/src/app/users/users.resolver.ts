@@ -21,6 +21,7 @@ export class UsersResolver {
     return this.usersService.findAll();
   }
 
+  @SkipAuth()
   @Query(() => User, { name: "user" })
   findById(@Args("id", { type: () => ID }) id: string) {
     return this.usersService.findById(id);
@@ -34,5 +35,10 @@ export class UsersResolver {
   @Mutation(() => User)
   removeUser(@Args("id", { type: () => ID }) id: string) {
     return this.usersService.remove(id);
+  }
+
+  @Mutation(() => User)
+  displayDriver(@Args("id", { type: () => ID }) id: string)  {
+    return this.usersService.displayDriver(id);
   }
 }

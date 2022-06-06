@@ -28,8 +28,6 @@ export class DriversService {
     });
 
     return createdDriver.save();
-
-    return;
   }
 
   async findAll() {
@@ -39,6 +37,11 @@ export class DriversService {
   async findOne(id: string) {
     return this.driverModel.findById(id).exec();
   }
+
+  async findByPhone(phone: string) {
+    return this.driverModel.findOne({ phone }).exec();
+  }
+
 
   async findAvailable() {
     return this.driverModel.find({ status: true }).exec();
