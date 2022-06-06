@@ -7,6 +7,7 @@ import { AuthArgs } from "./dto/auth.args";
 import { AuthDriverArgs } from "./dto/authDriver.args";
 import { AuthResult } from "./entities/auth-jwt.entity";
 import { User } from "../users/entities/users.entity";
+import { UpdateUserInput } from "../users/dto/update-user.input";
 
 @Resolver("Auth")
 export class AuthResolver {
@@ -24,7 +25,13 @@ export class AuthResolver {
   async loginDriver(@Args() { phone, password }: AuthDriverArgs) {
     return this.authService.loginDriver(phone, password);
   }
-
+/*
+  @Mutation(() => AuthResult)
+  @SkipAuth()
+  async ChangePassword(@Args() {id, password}: AuthDriverArgs , updateUserInput: UpdateUserInput) {
+    return this.authService.ChangePassword(id, password, updateUserInput);
+  }*/
+  
 
   @Query(() => User)
   async whoAmI(@CurrentUser() user: User): Promise<User> {

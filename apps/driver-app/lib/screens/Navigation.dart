@@ -1,18 +1,22 @@
-// ignore: file_names
-import 'package:driver_app/screens/login.dart';
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:driver_app/const/Colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'LoadingScreen.dart';
 import 'Profile.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({Key? key}) : super(key: key);
+
 
   @override
   _NavigationState createState() => _NavigationState();
 }
 
 class _NavigationState extends State<Navigation> {
+
   final padding = const EdgeInsets.symmetric(horizontal: 20);
   @override
   Widget build(BuildContext context) {
@@ -30,7 +34,7 @@ class _NavigationState extends State<Navigation> {
               icon: Icons.person,
               onClick: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Profile()));
+                    MaterialPageRoute(builder: (context) => Profile()));
               },
             ),
             const SizedBox(height: 16),
@@ -51,9 +55,11 @@ class _NavigationState extends State<Navigation> {
             buildMenuItem(
               text: 'Logout',
               icon: Icons.logout,
-              onClick: () {
+              onClick: () async {
+                final SharedPreferences prefs = await SharedPreferences.getInstance();
+                await prefs.remove('id');
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Login()));
+                    MaterialPageRoute(builder: (context) => const LoadingScreen()));
               },
             ),
           ],

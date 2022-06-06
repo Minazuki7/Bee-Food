@@ -11,6 +11,7 @@ export type OrderDetailDocument = OrderDetail & Document;
 @Schema()
 @ObjectType()
 export class OrderDetail {
+  
   @Prop({
     type: [
       { type: mongoose.Schema.Types.ObjectId, ref: "Item" },
@@ -25,9 +26,9 @@ export class OrderDetail {
     ],
   })
   menu: Menu[];
+  @Field()
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Order" })
   order: Order;
-
   @Field(() => ID, { description: "order's _id" })
   id: string;
   @Prop()

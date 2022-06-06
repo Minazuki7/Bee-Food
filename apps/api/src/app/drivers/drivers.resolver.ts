@@ -25,6 +25,12 @@ export class DriversResolver {
     return this.driversService.findOne(id);
   }
 
+  
+  @Query(() => Driver, { name: "driverByPhone" })
+  findfindByPhoneOne(@Args("phone", { type: () => String }) phone: string) {
+    return this.driversService.findByPhone(phone);
+  }
+
   @Mutation(() => Driver)
   updateDriver(
     @Args("id", { type: () => String }) id: string,

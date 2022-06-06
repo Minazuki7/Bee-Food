@@ -5,6 +5,8 @@ import {
   Args,
   ID,
   Subscription,
+  ResolveField,
+  Parent,
 } from "@nestjs/graphql";
 import { PubSub } from "graphql-subscriptions";
 
@@ -15,16 +17,23 @@ import { Order } from "./entities/order.entity";
 import { CreateOrderInput } from "./dto/create-order.input";
 import { UpdateOrderInput } from "./dto/update-order.input";
 import { Client } from "../clients/entities/client.entity";
+import { OrderDetail } from "../order-details/entities/order-detail.entity";
+import { OrderDetailsService } from "./../order-details/order-details.service";
+import { ItemsService } from "./../items/items.service";
 
 const pubSub = new PubSub();
 @Resolver(() => Order)
 export class OrdersResolver {
-  constructor(private readonly ordersService: OrdersService) {}
+  constructor(
+    private OrderDetailsService: OrderDetailsService,
+    private ItemsServices: ItemsService,
+    private readonly ordersService: OrdersService) {}
 
   @Subscription(() => Order)
   orderAdded() {
     return pubSub.asyncIterator("orderAdded");
   }
+
 
   @Mutation(() => Order)
   async createOrder(
@@ -44,6 +53,7 @@ export class OrdersResolver {
     return this.ordersService.findAll();
   }
 
+  
   @Query(() => Order, { name: "order" })
   findOne(@Args("id", { type: () => ID }) id: string) {
     return this.ordersService.findOne(id);
@@ -57,10 +67,11 @@ export class OrdersResolver {
     return this.ordersService.statusUpdate(id);
   }
 
+
   @Mutation(() => Order)
-  updateOrder(
+  updateOrder(  
     @Args("updateOrderInput") updateOrderInput: UpdateOrderInput,
-    @Args("id", { type: () => String }) id: string
+    @Args("id", { type: () => String }) id: string  
   ) {
     return this.ordersService.update(id, updateOrderInput);
   }
@@ -73,8 +84,54 @@ export class OrdersResolver {
     return this.ordersService.orderCancling(id);
   }
 
+  
+  @Mutation(() => Order, { name: "addOrder"})
+  async assignOrderToDriver(
+    @Args("driverId", { type: () => String }) driverId: string,
+    @Args("id", { type: () => ID }) id: string
+  ) {
+      return this.ordersService.assignOrderToDriver(id, driverId);
+  }
+
+
+  @Query(() => Order, { name: "getDriverOrders"})
+  async getDriverOrders(
+    @Args("driver") driver: string,
+    @Args("id", { type: () => String }) id: string
+  ) {
+      return this.ordersService.getDriverOrders(id, driver);
+  }
+
+
   @Mutation(() => Order)
   removeOrder(@Args("id", { type: () => ID }) id: string) {
     return this.ordersService.remove(id);
+  }
+ 
+  @Query(() => [Order], { name: "findOrders" })
+  findNonAffectedOrders() {
+    return this.ordersService.findNonAffectedOrders();
+  }
+
+  @Query(() => [Order], { name: "DriversOrders" })
+  findDriversOrders(@Args("driver", { type: () => String }) driver: string) {
+    return this.ordersService.findDriversOrders(driver);
+  }
+
+  @Query(() => OrderDetail, { name: "getOrder" })
+  getOrder(@Args("id", { type: () => String }) id: string) {
+    return this.ordersService.getOrder(id);
+  }
+
+  @ResolveField()
+  async items(@Parent() order: Order) {
+    const { id } = order;
+    const Items = await this.OrderDetailsService.findByOrder(id);
+    return Items.items;
+  }
+
+  @Mutation(() => Order, { name: "setOrderStatus" })
+  setOrderStatus(@Args("id", { type: () => String }) id: string) {
+    return this.ordersService.setOrderStatus(id);
   }
 }

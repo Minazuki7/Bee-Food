@@ -1,7 +1,11 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:driver_app/const/Colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'login.dart';
+import 'mainPage.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({Key? key}) : super(key: key);
@@ -12,15 +16,23 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen> {
 
+  late final String? id;
+  Future<void> getLoginNeeds() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    id = prefs.getString('id');
+  }
+
   @override
   void initState() {
     super.initState();
+    getLoginNeeds();
     startup();
   }
 
   startup() async {
     await Future.delayed(const Duration(seconds: 6), () {});
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const Login()));
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => const Login()));
   }
 
   @override
@@ -31,44 +43,20 @@ class _LoadingScreenState extends State<LoadingScreen> {
           gradient: LinearGradient(
             begin: Alignment.bottomRight,
             end: Alignment.topLeft,
-            colors: [
-              colors.MainColor,
-              colors.SecondaryColor,
-            ],
+            colors: [colors.MainColor, colors.SecondaryColor,],
           ),
         ),
+
         child: Column(
           children: [
             const SizedBox(height: 30),
             Expanded(
-              child: SizedBox(
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
-                child:const Center(
-                  child: Text("Loading",
-                    style: TextStyle(
-                      fontFamily: 'CircularStd',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30.0,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
+              child: Container(padding:const EdgeInsets.all(75),child: Image.asset("assets/logo.png")),
             ),
-
-            const Expanded(
-              child:
-              Center(
-                child: CircularProgressIndicator(color: Colors.white,),
-              ),
-            ),
+            const Expanded(child: Center(child: CircularProgressIndicator(color: Colors.white)),),
           ],
         ),
       ),
     );
   }
 }
-

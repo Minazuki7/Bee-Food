@@ -16,6 +16,14 @@ export class Company {
   @Prop()
   @Field(() => Int, { description: "company's  deliveryFee" })
   deliveryFee: number;
+  
+  @Prop()
+  @Field(() => String, { description: "company's description" })
+  description: string;
+
+  @Prop({ required: false })
+  @Field(() => String, { description: "company's picture", nullable: true })
+  picture?: string;
 }
 
 export const CompanySchema = SchemaFactory.createForClass(Company);

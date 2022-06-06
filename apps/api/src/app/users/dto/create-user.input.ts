@@ -39,6 +39,6 @@ export class CreateUserInput {
 
   @IsArray()
   @IsNotEmpty()
-  @Field(() => ROLES, { description: "user's roles" })
-  roles: ROLES;
+  @Field(() => ROLES, { description: "user's role" })
+  role: ROLES;
 }

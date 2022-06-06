@@ -9,6 +9,7 @@ import { UpdateOrderInput } from "./dto/update-order.input";
 import { Order, OrderDocument } from "./entities/order.entity";
 import { OrderDetailsService } from "./../order-details/order-details.service";
 import { BranchesService } from "./../branches/branches.service";
+import { GraphQLError } from "graphql";
 
 @Injectable()
 export class OrdersService {
@@ -101,14 +102,48 @@ export class OrdersService {
   }
 
   async findOne(id: string) {
+
     return this.orderModel.findById(id).exec();
+
   }
 
   async update(id: string, updateOrderInput: UpdateOrderInput) {
     return this.orderModel.findByIdAndUpdate(id, updateOrderInput).exec();
   }
 
+  async findNonAffectedOrders() {
+    return await this.orderModel.find({ driver: { $exists: false } }).populate("zone client driver branch");
+    }
+
+  async findDriversOrders(driver: string) {
+    return this.orderModel.find({ driver }).populate("zone client driver branch");
+  }
+
+  async getDriverOrders(id: string, driver: string) {
+    const order = await this.orderModel.findOne({ _id: id, driver });
+    if (!order) throw new GraphQLError("ORDER NOT FOUND");
+    else return order;
+  }
+
+  async assignOrderToDriver(id: string, driverId: string) {
+    const order = await this.orderModel.findById(id);
+    if (order.driver) throw new GraphQLError("This order is been already taken");
+    return this.orderModel.findByIdAndUpdate(id, { driver: driverId });
+  }
+
   remove(id: string) {
     return this.orderModel.findByIdAndRemove(id).exec();
   }
+
+  async getOrder(id:string){
+    const order = await this.OrderDetailsService.findByOrder(id);
+    return order;
+  }
+
+  async setOrderStatus(id: string){
+    const order =  await this.orderModel.findOneAndUpdate({_id: id}, {status: ORDER_STATUS.delivered});
+    console.log(order,id);
+    return order;
+  }
+
 }

@@ -33,10 +33,12 @@ import { CompaniesModule } from "./companies/companies.module";
     MongooseModule.forRoot(process.env.MONGO_URI),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      subscriptions: {
-        "graphql-ws": true,
-      },
       autoSchemaFile: join(process.cwd(), "apps/api/src/schema.gql"),
+      installSubscriptionHandlers: true,
+      subscriptions: {
+        'graphql-ws': true,
+        'subscriptions-transport-ws': true,
+      },
     }),
     ConfigModule.forRoot(),
     UsersModule,

@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import * as bcrypt from "bcrypt";
@@ -42,5 +42,20 @@ export class UsersService {
 
   async findOne<T extends Record<string, string>>(param: T) {
     return this.userModel.findOne({ param }).exec();
+  }
+
+  async displayDriver(
+    id:string
+  ):Promise<{
+    firstName: string;
+    lastName:String
+    email: string;
+    phone:String
+  }> {
+    const user = await this.findById(id);
+
+    const {firstName, lastName, email,phone} = user
+    
+    return {firstName,lastName,email,phone};
   }
 }
