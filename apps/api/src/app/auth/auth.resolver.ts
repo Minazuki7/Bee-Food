@@ -32,6 +32,14 @@ export class AuthResolver {
     return this.authService.ChangePassword(id, password, updateUserInput);
   }*/
   
+  @Mutation(() => User, { name: "changePassword" })
+  @SkipAuth()
+  async ChangePassword(
+    @Args() { phone, password }: AuthDriverArgs,
+    @Args("newPassword", { type: () => String }) newPassword: string
+  ) {
+    return this.authService.ChangePassword(phone, password, newPassword);
+  }
 
   @Query(() => User)
   async whoAmI(@CurrentUser() user: User): Promise<User> {

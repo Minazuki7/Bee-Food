@@ -13,48 +13,51 @@ class MapLocation extends StatefulWidget {
 
 class _MapLocationState extends State<MapLocation> {
 
-  LatLng _initialcameraposition = LatLng(12, 100);
-  late GoogleMapController _controller;
+  GoogleMapController? _controller;
   Location _location = Location();
 
   void _onMapCreated(GoogleMapController _cntlr)
   {
     _controller = _cntlr;
     _location.onLocationChanged.listen((l) {
-      _controller.animateCamera(
+      _controller?.animateCamera(
         CameraUpdate.newCameraPosition(
           CameraPosition(target: LatLng(l.latitude!, l.longitude!),zoom: 40),
         ),
       );
     });
   }
+  static const _initialcameraposition = CameraPosition(
+      target: LatLng(36.81654752781123, 10.16827768338616),
+    zoom:11.5,
+  );
 
-  static final Marker _marker = Marker(
+  static final Marker _markerRes = Marker(
     markerId: MarkerId("Marker"),
-    infoWindow: InfoWindow(title: "Location"),
+    infoWindow: InfoWindow(title: "Restaurant Location"),
     icon: BitmapDescriptor.defaultMarker,
-    position: LatLng(12, 100),
+    position: LatLng(36.81424197824252, 10.175241101715837),
+  );
+
+  static final Marker _markerClient = Marker(
+    markerId: MarkerId("Marker"),
+    infoWindow: InfoWindow(title: "Client Location"),
+    icon: BitmapDescriptor.defaultMarker,
+    position: LatLng(36.81654752781123, 10.16827768338616),
   );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Stack(
-          children: [
-            GoogleMap(
-              initialCameraPosition: CameraPosition(target: _initialcameraposition),
-              markers: {
-                _marker
-              },
-              mapType: MapType.normal,
-              onMapCreated: _onMapCreated,
-              myLocationEnabled: true,
-            ),
-          ],
-        ),
+      body: GoogleMap(
+        markers: {
+          _markerRes,
+          _markerClient
+        },
+        mapType: MapType.normal,
+        onMapCreated: _onMapCreated,
+        myLocationEnabled: true,
+        initialCameraPosition: _initialcameraposition,
       ),
     );
   }

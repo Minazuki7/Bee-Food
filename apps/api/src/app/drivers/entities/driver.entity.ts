@@ -41,6 +41,7 @@ export class Driver {
   @Field(() => String, { description: "driver's cash" })
   cash: string;
   
+  @Prop()
   @Field(() => Boolean, { description: "driver's status" })
   status: boolean;
 

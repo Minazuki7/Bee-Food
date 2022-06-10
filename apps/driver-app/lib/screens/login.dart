@@ -45,20 +45,7 @@ class _LoginState extends State<Login> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: const Center(
-                        child: Text(
-                          "Delivery App",
-                          style: TextStyle(
-                            fontFamily: 'CircularStd',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 40.0,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
+                    child: Container(padding:const EdgeInsets.all(10),child: Image.asset("assets/cover.png")),
                   ),
                   Expanded(
                     flex: 2,
@@ -98,20 +85,7 @@ class _LoginState extends State<Login> {
                                   controller: passwordController,
                                   title: "Password",
                                   obscureText: true),
-                            const SizedBox(height: 20.0),
-                            Container(
-                              alignment: const Alignment(1.0, 0.0),
-                              child: InkWell(
-                                  child: const Text(
-                                    "Forget Your Password?",
-                                    style: TextStyle(
-                                      color: colors.MainColor,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  onTap: () {}),
-                            ),
-                            const SizedBox(height: 50.0),
+                            const SizedBox(height: 70.0),
                             VerifLogin(phoneController.text,phoneController.text,_formKey,isLoading),
                           ],
                         ),

@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../components/Buttons.dart';
 import '../const/Colors.dart';
 import '../screens/Orders.dart';
+import 'get.dart';
 
 class AcceptOrder extends StatefulWidget {
 
@@ -18,16 +19,10 @@ class AcceptOrder extends StatefulWidget {
 
 class _AcceptOrderState extends State<AcceptOrder> {
 
-  late final String? id;
-  Future<void> getLoginNeeds() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    id = prefs.getString('id');
-  }
-
   @override
   void initState() {
+    Get.getLoginNeeds();
     super.initState();
-    getLoginNeeds();
   }
 
 
@@ -56,9 +51,9 @@ class _AcceptOrderState extends State<AcceptOrder> {
                     if(mutationResult?.data == null){
                       insert(<String, dynamic>{
                         "order": widget.order,
-                        "driver": id,
+                        "driver": Get.id,
                       });
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Order(widget.order)));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Order(widget.order)));
                     }else{
                       openDialog(context);
                     }

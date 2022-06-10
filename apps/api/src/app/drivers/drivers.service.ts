@@ -25,6 +25,9 @@ export class DriversService {
       firstName,
       email,
       phone,
+      cash:0,
+      wallet:0,
+      status:false
     });
 
     return createdDriver.save();
@@ -53,5 +56,14 @@ export class DriversService {
 
   async remove(id: string) {
     return this.driverModel.findByIdAndRemove(id).exec();
+  }
+
+  
+  async updateStatus(driver: Driver){
+    const phone = driver.phone;
+    const user = await this.driverModel.findOne({ phone });
+    if(user.status) user.status = false;
+    else user.status = true;
+    return user.save();
   }
 }
