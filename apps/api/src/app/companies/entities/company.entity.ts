@@ -13,17 +13,21 @@ export class Company {
   @Field(() => String, { description: "company's name" })
   name: string;
 
-  @Prop()
-  @Field(() => Int, { description: "company's  deliveryFee" })
-  deliveryFee: number;
-  
-  @Prop()
-  @Field(() => String, { description: "company's description" })
-  description: string;
-
   @Prop({ required: false })
   @Field(() => String, { description: "company's picture", nullable: true })
   picture?: string;
+
+  @Prop({ unique: true })
+  @Field(() => String, { description: "company's email" })
+  email: string;
+
+  @Prop()
+  @Field(() => Int, { description: "company's  deliveryFee" })
+  deliveryFee: number;
+
+  @Prop()
+  @Field(() => String, { description: "company's description" })
+  description: string;
 }
 
 export const CompanySchema = SchemaFactory.createForClass(Company);

@@ -13,7 +13,7 @@ import { PubSub } from "graphql-subscriptions";
 import { CurrentUser } from "@fd-wereact/nest-common";
 import { OrdersService } from "./orders.service";
 import { SkipAuth } from "@fd-wereact/nest-common";
-import { Order } from "./entities/order.entity";
+import { ListOrders, Order } from "./entities/order.entity";
 import { CreateOrderInput } from "./dto/create-order.input";
 import { UpdateOrderInput } from "./dto/update-order.input";
 import { Client } from "../clients/entities/client.entity";
@@ -48,9 +48,17 @@ export class OrdersResolver {
   }
 
   @SkipAuth()
-  @Query(() => [Order], { name: "orders" })
-  findAll() {
-    return this.ordersService.findAll();
+  @Query(() => ListOrders, { name: "orders" })
+  async findAll() {
+    const orders = await this.ordersService.findAll();
+
+    return {
+      data: orders,
+      page: 1,
+      perPage: 10,
+      count: 10,
+      totalPages: 1,
+    };
   }
 
   

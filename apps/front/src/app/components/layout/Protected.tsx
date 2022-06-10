@@ -49,15 +49,16 @@ const Protected = <Protected extends boolean = true>({
   if (
     user &&
     !(
-      isValid(role, user.role, ROLE.ALL) &&
-      isValid(
-        resource,
-        user.permissions.map((p) => p.resource) || [],
-        RESOURCE.ANY
-      )
+      isValid(role, user.role, ROLE.ALL)
+      // &&
+      // isValid(
+      //   resource,
+      //   user.permissions.map((p) => p.resource) || [],
+      //   RESOURCE.ANY
+      // )
     )
   ) {
-    return <NotFound />;
+    return <h1>Not found</h1>;
   }
 
   return typeof children === "function" ? (

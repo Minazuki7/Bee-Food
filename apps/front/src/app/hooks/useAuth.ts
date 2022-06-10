@@ -1,10 +1,10 @@
-import { useContext, useEffect } from 'react';
-import { MutationHookOptions, MutationTuple } from '@apollo/client';
-import localforage from 'localforage';
-import { setToken } from '@config/apollo';
-import { Auth } from '@requests/auth';
-import { graphQLResult } from '@utils/graphql';
-import AuthContext from '@contexts/AuthContext';
+import { useContext, useEffect } from "react";
+import { MutationHookOptions, MutationTuple } from "@apollo/client";
+import localforage from "localforage";
+import { setToken } from "@config/apollo";
+import { Auth } from "@requests/auth";
+import { graphQLResult } from "@utils/graphql";
+import AuthContext from "@contexts/AuthContext";
 
 function useAuth<Arguments, Result extends Record<string, Auth>>(
   fn: (
@@ -13,16 +13,16 @@ function useAuth<Arguments, Result extends Record<string, Auth>>(
   stayConnected = true
 ): MutationTuple<Result, Arguments> {
   const { setUser } = useContext(AuthContext);
-  const [call, state] = fn({ fetchPolicy: 'network-only' });
+  const [call, state] = fn({ fetchPolicy: "network-only" });
 
   function persistUser(data: Auth) {
     const result = { ...data };
     if (!stayConnected) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      delete result.token.refreshToken;
+      delete result.token;
     }
-    localforage.setItem('auth', JSON.stringify(result));
+    localforage.setItem("auth", JSON.stringify(result));
   }
 
   useEffect(() => {

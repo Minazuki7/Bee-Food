@@ -1,5 +1,5 @@
-import { ROLE } from '@shared/permission';
-import { RESOURCE, PERMISSION_TYPE } from '@shared/permission';
+import { ROLE } from "@shared/permission";
+import { RESOURCE, PERMISSION_TYPE } from "@shared/permission";
 
 export interface Permission {
   resource: RESOURCE;
@@ -8,10 +8,10 @@ export interface Permission {
 
 export interface User {
   id: string;
-  username: string;
+  //username: string;
   role: ROLE;
   email: string;
-  isActive: boolean;
+  //isActive: boolean;
   extraFields?: {
     id: string;
     name: string;

@@ -37,7 +37,6 @@ export class CreateUserInput {
   @Field(() => String, { description: "user's phone number" })
   phone: string;
 
-  @IsArray()
   @IsNotEmpty()
   @Field(() => ROLES, { description: "user's role" })
   role: ROLES;

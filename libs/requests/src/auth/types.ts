@@ -1,25 +1,26 @@
-import { RESOURCE, PERMISSION_TYPE } from '@shared/permission';
-import { User } from '../user/types';
+import { RESOURCE, PERMISSION_TYPE } from "@shared/permission";
+import { User } from "../user/types";
 
 export interface Permission {
   resource: RESOURCE;
   permissions: PERMISSION_TYPE[];
 }
 
-export interface Token {
-  tokenType: string;
-  accessToken: string;
+// export interface Token {
+//   token: string;
+//   refreshToken: string;
+//   expiresIn: string;
+// }
+
+export interface Auth {
+  user: User;
+  token: string;
   refreshToken: string;
   expiresIn: string;
 }
 
-export interface Auth {
-  user: User;
-  token: Token;
-}
-
 export interface LoginVariables {
-  username: string;
+  email: string;
   password: string;
 }
 

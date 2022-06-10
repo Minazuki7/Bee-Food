@@ -35,7 +35,7 @@ export class Order {
   branch: Branch;
 
   @Field(() => [String], { description: "order's items" })
-  items: String[];
+  items: string[];
 
   @Field(() => ID, { description: "order's _id" })
   id: string;
@@ -82,5 +82,18 @@ export class Order {
   canceledAt: string;
 }
 
+@ObjectType()
+export class ListOrders {
+  @Field(() => [Order], { description: "orders" })
+  data: Order[];
+  @Field(() => Int, { description: "orders" })
+  page: number;
+  @Field(() => Int, { description: "orders" })
+  perPage: number;
+  @Field(() => Int, { description: "orders" })
+  count: number;
+  @Field(() => Int, { description: "orders" })
+  totalPages: number;
+}
 
 export const OrderSchema = SchemaFactory.createForClass(Order);

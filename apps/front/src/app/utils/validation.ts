@@ -1,29 +1,29 @@
-import { isNaN } from 'lodash';
+import { isNaN } from "lodash";
 
 export function isNumberEmpty(value: any) {
-  if (value !== '' && !isNaN(value - 0)) return false;
+  if (value !== "" && !isNaN(value - 0)) return false;
   return true;
 }
 
 export function isStringEmpty(value: string) {
-  if (value) return '';
-  return 'Ce Champ est obligatoire';
+  if (value) return "";
+  return "This field is required";
 }
 
 export function isArrayEmpty(values: any[]) {
-  if (values.length) return '';
-  return 'Champ vide';
+  if (values.length) return "";
+  return "Field empty";
 }
 
 export function validateEmail(email: string) {
-  if (!email) return 'Email vide';
+  if (!email) return " Email empty";
   // eslint-disable-next-line
   const re =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   if (re.test(`${email}`.toLowerCase())) {
-    return '';
+    return "";
   }
-  return 'Email invalide';
+  return " invalide Email";
 }
 export function hasUppercase(s: string) {
   return /[A-Z]/g.test(s);
@@ -38,15 +38,15 @@ export function hasSpecial(s: string) {
   return /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/g.test(s);
 }
 export function validatePassword(password: string) {
-  if (!password) return 'Mot de passe vide';
-  if (password.length < 6) return 'Mot de passe doit dépasser 6 caractères';
+  if (!password) return "empty passward";
+  if (password.length < 6) return " Password must exceed 6 characters";
   if (
     !hasNumber(password) ||
     !hasUppercase(password) ||
     !hasLowercase(password) ||
     !hasSpecial(password)
   ) {
-    return 'Mot de passe invalid';
+    return "Password invalid";
   }
-  return '';
+  return "";
 }

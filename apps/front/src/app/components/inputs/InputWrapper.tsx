@@ -1,7 +1,7 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef } from "react";
 
-import classNames from 'classnames';
-import Bubble from './components/Bubble';
+import classNames from "classnames";
+import Bubble from "./components/Bubble";
 
 export interface InputWrapperProps
   extends React.DetailedHTMLProps<
@@ -36,13 +36,13 @@ const InputWrapper = forwardRef<HTMLDivElement, InputWrapperProps>(
     ref
   ) => {
     const renderBorder = () => {
-      let color = '';
+      let color = "";
       if (borderColor && !errorText) {
         color = borderColor;
       } else if (errorText && !disabled) {
-        color = '#f87272';
+        color = "#f87272";
       } else {
-        color = '#131F2A';
+        color = "#131F2A";
       }
       return color;
     };
@@ -50,12 +50,12 @@ const InputWrapper = forwardRef<HTMLDivElement, InputWrapperProps>(
       <div
         {...rest}
         ref={ref}
-        className={classNames('flex-col items-stretch mb-4', className)}
+        className={classNames("flex-col items-stretch mb-4", className)}
       >
         {label && (
           <p
             className={classNames(
-              'text-inputColor text-text20 mb-2',
+              "text-inputColor text-text20 mb-2",
               labelClassName
             )}
           >
@@ -66,7 +66,7 @@ const InputWrapper = forwardRef<HTMLDivElement, InputWrapperProps>(
           className={`flex w-full border-2 min-h-input rounded-md leading-tight flex relative items-center pl-2`}
           style={{
             borderColor: renderBorder(),
-            backgroundColor: disabled ? '#DBDBDB' : 'transparent',
+            backgroundColor: disabled ? "#DBDBDB" : "transparent",
             color: colorText,
           }}
         >
@@ -75,15 +75,10 @@ const InputWrapper = forwardRef<HTMLDivElement, InputWrapperProps>(
           {required && (
             <span
               className="text-requiredIndicator z-1 absolute top-1 right-1"
-              style={{ color: errorText && !disabled ? '#f87272' : '#B8B8B8' }}
+              style={{ color: errorText && !disabled ? "#f87272" : "#B8B8B8" }}
             >
               *
             </span>
-          )}
-          {errorText && (
-            <div className="absolute -right-56">
-              <Bubble text={errorText} className="absolute -right-20" />
-            </div>
           )}
         </div>
       </div>
