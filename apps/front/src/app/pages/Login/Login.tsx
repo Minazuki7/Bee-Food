@@ -13,17 +13,19 @@ import useUser from "@hooks/useUser";
 import Redirect from "@components/ui/Redirect";
 import { decodeUri } from "@utils/url";
 
+import DRIVER from "../../assets/png/DRIVER.png";
+
 const Login = () => {
   const user = useUser();
   const location = useLocation();
   const { values, errors, touched, setAllTouched, validateForm, handleChange } =
     useForm({
       initialValues: {
-        username: "",
+        email: "",
         password: "",
         stayConnected: true,
       },
-      required: ["username", "password"],
+      required: ["email", "password"],
     });
 
   const navigate = useNavigate();
@@ -35,7 +37,7 @@ const Login = () => {
     if (validateForm()) {
       loginCall({
         variables: {
-          username: values.username,
+          email: values.email,
           password: values.password,
         },
       });
@@ -50,8 +52,15 @@ const Login = () => {
   }
 
   return (
-    <div className="bg-baseBlue overflow-hidden  relative min-h-screen">
-      {/* <div className="absolute  -right-20 h-full py-4">
+    <div className="absolute inset-y-0 left-0 w-full min-h-fit flex flex divide-x divide-white">
+      <div className="bg-baseBlue overflow-hidden left-0 relative min-h-screen rounded-r-4xl bg-cyan flex-2 w-3/5 ">
+        <div className="text-black text-text22 text-left mt-28 ml-28">LOGO</div>
+        <div className="flex justify-center py-10 inset-x-0 mt-16">
+          <img src={DRIVER} alt="alt" className="h-full" />{" "}
+        </div>
+      </div>
+      <div className=" overflow-hidden  place-content-center relative min-h-screen bg-white flex-1 m-0   ">
+        {/* <div className="absolute  -right-20 h-full py-4">
       <img src={BackgroundLogo} alt="lo" className="h-full" />
     </div>
     <div className="bg-baseOrange w-widthLogoContainer h-heightLogoContainer flex justify-center px-4 py-6 shadow-boxShadowLogo absolute left-20 t-0">
@@ -60,81 +69,83 @@ const Login = () => {
     <div className="absolute overflow-hidden -left-88 bottom-4 h-1/3">
       <img src={Van} alt="van" className="h-full w-full" />
     </div> */}
-      <div className="flex justify-center py-10">
-        <div className="mt-24 flex flex-col w-1/3">
-          <span className="text-white text-text22 text-center">PACKFAST</span>
-          <span className="text-text48 text-white text-center font-bold">
-            Se connecter
-          </span>
+        <div className="px-20 justify-center py-10 mt-24">
+          <div className="mt-24 flex flex-col ">
+            <span className="text-black text-text38 text-center font-bold">
+              WELCOME BACK !
+            </span>
+            <span className="text-text20 text-black text-center font-bold ">
+              Welcome back ! please enter your details
+            </span>
 
-          <form
-            className="flex flex-col justify-center"
-            onSubmit={handleSubmit}
-          >
-            <Input
-              name="username"
-              label="Votre nom complet"
-              onChange={handleChange("username")}
-              value={values.username}
-              icon={user}
-              placeholder="Exemple : Ali ben mohamed"
-              required
-              type="text"
-              errorText={touched.password && errors.username}
-              borderColor="#fff"
-              colorText="#fff"
-            />
-            <Input
-              label="Mot de passe"
-              name="password"
-              value={values.password}
-              onChange={handleChange("password")}
-              placeholder="Taper Votre mot de passe"
-              required
-              type="password"
-              // icon={key}
-              errorText={touched.password && errors.password}
-              borderColor="#fff"
-              colorText="#fff"
-            />
-            <div className="my-6">
-              <CheckBox
-                label="Se souvenir de mon identifiant"
-                onChange={handleChange("stayConnected")}
-                checked={values.stayConnected}
-                textColor="#fff"
-                fill
-                borderColor="border-baseOrange"
+            <form
+              className="flex flex-col justify-center py-20"
+              onSubmit={handleSubmit}
+            >
+              <Input
+                name="email"
+                label=" Email"
+                onChange={handleChange("email")}
+                value={values.email}
+                icon={user}
+                placeholder="Exemple : login@gamil.com"
+                required
+                type="text"
+                errorText={touched.password && errors.email}
+                borderColor="#000000"
+                colorText="#131F2A"
               />
-            </div>
-            <div className="mt-2">
-              <Button
-                label="Se connecter"
-                container="full"
-                sizeBtn="medium"
-                type="primary"
-                className="my-1 hover:bg-white hover:text-baseBlue"
+              <Input
+                label="password"
+                name="password"
+                value={values.password}
+                onChange={handleChange("password")}
+                placeholder="insert your password"
+                required
+                type="password"
+                // icon={key}
+                errorText={touched.password && errors.password}
+                borderColor="#000000"
+                colorText="#131F2A"
               />
-            </div>
-            <div className="mt-2">
-              <p className="text-white text-18 text-center mt-2">
-                Vous n'avez pas un compte ?{" "}
-                <span
-                  className="text-white text-18 underline text-center cursor-pointer"
-                  onClick={() => navigate("/register")}
-                >
-                  créer un compte
-                </span>
-              </p>
               <p
                 onClick={() => navigate("/forgot")}
-                className="text-white text-18 text-center mt-2 underline cursor-pointer"
+                className="text-ghost text-18 text-right mt-2 underline cursor-pointer"
               >
-                Mot de passe oublié ?
+                Forget your password ?
               </p>
-            </div>
-            <div className="md:mt-8 flex justify-between">
-              {/* <div className="flex items-center">
+              {/* <div className="my-6">
+                <CheckBox
+                  label="Remeber me"
+                  onChange={handleChange("stayConnected")}
+                  checked={values.stayConnected}
+                  textColor="#fff"
+                  fill
+                  borderColor="border-baseOrange"
+                />
+              </div> */}
+              <div className="mt-2 py-10 ">
+                <Button
+                  label="Sign In"
+                  container="full"
+                  sizeBtn="medium"
+                  type="primary"
+                  className="my-1 hover:bg-blue hover:text-grey rounded-lg font-bold text-text26"
+                />
+              </div>
+              <div className="mt-2">
+                <p className="text-black text-18 text-center mt-2">
+                  You are not a member ?{" "}
+                  <span
+                    className="text-blue text-18 underline text-center cursor-pointer "
+                    onClick={() => navigate("/register")}
+                  >
+                    Sign Up
+                  </span>
+                </p>
+              </div>
+              <div className="md:mt-8 flex justify-between">
+                {/* <div className="flex items-center">
                 <img
                   src={file}
                   alt="file"
@@ -146,7 +157,7 @@ const Login = () => {
                   Conditions Générales et d'utilisation
                 </span>
               </div> */}
-              {/* <div className="flex items-center">
+                {/* <div className="flex items-center">
                 <img
                   src={Question}
                   alt="mark"
@@ -158,8 +169,9 @@ const Login = () => {
                   Besoin d'aide ?
                 </span>
               </div> */}
-            </div>
-          </form>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

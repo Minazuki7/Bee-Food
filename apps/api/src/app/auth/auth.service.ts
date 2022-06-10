@@ -72,7 +72,7 @@ export class AuthService {
     expiresIn: moment.Moment;
   }> {
     const user = await this.usersService.findByPhone(phone);
-    
+
     if (!user) {
       throw new NotFoundException({ message: "User not found" });
     }

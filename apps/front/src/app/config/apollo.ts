@@ -6,18 +6,12 @@ import {
   Observable,
   Operation,
   createHttpLink,
-} from '@apollo/client';
-import { onError } from '@apollo/client/link/error';
-import { Token } from '@requests/auth';
+} from "@apollo/client";
+import { onError } from "@apollo/client/link/error";
 
-let token: Token = {
-  accessToken: '',
-  expiresIn: '',
-  refreshToken: '',
-  tokenType: '',
-};
+let token = "";
 
-export function setToken(nextToken: Token) {
+export function setToken(nextToken: string) {
   token = nextToken;
 }
 
@@ -28,7 +22,7 @@ export function getToken() {
 const request = async (operation: Operation) => {
   operation.setContext({
     headers: {
-      Authorization: token ? `Bearer ${token.accessToken}` : '',
+      Authorization: token ? `Bearer ${token}` : "",
     },
   });
 };

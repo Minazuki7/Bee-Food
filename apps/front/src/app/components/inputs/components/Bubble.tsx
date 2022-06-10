@@ -1,5 +1,5 @@
-import React from 'react';
-import './bubble.css';
+import React from "react";
+import "./bubble.css";
 
 interface BubbleProps {
   text: string;
@@ -7,10 +7,7 @@ interface BubbleProps {
 }
 
 const Bubble = ({ text, className }: BubbleProps) => {
-  return (
-    <div className="speech-bubble">{text}</div>
-
-  );
+  return <div className="speech-bubble ">{text}</div>;
 };
 
 export default Bubble;

@@ -8,7 +8,7 @@ export type RefreshTokenDocument = RefreshToken & Document;
 
 @ObjectType()
 export class RefreshToken {
-  @Prop({ required: true, index: true })
+  @Prop({ /*required: true, index: true */ required: false })
   @Field(() => String, { description: "Refresh token" })
   token: string;
 

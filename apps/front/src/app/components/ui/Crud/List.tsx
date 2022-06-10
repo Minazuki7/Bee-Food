@@ -1,10 +1,10 @@
 import Pagination, {
   PaginationProps,
-} from '@components/data-display/Pagination';
-import Table, { TableProps, TableItem } from '@components/data-display/Table';
-import useTableControls from '@hooks/useTableControls';
-import { useMemo } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+} from "@components/data-display/Pagination";
+import Table, { TableProps, TableItem } from "@components/data-display/Table";
+import useTableControls from "@hooks/useTableControls";
+import { useMemo } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 interface ListProps<T extends TableItem>
   extends TableProps<T>,
@@ -24,6 +24,7 @@ const List = <T extends TableItem>({
   canCreate,
   canUpdate,
 }: ListProps<T>) => {
+  console.log("data", data);
   const navigate = useNavigate();
   const headers = useTableControls(headersProp, data, {
     onEdit: canUpdate
@@ -34,7 +35,7 @@ const List = <T extends TableItem>({
       : undefined,
     onMultipleDelete: canDelete
       ? (ids) =>
-          navigate({ pathname: `delete/${ids.join(',')}` }, { replace: true })
+          navigate({ pathname: `delete/${ids.join(",")}` }, { replace: true })
       : undefined,
   });
   return (

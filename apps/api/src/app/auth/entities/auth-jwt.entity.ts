@@ -6,7 +6,10 @@ import { User } from "./../../users/entities/users.entity";
 export class AuthResult {
   @Field(() => String, { description: "JWT authorization token" })
   token: string;
-  @Field(() => String, { description: "JWT authorization refresh token" })
+  @Field(() => String, {
+    description: "JWT authorization refresh token",
+    nullable: true,
+  })
   refreshToken: string;
   @Field(() => User, { description: "logged in user" })
   user: User;

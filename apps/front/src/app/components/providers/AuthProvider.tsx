@@ -1,9 +1,9 @@
-import { memo, ReactNode, useEffect, useState } from 'react';
+import { memo, ReactNode, useEffect, useState } from "react";
 
-import AuthContext from '@contexts/AuthContext';
-import startup from '@utils/startup';
+import AuthContext from "@contexts/AuthContext";
+import startup from "@utils/startup";
 
-import { User } from '@requests/user';
+import { User } from "@requests/user";
 
 interface AuthProviderProps {
   children: ReactNode;
