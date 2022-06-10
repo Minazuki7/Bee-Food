@@ -27,15 +27,13 @@ class _OrderDetailsState extends State<OrderDetails> {
  	order{
       id
       items
+      status 
+    	price
+      totalPrice
+      deliveryFees
       branch{
         name
       }
-      client{
-        firstName 
-        lastName
-      }status 
-      totalPrice
-      deliveryFees
     }
     totalPrice
   }
@@ -50,6 +48,9 @@ class _OrderDetailsState extends State<OrderDetails> {
   }
 }
   ''';
+
+
+  Future<void> _refresh() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +73,7 @@ class _OrderDetailsState extends State<OrderDetails> {
               children: [
                 Center(
                   child: Text(
-                    "Ordering from ${result.data?['getOrder']['order']['branch']['name'].toString()}",
+                    "Ordering from \n${result.data?['getOrder']['order']['branch']['name'].toString()}",
                     style: const TextStyle(
                       fontFamily: 'CircularStd',
                       fontWeight: FontWeight.bold,
@@ -115,7 +116,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                       primaryColor: colors.MainColor,
                       secondaryColor: colors.SecondaryColor,
                       onClick: () {
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MapLocation(37.42796133580664, -122.085749655962)));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => MapLocation(36.8123866, 10.1691902)));
                       }),
                 ),
                 SizedBox(
@@ -128,6 +129,17 @@ class _OrderDetailsState extends State<OrderDetails> {
                     content: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        Center(
+                          child: Text("Ref code: [${result.data!['getOrder']['order']['id']}]",
+                            style: const TextStyle(
+                              fontFamily: 'CircularStd',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12.0,
+                              color: colors.Black,
+                            ),
+                          ),
+                        ),
+
                         tools.HR("Items to Deliver"),
 
                         Row(
@@ -139,7 +151,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                         ),
                         SingleChildScrollView(
                           child: Container(
-                            height: 100,
+                            height: 50,
                             child: ListView.builder(
                                 itemCount: result.data!['getOrder']['order']['items'].length,
                                 itemBuilder: (context, index) {
@@ -159,7 +171,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(itemsResult.data!['item']['title']),
-                                            Text(itemsResult.data!['item']['price'].toString()+",000"),
+                                            Text(itemsResult.data!['item']['price'].toString()+",000 TND"),
                                           ],
                                         );
                                       }
@@ -168,8 +180,22 @@ class _OrderDetailsState extends State<OrderDetails> {
                             ),
                           ),
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Total items price",style: TextStyle(fontWeight: FontWeight.bold,),),
+                            Text("${result.data?['getOrder']['order']['price'].toString()},000 TND",style: TextStyle(fontWeight: FontWeight.bold,)),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Delivery fees",style: TextStyle(fontWeight: FontWeight.bold,),),
+                            Text("+${result.data?['getOrder']['order']['deliveryFees'].toString()},000 TND",style: TextStyle(fontWeight: FontWeight.bold,)),
+                          ],
+                        ),
                         tools.HR("Total Price"),
-                        Text("${result.data?['getOrder']['totalPrice'].toString()},000 TND", style: const TextStyle(fontSize: 20.0,),),
+                        Text("${result.data?['getOrder']['order']['totalPrice'].toString()},000 TND", style: const TextStyle(fontSize: 20.0,),),
 
                       ],
                     ),

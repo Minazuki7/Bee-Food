@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:driver_app/const/Colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../screens/LoadingScreen.dart';
 
 class NavBars {
 
   static PreferredSizeWidget NavBar({
     status = false,
+    textStatus = "offline",
+    color: Colors.white,
     onClick
   }) {
     return AppBar(
@@ -16,25 +21,34 @@ class NavBars {
           padding: const EdgeInsets.only(left: 15, top: 10),
           child: IconButton(
             icon: const Icon(
-              Icons.menu,
+              Icons.logout,
               size: 40,
             ),
-            color: Colors.white,
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
+            color: color,
+            onPressed: () async {
+                final SharedPreferences prefs = await SharedPreferences.getInstance();
+                await prefs.remove('id');
+                Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const LoadingScreen()));
             },
           ),
         ),
       ),
       actions: [
-        Padding(
+        Container(
           padding: const EdgeInsets.only(top: 20, right: 20),
-          child: FlutterSwitch(
-            width: 60,
-            value: status,
-            activeColor: colors.MainColor,
-            onToggle: onClick,
-          ),
+          child: Row(
+            children: [
+              Text(
+                  "${textStatus} ",style: TextStyle(color: color,),),
+              FlutterSwitch(
+                width: 60,
+                value: status,
+                activeColor: colors.MainColor,
+                onToggle: onClick,
+              ),
+            ],
+          )
         ),
       ],
     );

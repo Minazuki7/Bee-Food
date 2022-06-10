@@ -5,6 +5,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:driver_app/const/Colors.dart';
 
 import '../components/BottomNavBar.dart';
+import '../components/NavBar.dart';
 import '../requests/DriversOrderList.dart';
 import 'Navigation.dart';
 
@@ -17,6 +18,7 @@ class MyOrders extends StatefulWidget {
 
 class _MyOrdersState extends State<MyOrders> {
   bool status = false;
+  String? textStatus = "offline";
 
   @override
   void initState() {
@@ -26,42 +28,14 @@ class _MyOrdersState extends State<MyOrders> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const Navigation(),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: Builder(
-          builder: (context) =>
-            Padding(
-              padding: const EdgeInsets.only(left: 10, top: 10),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.menu,
-                  size: 40,
-                  color: colors.MainColor,
-                ),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-              ),
-            ),
+        appBar: NavBars.NavBar(status: status, color: colors.MainColor, onClick: (val) {
+          setState(() {
+            status = val;
+            if(status) textStatus = "online";
+            else textStatus = "offline";
+          });
+        },
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(top: 20, right: 20),
-            child: FlutterSwitch(
-              width: 60,
-              value: status,
-              activeColor: colors.MainColor,
-              onToggle: (val) {
-                setState(() {
-                  status = val;
-                });
-              },
-            ),
-          ),
-        ],
-      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(top: 8),
         child: Column(

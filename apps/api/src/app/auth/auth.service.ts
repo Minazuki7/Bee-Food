@@ -99,17 +99,24 @@ export class AuthService {
     throw new UnauthorizedException();
   }
 
+  
   async ChangePassword(
-    id:string,
+    phone:string,
     password:string,
-    updateUserInput:UpdateUserInput
+    newPassword:string
   ){
-    const user = await this.usersService.findById(id);   
+    const user = await this.usersService.findByPhone(phone);   
     const { password: encryptedPassword } = user;
     
-    if (await bcrypt.compare(password, encryptedPassword)) {
-      return this.usersService.update(id,updateUserInput);
-    }
-    throw new NotFoundException({ message: "Please enter your old password" });
+    if(password == newPassword) 
+    throw new NotFoundException({ message: "Error: Cannot update the same password" });
+    else {if (await bcrypt.compare(password, encryptedPassword)) {
+      console.log(password);
+      const salt = await bcrypt.genSalt(Number(process.env.BCRYPT_ROUNDS));
+      user.password = await bcrypt.hash(newPassword, salt);
+      return user.save();
+    }}
+    throw new NotFoundException({ message: "Error: Can't update password" });
   }
+  
 }
