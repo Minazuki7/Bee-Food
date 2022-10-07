@@ -2,11 +2,15 @@ import { gql } from "@apollo/client";
 
 export const ORDERS_QUERY = gql`
   query {
-    orders {
+    findAllOrders {
       data {
         id
         totalPrice
         status
+
+        branch {
+          name
+        }
       }
       page
       totalPages
@@ -16,22 +20,18 @@ export const ORDERS_QUERY = gql`
   }
 `;
 export const ORDER_QUERY = gql`
-  query ($id: String!) {
-    getOrder(id: $id) {
-      order {
-        id
-        items
-        branch {
-          name
-        }
-        client {
-          firstName
-          lastName
-        }
-        status
-        totalPrice
-        deliveryFees
+  query ($id: ID!) {
+    findOrder(id: $id) {
+      id
+      items
+      status
+      price
+      totalPrice
+      deliveryFees
+      branch {
+        name
       }
+
       totalPrice
     }
   }

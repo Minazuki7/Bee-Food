@@ -3,7 +3,7 @@ import { MongooseModule } from "@nestjs/mongoose";
 
 import { ZonesService } from "./zones.service";
 import { ZonesResolver } from "./zones.resolver";
-import { Zone, ZoneSchema } from "./entities/zone.entity";
+import { Zone, ZoneSchema } from "@fd-wereact/schemas";
 
 @Module({
   imports: [

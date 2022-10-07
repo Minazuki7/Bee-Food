@@ -4,7 +4,7 @@ import { Model } from "mongoose";
 
 import { CreateZoneInput } from "./dto/create-zone.input";
 import { UpdateZoneInput } from "./dto/update-zone.input";
-import { Zone, ZoneDocument } from "./entities/zone.entity";
+import { Zone, ZoneDocument } from "@fd-wereact/schemas";
 
 @Injectable()
 export class ZonesService {

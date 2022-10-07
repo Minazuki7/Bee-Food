@@ -1,28 +1,38 @@
-import { Resolver, Query, Mutation, Args } from "@nestjs/graphql";
+import { PaginatedList } from "@fd-wereact/nest-common";
+//import { Model } from "mongoose";
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ObjectType,
+  ID,
+} from "@nestjs/graphql";
 import { BranchesService } from "./branches.service";
-import { Branch } from "./entities/branch.entity";
+import { Model } from "mongoose";
+import { Branch, BranchDocument } from "@fd-wereact/schemas";
 import { CreateBranchInput } from "./dto/create-branch.input";
 import { UpdateBranchInput } from "./dto/update-branch.input";
+import { CrudResolver } from "@fd-wereact/nest-common";
+import { InjectModel } from "@nestjs/mongoose";
 
+@ObjectType()
+export class PaginatedBranches extends PaginatedList(Branch) {}
 @Resolver(() => Branch)
-export class BranchesResolver {
-  constructor(private readonly branchesService: BranchesService) {}
+export class BranchesResolver extends CrudResolver(Branch, PaginatedBranches) {
+  constructor(
+    private readonly branchesService: BranchesService,
+    @InjectModel(Branch.name)
+    branchModel: Model<BranchDocument>
+  ) {
+    super(branchModel);
+  }
 
   @Mutation(() => Branch)
   createBranch(
     @Args("createBranchInput") createBranchInput: CreateBranchInput
   ) {
     return this.branchesService.create(createBranchInput);
-  }
-
-  @Query(() => [Branch], { name: "branches" })
-  findAll() {
-    return this.branchesService.findAll();
-  }
-
-  @Query(() => Branch, { name: "branch" })
-  findOne(@Args("id", { type: () => String }) id: string) {
-    return this.branchesService.findOne(id);
   }
 
   @Mutation(() => Branch)
@@ -32,9 +42,9 @@ export class BranchesResolver {
   ) {
     return this.branchesService.update(id, updateBranchInput);
   }
-
-  @Mutation(() => Branch)
-  removeBranch(@Args("id", { type: () => String }) id: string) {
-    return this.branchesService.remove(id);
+  @Query(() => PaginatedBranches)
+  findBranchByZone(@Args("zone", { type: () => ID }) zone: string) {
+    const branch = this.branchesService.findByZone(zone);
+    return { data: branch };
   }
 }

@@ -5,7 +5,7 @@ import * as bcrypt from "bcrypt";
 
 import { CreateUserInput } from "./dto/create-user.input";
 import { UpdateUserInput } from "./dto/update-user.input";
-import { User, UserDocument } from "./entities/users.entity";
+import { User, UserDocument } from "@fd-wereact/schemas";
 
 @Injectable()
 export class UsersService {
@@ -14,6 +14,7 @@ export class UsersService {
     const { password: plainPassword } = createUserInput;
     const salt = await bcrypt.genSalt(Number(process.env.BCRYPT_ROUNDS));
     const password = await bcrypt.hash(plainPassword, salt);
+    createUserInput.isActive = true;
     return this.userModel.create({ ...createUserInput, password });
   }
 
@@ -29,6 +30,11 @@ export class UsersService {
     return this.userModel.findByIdAndUpdate(id, updateUserInput).exec();
   }
 
+  async disable(id: string) {
+    const user = await this.userModel.findById(id).exec();
+    user.isActive = false;
+    return user.save();
+  }
   async remove(id: string) {
     return this.userModel.findByIdAndRemove(id).exec();
   }
@@ -39,23 +45,24 @@ export class UsersService {
   async findByPhone(phone: string) {
     return this.userModel.findOne({ phone }).exec();
   }
+  async findActive() {
+    return await this.userModel.find({ isActive: true });
+  }
 
   async findOne<T extends Record<string, string>>(param: T) {
     return this.userModel.findOne({ param }).exec();
   }
 
-  async displayDriver(
-    id:string
-  ):Promise<{
+  async displayDriver(id: string): Promise<{
     firstName: string;
-    lastName:String
+    lastName: string;
     email: string;
-    phone:String
+    phone: string;
   }> {
     const user = await this.findById(id);
 
-    const {firstName, lastName, email,phone} = user
-    
-    return {firstName,lastName,email,phone};
+    const { firstName, lastName, email, phone } = user;
+
+    return { firstName, lastName, email, phone };
   }
 }

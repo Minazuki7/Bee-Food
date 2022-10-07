@@ -14,6 +14,7 @@ module.exports = {
       colors: {
         white: '#fff',
         black: '#131F2A',
+        trueblack: ' #000000',
         'dropdown-border': '#7070701A',
         blue: '#0019BB',
         borderOrange: '#131F2A21',
@@ -33,7 +34,12 @@ module.exports = {
         search: 'rgba(255, 255, 255, 0.06)',
         tableBorder: '#70707040',
         tableRow: '#F6F6F7',
-        cyan:"#CBDEFF"
+        cyan:"#CBDEFF",
+        redbox : 'rgba(255, 103, 108, 0.2)',
+        redtyping :'rgba(255, 103, 108, 1)',
+        greenbox : 'rgba(75, 194, 119, 0.2)',
+        greentyping :'rgba(75, 194, 119, 1)',
+        
       },
       
       minWidth: {

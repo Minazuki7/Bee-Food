@@ -1,13 +1,10 @@
-import { Order } from "./../orders/entities/order.entity";
+import { Order } from "@fd-wereact/schemas";
 import { Model } from "mongoose";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { CreateOrderDetailInput } from "./dto/create-order-detail.input";
 import { UpdateOrderDetailInput } from "./dto/update-order-detail.input";
-import {
-  OrderDetail,
-  OrderDetailDocument,
-} from "./entities/order-detail.entity";
+import { OrderDetail, OrderDetailDocument } from "@fd-wereact/schemas";
 import { StockService } from "../stock/stock.service";
 import { ItemsService } from "../items/items.service";
 import { MenusService } from "../menus/menus.service";
@@ -61,7 +58,7 @@ export class OrderDetailsService {
   async updateStock(item: string) {
     const stock = await this.stockService.findItem(item);
 
-    await this.stockService.updateCount(stock.id, item);
+    await this.itemsService.updateCount(stock.id, item);
   }
 
   async getPriceItem(items: string[]) {
@@ -86,7 +83,7 @@ export class OrderDetailsService {
 
   async checkStock(item: string) {
     const stock = await this.stockService.findItem(item);
-    return this.stockService.checkStock(stock.id, item);
+    return this.itemsService.checkStock(stock.id, item);
   }
 
   async findAll() {
@@ -107,17 +104,18 @@ export class OrderDetailsService {
     return this.orderDetailModel.findByIdAndRemove(id).exec();
   }
 
-  
-  async findAllByOrder(order: string){
+  async findAllByOrder(order: string) {
     return await this.orderDetailModel.find({ order }).exec();
   }
-  
-  async findItems(item: string){
+
+  async findItems(item: string) {
     return await this.orderDetailModel.find({ item }).exec();
   }
 
-  async findByOrder(order: string){
-    const orderdetail = await this.orderDetailModel.findOne({ order }).populate({path : 'order',populate : {path : 'client branch'}});;
+  async findByOrder(order: string) {
+    const orderdetail = await this.orderDetailModel
+      .findOne({ order })
+      .populate({ path: "order", populate: { path: "client branch" } });
     return orderdetail;
   }
 }

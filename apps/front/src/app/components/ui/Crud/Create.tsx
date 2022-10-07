@@ -2,8 +2,8 @@ import {
   ApolloError,
   MutationHookOptions,
   MutationTuple,
-} from '@apollo/client';
-import { ComponentType, useEffect } from 'react';
+} from "@apollo/client";
+import { ComponentType, useEffect } from "react";
 
 export type MutationParams<T> = T extends (
   ...args: any[]

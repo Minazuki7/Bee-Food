@@ -1,11 +1,11 @@
-import { InputType, Int, Field } from "@nestjs/graphql";
+import { InputType, Int, Field, ID } from "@nestjs/graphql";
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 @InputType()
 export class CreateZoneInput {
   @IsNotEmpty()
   @IsString()
-  @Field(() => String, { description: "Zone's city" })
+  @Field(() => ID, { description: "Zone's city" })
   city: string;
 
   @IsNotEmpty()
@@ -17,4 +17,7 @@ export class CreateZoneInput {
   @IsNumber()
   @Field(() => Int, { description: "Zone Raduis in Km" })
   raduis: number;
+
+  // @Field(() => ID, { description: "Location Lat,Lang" })
+  // location: string;
 }

@@ -1,23 +1,29 @@
 export enum RESOURCE {
-  ANY = 'any',
-  VENDOR = 'vendor',
-  COMPANY = 'company',
-  DRIVER = 'driver',
-  ROLE = 'role',
-  ADMIN = 'admin',
-  TRUCK = 'truck',
-  CITY = 'city',
-  GOVERNORATE = 'governorate',
-  ZONE = 'zone',
-  LOCALITY = 'locality',
-  DEPOSIT = 'deposit',
+  ANY = "any",
+  VENDOR = "vendor",
+  COMPANY = "company",
+  DRIVER = "driver",
+  ROLE = "role",
+  ADMIN = "admin",
+  TRUCK = "truck",
+  CITY = "city",
+  GOVERNORATE = "governorate",
+  ZONE = "zone",
+  LOCALITY = "locality",
+  DEPOSIT = "deposit",
+  ORDER = "order",
+  BRANCH = "branch",
+  FRANCHISE = "franchise",
+  USER = "user",
+  CLIENT = "client",
+  SUPER_ADMIN = "superadmin",
 }
 
 export enum PERMISSION_TYPE {
-  ALL = '*',
-  READ = 'read',
-  WRITE = 'write',
-  DELETE = 'delete',
+  ALL = "*",
+  READ = "read",
+  WRITE = "write",
+  DELETE = "delete",
 }
 
 export interface Permission {
@@ -26,10 +32,11 @@ export interface Permission {
 }
 
 export enum ROLE {
-  ALL = '*',
-  ADMIN = 'admin',
-  CLIENT = 'client',
-  SUPER_ADMIN = 'super-admin',
+  ALL = "*",
+  ADMIN = "admin",
+  CLIENT = "client",
+  SUPER_ADMIN = "superadmin",
+  OWNER = "owner",
 }
 
 export function isPermissionFound(
@@ -39,7 +46,7 @@ export function isPermissionFound(
   const { resource } = permission;
   if (resource === RESOURCE.ANY) return true;
 
-  if (typeof resource === 'string') {
+  if (typeof resource === "string") {
     const userPermission = userPermissions.find(
       ({ resource: r }) => r === RESOURCE.ANY || r === resource
     );

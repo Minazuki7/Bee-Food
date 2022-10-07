@@ -1,12 +1,10 @@
-import { Client } from "./../clients/entities/client.entity";
-import { User } from "./../users/entities/users.entity";
 import { ORDER_STATUS } from "@fd-wereact/nest-common";
 import { Model } from "mongoose";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { CreateOrderInput } from "./dto/create-order.input";
 import { UpdateOrderInput } from "./dto/update-order.input";
-import { Order, OrderDocument } from "./entities/order.entity";
+import { Order, OrderDocument, Client, User } from "@fd-wereact/schemas";
 import { OrderDetailsService } from "./../order-details/order-details.service";
 import { BranchesService } from "./../branches/branches.service";
 import { GraphQLError } from "graphql";
@@ -21,7 +19,7 @@ export class OrdersService {
   ) {}
   async create(
     createOrderInput: CreateOrderInput,
-    client: Client
+    client: User
   ): Promise<Order> {
     const { items, menus } = createOrderInput;
 
@@ -36,7 +34,7 @@ export class OrdersService {
       await this.branchesService.findOne(createOrderInput.branch)
     ).populate("company");
 
-    createdOrder.client = await client;
+    createdOrder.client = client;
     createdOrder.compnay = branch.company;
     createdOrder.deliveryFees = branch.company.deliveryFee;
     createdOrder.zone = createdOrder.branch.zone;
@@ -98,13 +96,11 @@ export class OrdersService {
   }
 
   async findAll() {
-    return this.orderModel.find().exec();
+    return this.orderModel.find().populate("branch client").exec();
   }
 
   async findOne(id: string) {
-
     return this.orderModel.findById(id).exec();
-
   }
 
   async update(id: string, updateOrderInput: UpdateOrderInput) {
@@ -112,11 +108,15 @@ export class OrdersService {
   }
 
   async findNonAffectedOrders() {
-    return await this.orderModel.find({ driver: { $exists: false } }).populate("zone client driver branch");
-    }
+    return await this.orderModel
+      .find({ driver: { $exists: false } })
+      .populate("zone client driver branch");
+  }
 
   async findDriversOrders(driver: string) {
-    return this.orderModel.find({ driver }).populate("zone client driver branch");
+    return this.orderModel
+      .find({ driver })
+      .populate("zone client driver branch");
   }
 
   async getDriverOrders(id: string, driver: string) {
@@ -127,7 +127,8 @@ export class OrdersService {
 
   async assignOrderToDriver(id: string, driverId: string) {
     const order = await this.orderModel.findById(id);
-    if (order.driver) throw new GraphQLError("This order is been already taken");
+    if (order.driver)
+      throw new GraphQLError("This order is been already taken");
     return this.orderModel.findByIdAndUpdate(id, { driver: driverId });
   }
 
@@ -135,15 +136,17 @@ export class OrdersService {
     return this.orderModel.findByIdAndRemove(id).exec();
   }
 
-  async getOrder(id:string){
+  async getOrder(id: string) {
     const order = await this.OrderDetailsService.findByOrder(id);
     return order;
   }
 
-  async setOrderStatus(id: string){
-    const order =  await this.orderModel.findOneAndUpdate({_id: id}, {status: ORDER_STATUS.delivered});
-    console.log(order,id);
+  async setOrderStatus(id: string) {
+    const order = await this.orderModel.findOneAndUpdate(
+      { _id: id },
+      { status: ORDER_STATUS.delivered }
+    );
+    console.log(order, id);
     return order;
   }
-
 }

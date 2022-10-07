@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 
-import { Branch, BranchSchema } from "./entities/branch.entity";
+import { Branch, BranchSchema } from "@fd-wereact/schemas";
 import { BranchesService } from "./branches.service";
 import { BranchesResolver } from "./branches.resolver";
 

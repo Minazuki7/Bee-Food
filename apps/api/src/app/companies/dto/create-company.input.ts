@@ -1,5 +1,11 @@
 import { InputType, Int, Field } from "@nestjs/graphql";
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from "class-validator";
 
 @InputType()
 export class CreateCompanyInput {
@@ -11,6 +17,9 @@ export class CreateCompanyInput {
   @Field(() => String, { description: "compnay's picture", nullable: true })
   picture?: string;
 
+  @IsEmail()
+  @Field(() => String, { description: "user's email" })
+  email: string;
   @IsNotEmpty()
   @Field(() => String, { description: "compnay's description" })
   description: string;

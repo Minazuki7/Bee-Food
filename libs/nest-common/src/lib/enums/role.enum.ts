@@ -1,4 +1,5 @@
 export enum ROLES {
+  superadmin = "superadmin",
   admin = "admin",
   client = "client",
   driver = "driver",

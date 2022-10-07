@@ -1,15 +1,16 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const COMPANIES_QUERY = gql`
-  query companies($page: Int, $perPage: Int) {
-    companies(page: $page, perPage: $perPage) {
+  query {
+    findAllCompanys {
       count
       page
       data {
         id
-        phone
         name
-        address
+        email
+        description
+        deliveryFee
       }
       perPage
       totalPages
@@ -19,11 +20,12 @@ export const COMPANIES_QUERY = gql`
 
 export const COMPANY_QUERY = gql`
   query company($id: ID!) {
-    company(id: $id) {
+    findCompany(id: $id) {
       id
       name
-      phone
-      address
+      email
+      description
+      deliveryFee
     }
   }
 `;
@@ -31,15 +33,17 @@ export const COMPANY_QUERY = gql`
 export const CREATE_COMPANY_MUTATION = gql`
   mutation createCompany(
     $name: String!
-    $phone: String!
-    $address: String
-    $isActive: Boolean!
+    $email: String!
+    $description: String!
+    $deliveryFee: Int!
   ) {
     createCompany(
-      name: $name
-      phone: $phone
-      address: $address
-      isActive: $isActive
+      createCompanyInput: {
+        name: $name
+        email: $email
+        description: $description
+        deliveryFee: $deliveryFee
+      }
     ) {
       id
     }
@@ -48,19 +52,28 @@ export const CREATE_COMPANY_MUTATION = gql`
 
 export const UPDATE_COMPANY_MUTATION = gql`
   mutation updateCompany(
-    $id: ID!
-    $name: String
-    $phone: string
-    $address: string
+    $id: String!
+    $name: String!
+    $email: String!
+    $description: String!
+    $deliveryFee: Int!
   ) {
-    updateCompany(id: $id, name: $name, phone: $phone, address: $address) {
+    updateCompany(
+      id: $id
+      updateCompanyInput: {
+        name: $name
+        email: $email
+        description: $description
+        deliveryFee: $deliveryFee
+      }
+    ) {
       id
     }
   }
 `;
 
 export const DELETE_COMPANY_MUTATION = gql`
-  mutation removeCompany($id: ID, $ids: [ID]) {
-    removeCompany(id: $id, ids: $ids)
+  mutation removeCompany($id: ID!) {
+    removeCompany(id: $id)
   }
 `;

@@ -1,77 +1,76 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const DRIVERS_QUERY = gql`
-  query drivers($page: Int, $perPage: Int) {
-    drivers(page: $page, perPage: $perPage) {
-      count
-      page
+  query {
+    ActiveDriversAccounts {
       data {
         id
-        code
+        cash
         firstName
         lastName
-        address
+        wallet
         phone
-        truck {
+        status
+        email
+        company {
           id
-          matricule
+          name
         }
-        city
-        transportMode
-        profitMargin
-        ratePackage
+        zone {
+          id
+          name
+        }
       }
       perPage
       totalPages
+      count
+      page
     }
   }
 `;
 
 export const DRIVER_QUERY = gql`
-  query driver($id: ID!) {
-    driver(id: $id) {
+  query findDriver($id: ID!) {
+    findDriver(id: $id) {
       id
-      code
+      cash
       firstName
       lastName
-      address
+      wallet
       phone
-      truck {
-        id
-        matricule
+      status
+      email
+      company {
+        name
       }
-      city
-      transportMode
-      profitMargin
-      ratePackage
+      zone {
+        name
+      }
     }
   }
 `;
 
 export const CREATE_DRIVER_MUTATION = gql`
   mutation createDriver(
-    $code: String!
     $firstName: String!
     $lastName: String!
-    $address: String!
-    $phone: [String]!
-    $transportMode: String!
-    $profitMargin: String!
-    $ratePackage: String!
-    $truck: ID!
-    $city: String!
+    $phone: String!
+    $email: String!
+    $company: String!
+    $zone: String!
+    $password: String!
   ) {
     createDriver(
-      code: $code
-      firstName: $firstName
-      lastName: $lastName
-      address: $address
-      phone: $phone
-      truck: $truck
-      city: $city
-      transportMode: $transportMode
-      profitMargin: $profitMargin
-      ratePackage: $ratePackage
+      zone: $zone
+      company: $company
+      createUserInput: {
+        email: $email
+        firstName: $firstName
+        lastName: $lastName
+        phone: $phone
+        role: driver
+        password: $password
+      }
     ) {
       id
     }
@@ -81,29 +80,23 @@ export const CREATE_DRIVER_MUTATION = gql`
 export const UPDATE_DRIVER_MUTATION = gql`
   mutation updateDriver(
     $id: ID!
-    $code: String
     $firstName: String
     $lastName: String
-    $address: String
-    $phone: [String]
-    $transportMode: String
-    $profitMargin: String
-    $ratePackage: String
-    $truck: ID
-    $city: String
+    $phone: String
+    $email: String
+    $company: ID
+    $zone: ID
   ) {
     updateDriver(
       id: $id
-      code: $code
-      firstName: $firstName
-      lastName: $lastName
-      address: $address
-      phone: $phone
-      truck: $truck
-      city: $city
-      transportMode: $transportMode
-      profitMargin: $profitMargin
-      ratePackage: $ratePackage
+      UpdateDriverInput: {
+        zone: $zone
+        company: $company
+        email: $email
+        firstName: $firstName
+        lastName: $lastName
+        phone: $phone
+      }
     ) {
       id
     }
@@ -111,7 +104,7 @@ export const UPDATE_DRIVER_MUTATION = gql`
 `;
 
 export const DELETE_DRIVER_MUTATION = gql`
-  mutation removeDriver($id: ID, $ids: [ID]) {
-    removeDriver(id: $id, ids: $ids)
+  mutation removeDriver($id: ID!) {
+    removeDriver(id: $id)
   }
 `;

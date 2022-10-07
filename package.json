@@ -5,7 +5,8 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "fixtures": "nx fixtures schemas"
   },
   "private": true,
   "dependencies": {
@@ -22,12 +23,16 @@
     "@nestjs/platform-express": "^8.0.0",
     "@nrwl/react": "^14.1.9",
     "@nrwl/web": "^14.1.9",
+    "@react-google-maps/api": "^2.12.2",
+    "@tailwindcss/forms": "^0.5.2",
+    "@types/ol": "^6.3.1",
     "apollo-server-express": "^3.6.7",
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "classnames": "^2.3.1",
     "formik": "^2.2.9",
+    "ga": "^0.0.2",
     "graphql": "^16.3.0",
     "graphql-subscriptions": "^2.0.0",
     "ip": "^1.1.5",
@@ -36,23 +41,30 @@
     "moment": "^2.29.3",
     "mongoose": "^6.2.10",
     "mongoose-autopopulate": "^0.16.1",
+    "ol": "^6.3.1",
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-ga": "^3.3.1",
+    "react-leaflet": "^4.0.2",
     "react-router-dom": "^6.3.0",
+    "react-select": "^5.4.0",
     "react-transition-group": "^4.4.2",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.0.0",
     "tsc-alias": "^1.6.7",
     "tslib": "^2.0.0",
+    "use-places-autocomplete": "^4.0.0",
     "webpack-emit-all-plugin": "^2.0.1",
-    "xss": "^1.0.11"
+    "xss": "^1.0.11",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",
     "@nrwl/cli": "13.9.7",
+    "@nrwl/devkit": "13.9.7",
     "@nrwl/eslint-plugin-nx": "13.9.7",
     "@nrwl/jest": "13.9.7",
     "@nrwl/linter": "13.9.7",
@@ -62,6 +74,7 @@
     "@nx-tools/nx-docker": "^2.3.0",
     "@nxrocks/nx-flutter": "^3.0.2",
     "@types/jest": "27.0.2",
+    "@types/leaflet": "^1.7.11",
     "@types/lodash": "^4.14.182",
     "@types/node": "^16.11.26",
     "@types/passport-jwt": "^3.0.6",
@@ -79,6 +92,7 @@
     "prettier": "^2.5.1",
     "tailwindcss": "^3.0.24",
     "ts-jest": "27.0.5",
+    "ts-node": "^10.4.0",
     "typescript": "~4.5.2"
   }
 }

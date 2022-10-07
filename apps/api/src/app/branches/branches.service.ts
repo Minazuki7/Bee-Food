@@ -4,7 +4,7 @@ import { InjectModel } from "@nestjs/mongoose";
 
 import { CreateBranchInput } from "./dto/create-branch.input";
 import { UpdateBranchInput } from "./dto/update-branch.input";
-import { Branch, BranchDocument } from "./entities/branch.entity";
+import { Branch, BranchDocument } from "@fd-wereact/schemas";
 
 @Injectable()
 export class BranchesService {
@@ -18,11 +18,20 @@ export class BranchesService {
   }
 
   async findAll() {
-    return this.branchModel.find().exec();
+    return this.branchModel.find().populate("franchise zone company").exec();
+  }
+  async findByZone(zone?: string) {
+    return this.branchModel
+      .find({ zone: zone })
+      .populate("franchise zone company")
+      .exec();
   }
 
   async findOne(id: string) {
-    return this.branchModel.findById(id).exec();
+    return this.branchModel
+      .findById(id)
+      .populate("franchise zone company")
+      .exec();
   }
 
   async update(id: string, updateBranchInput: UpdateBranchInput) {

@@ -4,9 +4,9 @@
     "api": "apps/api",
     "driver-app": "apps/driver-app",
     "front": "apps/front",
-    "requests": "libs/requests",
     "nest-common": "libs/nest-common",
-
+    "requests": "libs/requests",
+    "schemas": "libs/schemas",
     "shared": "libs/shared"
   }
 }

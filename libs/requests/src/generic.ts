@@ -7,10 +7,12 @@ export interface List<T> {
 }
 
 export interface ListVariables {
-  page?: number;
-  perPage?: number;
-  sort?: string;
-  order?: 1 | -1;
+  pagination: {
+    page?: number;
+    perPage?: number;
+    sort?: string;
+    order?: 1 | -1;
+  };
 }
 
 export interface DeleteVariables {

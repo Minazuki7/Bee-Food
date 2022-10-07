@@ -2,7 +2,7 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { Module } from "@nestjs/common";
 
 import { CountriesService } from "./countries.service";
-import { Country, CountrySchema } from "./entities/country.entity";
+import { Country, CountrySchema } from "@fd-wereact/schemas";
 import { CountriesResolver } from "./countries.resolver";
 
 @Module({

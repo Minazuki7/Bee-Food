@@ -1,13 +1,34 @@
-import { Resolver, Query, Mutation, Args } from "@nestjs/graphql";
+import { Model } from "mongoose";
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ObjectType,
+  ID,
+} from "@nestjs/graphql";
 
 import { FranchisesService } from "./franchises.service";
-import { Franchise } from "./entities/franchise.entity";
+import { Franchise, FranchiseDocument } from "@fd-wereact/schemas";
 import { CreateFranchiseInput } from "./dto/create-franchise.input";
 import { UpdateFranchiseInput } from "./dto/update-franchise.input";
+import { CrudResolver, PaginatedList } from "@fd-wereact/nest-common";
+import { InjectModel } from "@nestjs/mongoose";
 
+@ObjectType()
+export class PaginatedFranchises extends PaginatedList(Franchise) {}
 @Resolver(() => Franchise)
-export class FranchisesResolver {
-  constructor(private readonly franchisesService: FranchisesService) {}
+export class FranchisesResolver extends CrudResolver(
+  Franchise,
+  PaginatedFranchises
+) {
+  constructor(
+    private readonly franchisesService: FranchisesService,
+    @InjectModel(Franchise.name)
+    franchiseModel: Model<FranchiseDocument>
+  ) {
+    super(franchiseModel);
+  }
 
   @Mutation(() => Franchise)
   createFranchise(
@@ -16,26 +37,11 @@ export class FranchisesResolver {
     return this.franchisesService.create(createFranchiseInput);
   }
 
-  @Query(() => [Franchise], { name: "franchises" })
-  findAll() {
-    return this.franchisesService.findAll();
-  }
-
-  @Query(() => Franchise, { name: "franchise" })
-  findOne(@Args("id", { type: () => String }) id: string) {
-    return this.franchisesService.findOne(id);
-  }
-
   @Mutation(() => Franchise)
   updateFranchise(
     @Args("updateFranchiseInput") updateFranchiseInput: UpdateFranchiseInput,
-    @Args("id", { type: () => String }) id: string
+    @Args("id", { type: () => ID }) id: string
   ) {
     return this.franchisesService.update(id, updateFranchiseInput);
-  }
-
-  @Mutation(() => Franchise)
-  removeFranchise(@Args("id", { type: () => String }) id: string) {
-    return this.franchisesService.remove(id);
   }
 }

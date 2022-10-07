@@ -1,8 +1,10 @@
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { ORDER_STATUS } from "libs/nest-common/src";
+import { Branch } from "../branch";
 
 export interface Order {
   id: string;
-  branch: string;
+  branch: Branch;
   status: ORDER_STATUS;
   client: string;
   company: string;
@@ -14,7 +16,7 @@ export interface Order {
 
 export interface UpdateOrderVariables {
   id: string;
-  branch?: string;
+  branch?: Branch;
   status?: ORDER_STATUS;
   client?: string;
   company: string;
@@ -26,6 +28,6 @@ export interface UpdateOrderVariables {
 
 export interface CreateOrderVariables {
   branch: string;
-  items: string[];
-  menu: string[];
+  items?: string[];
+  menus?: string[];
 }

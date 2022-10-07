@@ -1,5 +1,5 @@
-import { gql } from '@apollo/client';
-import { AUTH_FRAGMENT } from '../auth/fragments';
+import { gql } from "@apollo/client";
+import { AUTH_FRAGMENT } from "../auth/fragments";
 
 export const INITIALIZE_MUTATION = gql`
   mutation Initialize($type: String!, $ref: String!, $email: String!) {
@@ -24,6 +24,17 @@ export const CREATE_USER_MUTATION = gql`
       type: $type
     ) {
       ...AUTH
+    }
+  }
+`;
+export const FIND_USER_QUERY = gql`
+  query findUser($id: ID!) {
+    findUser(id: $id) {
+      email
+      lastName
+      firstName
+      phone
+      isActive
     }
   }
 `;

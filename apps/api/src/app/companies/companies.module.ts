@@ -3,7 +3,7 @@ import { MongooseModule } from "@nestjs/mongoose";
 
 import { CompaniesService } from "./companies.service";
 import { CompaniesResolver } from "./companies.resolver";
-import { Company, CompanySchema } from "./entities/company.entity";
+import { Company, CompanySchema } from "@fd-wereact/schemas";
 
 @Module({
   imports: [

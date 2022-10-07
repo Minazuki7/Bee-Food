@@ -3,7 +3,7 @@ import { PassportStrategy } from "@nestjs/passport";
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 
-import { User } from "../users/entities/users.entity";
+import { User } from "@fd-wereact/schemas";
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
@@ -17,6 +17,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
 
   async validate(payload: User & { _id: string }): Promise<User> {
     const user = await this.authService.validate(payload?._id);
+
     if (!user) {
       throw new UnauthorizedException();
     }

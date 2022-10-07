@@ -4,7 +4,7 @@ import { InjectModel } from "@nestjs/mongoose";
 
 import { CreateMenuInput } from "./dto/create-menu.input";
 import { UpdateMenuInput } from "./dto/update-menu.input";
-import { Menu, MenuDocument } from "./entities/menu.entity";
+import { Menu, MenuDocument } from "@fd-wereact/schemas";
 
 @Injectable()
 export class MenusService {
@@ -26,16 +26,8 @@ export class MenusService {
     return this.menuModel.findById(id).exec();
   }
 
-  async findMenu(catgory?: string, branch?: string) {
-    let filter: { catgory?: string; branch?: string } = {};
-    if (catgory) {
-      filter = { ...filter, catgory };
-    }
-    if (branch) {
-      filter = { ...filter, branch };
-    }
-
-    return this.menuModel.find(filter).exec();
+  async findMenu(branch?: string) {
+    return this.menuModel.find({ branch: branch }).populate("items").exec();
   }
 
   async update(id: string, updateMenuInput: UpdateMenuInput) {

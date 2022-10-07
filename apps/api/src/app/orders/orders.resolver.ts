@@ -7,37 +7,52 @@ import {
   Subscription,
   ResolveField,
   Parent,
+  ObjectType,
 } from "@nestjs/graphql";
 import { PubSub } from "graphql-subscriptions";
+import { Model } from "mongoose";
+import { InjectModel } from "@nestjs/mongoose";
 
-import { CurrentUser } from "@fd-wereact/nest-common";
+import {
+  CrudResolver,
+  CurrentUser,
+  PaginatedList,
+} from "@fd-wereact/nest-common";
 import { OrdersService } from "./orders.service";
-import { SkipAuth } from "@fd-wereact/nest-common";
-import { ListOrders, Order } from "./entities/order.entity";
+import {
+  Order,
+  OrderDocument,
+  Client,
+  OrderDetail,
+  User,
+} from "@fd-wereact/schemas";
 import { CreateOrderInput } from "./dto/create-order.input";
 import { UpdateOrderInput } from "./dto/update-order.input";
-import { Client } from "../clients/entities/client.entity";
-import { OrderDetail } from "../order-details/entities/order-detail.entity";
 import { OrderDetailsService } from "./../order-details/order-details.service";
-import { ItemsService } from "./../items/items.service";
 
 const pubSub = new PubSub();
+
+@ObjectType()
+export class PaginatedOrders extends PaginatedList(Order) {}
 @Resolver(() => Order)
-export class OrdersResolver {
+export class OrdersResolver extends CrudResolver(Order, PaginatedOrders) {
   constructor(
+    private readonly ordersService: OrdersService,
     private OrderDetailsService: OrderDetailsService,
-    private ItemsServices: ItemsService,
-    private readonly ordersService: OrdersService) {}
+    @InjectModel(Order.name)
+    orderModel: Model<OrderDocument>
+  ) {
+    super(orderModel);
+  }
 
   @Subscription(() => Order)
   orderAdded() {
     return pubSub.asyncIterator("orderAdded");
   }
 
-
   @Mutation(() => Order)
   async createOrder(
-    @CurrentUser() client: Client,
+    @CurrentUser() client: User,
     @Args("createOrderInput") createOrderInput: CreateOrderInput
   ) {
     const order = await this.ordersService.create(createOrderInput, client);
@@ -47,25 +62,6 @@ export class OrdersResolver {
     return order;
   }
 
-  @SkipAuth()
-  @Query(() => ListOrders, { name: "orders" })
-  async findAll() {
-    const orders = await this.ordersService.findAll();
-
-    return {
-      data: orders,
-      page: 1,
-      perPage: 10,
-      count: 10,
-      totalPages: 1,
-    };
-  }
-
-  
-  @Query(() => Order, { name: "order" })
-  findOne(@Args("id", { type: () => ID }) id: string) {
-    return this.ordersService.findOne(id);
-  }
   @Mutation(() => Order, { name: "acceptOrder" })
   acceptOrder(@Args("id", { type: () => String }) id: string) {
     return this.ordersService.statusUpdate(id);
@@ -75,11 +71,10 @@ export class OrdersResolver {
     return this.ordersService.statusUpdate(id);
   }
 
-
   @Mutation(() => Order)
-  updateOrder(  
+  updateOrder(
     @Args("updateOrderInput") updateOrderInput: UpdateOrderInput,
-    @Args("id", { type: () => String }) id: string  
+    @Args("id", { type: () => String }) id: string
   ) {
     return this.ordersService.update(id, updateOrderInput);
   }
@@ -92,30 +87,27 @@ export class OrdersResolver {
     return this.ordersService.orderCancling(id);
   }
 
-  
-  @Mutation(() => Order, { name: "addOrder"})
+  @Mutation(() => Order, { name: "addOrder" })
   async assignOrderToDriver(
     @Args("driverId", { type: () => String }) driverId: string,
     @Args("id", { type: () => ID }) id: string
   ) {
-      return this.ordersService.assignOrderToDriver(id, driverId);
+    return this.ordersService.assignOrderToDriver(id, driverId);
   }
 
-
-  @Query(() => Order, { name: "getDriverOrders"})
+  @Query(() => Order, { name: "getDriverOrders" })
   async getDriverOrders(
     @Args("driver") driver: string,
     @Args("id", { type: () => String }) id: string
   ) {
-      return this.ordersService.getDriverOrders(id, driver);
+    return this.ordersService.getDriverOrders(id, driver);
   }
-
 
   @Mutation(() => Order)
   removeOrder(@Args("id", { type: () => ID }) id: string) {
     return this.ordersService.remove(id);
   }
- 
+
   @Query(() => [Order], { name: "findOrders" })
   findNonAffectedOrders() {
     return this.ordersService.findNonAffectedOrders();
@@ -134,8 +126,8 @@ export class OrdersResolver {
   @ResolveField()
   async items(@Parent() order: Order) {
     const { id } = order;
-    const Items = await this.OrderDetailsService.findByOrder(id);
-    return Items.items;
+    const { items } = await this.OrderDetailsService.findByOrder(id);
+    return items;
   }
 
   @Mutation(() => Order, { name: "setOrderStatus" })

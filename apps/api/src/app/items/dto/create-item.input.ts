@@ -8,8 +8,6 @@ import {
   IsOptional,
   IsString,
 } from "class-validator";
-import { Branch } from "../../branches/entities/branch.entity";
-import { Stock } from "../../stock/entities/stock.entity";
 
 @InputType()
 export class CreateItemInput {
