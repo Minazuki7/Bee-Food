@@ -1,6 +1,6 @@
 import ModalContainer from "@components/feedback/Modal";
 
-import Close from "../../assets/svg/closeOrange.svg";
+import Close from "@assets/svg/closeOrange.svg";
 
 import { useState } from "react";
 import { CreateOrderVariables, useCreateOrder } from "@requests/order";

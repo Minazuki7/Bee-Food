@@ -1,9 +1,9 @@
 import Header from "@components/layout/Header";
 import Drawer from "@components/layout/Drawer/Drawer";
-import BG from "../../../assets/png/BG.png";
+import BG from "@assets/png/BG.png";
 import useUser from "@hooks/useUser";
 import { ROLE } from "@shared/permission";
-import LOGO from "../../../assets/png/logo.png";
+import LOGO from "@assets/png/logo.png";
 
 const Page: React.FC<any> = ({ children }) => {
   const user = useUser();

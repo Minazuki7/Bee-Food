@@ -12,8 +12,8 @@ import { useLogin } from "@requests/auth/mutations";
 import useUser from "@hooks/useUser";
 import Redirect from "@components/ui/Redirect";
 import { decodeUri } from "@utils/url";
-import LOGO from "../../assets/png/logo.png";
-import DRIVER from "../../assets/png/DRIVER.png";
+import LOGO from "@assets/png/logo.png";
+import DRIVER from "@assets/png/DRIVER.png";
 
 const Login = () => {
   const user = useUser();

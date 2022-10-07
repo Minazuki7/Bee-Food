@@ -2,12 +2,12 @@ import Button from "@components/button/Button";
 import classNames from "classnames";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import food1 from "../../assets/png/food1.jpg";
-import food2 from "../../assets/png/food2.jpg";
-import food3 from "../../assets/png/food3.jpg";
-import food4 from "../../assets/png/food4.jpg";
-import food5 from "../../assets/png/food5.png";
-import food6 from "../../assets/png/food6.jpg";
+import food1 from "@assets/png/food1.jpg";
+import food2 from "@assets/png/food2.jpg";
+import food3 from "@assets/png/food3.jpg";
+import food4 from "@assets/png/food4.jpg";
+import food5 from "@assets/png/food5.png";
+import food6 from "@assets/png/food6.jpg";
 interface CardProps
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLDivElement>,

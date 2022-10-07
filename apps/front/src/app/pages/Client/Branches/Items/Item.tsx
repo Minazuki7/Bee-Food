@@ -7,7 +7,7 @@ import { useCreateItem, useItemes, useItemesPerBranch } from "@requests/item/";
 import { useMenusPerBranch } from "@requests/menu";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import cart from "../../../../assets/svg/Cart.svg";
+import cart from "@assets/svg/Cart.svg";
 
 interface itemType {
   name: string;

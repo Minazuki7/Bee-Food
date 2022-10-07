@@ -11,9 +11,9 @@ import {
   validateEmail,
   validatePassword,
 } from "@utils/validation";
-import hiddenPassword from "../../assets/svg/password.svg";
-import home from "../../assets/svg/homeOrange.svg";
-import address from "../../assets/svg/addressOrange.svg";
+import hiddenPassword from "@assets/svg/password.svg";
+import home from "@assets/svg/homeOrange.svg";
+import address from "@assets/svg/addressOrange.svg";
 import { FormikProps, Formik, Form, useFormik } from "formik";
 import { useLocation, useNavigate } from "react-router-dom";
 import React from "react";

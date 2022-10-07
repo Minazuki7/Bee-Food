@@ -7,7 +7,7 @@ import { encodeUri } from "@utils/url";
 import { User } from "@requests/user";
 import { RESOURCE, ROLE } from "@shared/permission";
 import NotFound from "./NotFound";
-import NotFoundImg from "../../assets/png/NotFound.png";
+import NotFoundImg from "@assets/png/NotFound.png";
 
 const isValid = <T,>(data: T | T[], value: T | T[], allValue: T): boolean => {
   if (Array.isArray(data))

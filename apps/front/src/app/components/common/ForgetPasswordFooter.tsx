@@ -1,9 +1,9 @@
-import React from 'react';
-import question from '../../assets/svg/questionMark.svg';
-import file from '../../assets/svg/file.svg';
-import { useNavigate } from 'react-router-dom';
-import classNames from 'classnames';
-import ImageTextRow from './ImageTextRow';
+import React from "react";
+import question from "@assets/svg/questionMark.svg";
+import file from "@assets/svg/file.svg";
+import { useNavigate } from "react-router-dom";
+import classNames from "classnames";
+import ImageTextRow from "./ImageTextRow";
 interface Props {
   className?: string;
   textClassName?: string;
@@ -14,10 +14,10 @@ const ForgetPasswordFooter = ({ className, textClassName }: Props) => {
   return (
     <div className="flex flex-col items-center">
       <div className="flex items-center">
-        <p className={classNames('text-white text-text18', textClassName)}>
-          Vous avez déjà un compte ?{' '}
+        <p className={classNames("text-white text-text18", textClassName)}>
+          Vous avez déjà un compte ?{" "}
           <span
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
             className="underline cursor-pointer font-bold"
           >
             Se connecter

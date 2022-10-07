@@ -6,7 +6,7 @@ import { useZones } from "@requests/zone";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
-import NotFound from "../../../assets/png/NotFound.png";
+import NotFound from "@assets/png/NotFound.png";
 
 const ClientBranch = () => {
   const [zoneName, setZoneName] = useState<any>("");

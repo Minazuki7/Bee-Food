@@ -1,11 +1,11 @@
 import ModalContainer from "@components/feedback/Modal";
 
-import Checked from "../../assets/png/CHECKED.png";
-import Close from "../../assets/svg/closeOrange.svg";
-import file from "../../assets/svg/file.svg";
-import Question from "../../assets/svg/questionMark.svg";
+import Checked from "@assets/png/CHECKED.png";
+import Close from "@assets/svg/closeOrange.svg";
+import file from "@assets/svg/file.svg";
+import Question from "@assets/svg/questionMark.svg";
 import { useNavigate } from "react-router-dom";
-import LOGO from "../../assets/png/logo.png";
+import LOGO from "@assets/png/logo.png";
 import { useState } from "react";
 
 interface PropsModal {
