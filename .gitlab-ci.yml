@@ -1,54 +1,48 @@
-image: node:16
-
 stages:
-  - test
+  - update
+  - build-front
+  - build-api
+  - deploy-api
+  - env
   - build
-
-.distributed:
-  interruptible: true
+  - deploy
+.before_script_template:
+  before_script:
+    - "which ssh-agent || ( apt-get update -y && apt-get install rsync openssh-client zip unzip -y )"
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n \tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - 'echo -e "Host * \n  " >> ~/.ssh/config'
+update:
+  extends: .before_script_template
+  stage: update
+  environment: prod
+  script:
+    - ssh root@149.202.94.4 "cd /var/www/food-delivery/ && git fetch --all && git reset --hard origin/main && git pull origin main"
   only:
     - main
-    - merge_requests
-  cache:
-    key:
-      files:
-        - package-lock.json
-    paths:
-      - .npm/
-  before_script:
-    - npm ci --cache .npm --prefer-offline
-    - NX_HEAD=$CI_COMMIT_SHA
-    - NX_BASE=${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
-  artifacts:
-    paths:
-      - node_modules/.cache/nx
-
-workspace-lint:
-  stage: test
-  extends: .distributed
+  when: always
+build-front:
+  extends: .before_script_template
+  stage: build-front
+  environment: prod
   script:
-    - npx nx workspace-lint --base=$NX_BASE --head=$NX_HEAD
+    - ssh root@149.202.94.4 "cd /var/www/food-delivery/ && npm run build front"
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+      changes:
+        - apps/front/**/*
+        - libs/**/*
 
-format-check:
-  stage: test
-  extends: .distributed
+build-api:
+  extends: .before_script_template
+  stage: build-api
+  environment: prod
   script:
-    - npx nx format:check --base=$NX_BASE --head=$NX_HEAD
-
-lint:
-  stage: test
-  extends: .distributed
-  script:
-    - npx nx affected --base=$NX_BASE --head=$NX_HEAD --target=lint --parallel=3
-
-test:
-  stage: test
-  extends: .distributed
-  script:
-    - npx nx affected --base=$NX_BASE --head=$NX_HEAD --target=test --parallel=3 --ci --code-coverage
-
-build:
-  stage: build
-  extends: .distributed
-  script:
-    - npx nx affected --base=$NX_BASE --head=$NX_HEAD --target=build --parallel=3
+    - ssh root@149.202.94.4 "cd /var/www/food-delivery && npm run build api && pm2 restart food-delivery"
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+      changes:
+        - apps/api/**/*
+        - libs/**/*
