@@ -24,7 +24,6 @@ const List = <T extends TableItem>({
   canCreate,
   canUpdate,
 }: ListProps<T>) => {
-  console.log("data", data);
   const navigate = useNavigate();
   const headers = useTableControls(headersProp, data, {
     onEdit: canUpdate
@@ -39,13 +38,16 @@ const List = <T extends TableItem>({
       : undefined,
   });
   return (
-    <div className="p-10 flex-1 flex flex-col items-center">
+    <div className="flex-1 flex flex-col items-center">
       {canCreate && (
         <Link
-          className="self-end my-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="self-end my-4 bg-blue-500 hover:bg-blue-700 text-white  bg-blue font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           to="add"
         >
-          Add
+          + Add a new{" "}
+          {location.pathname
+            .split("/")[2]
+            .slice(0, location.pathname.split("/")[2].length - 1)}
         </Link>
       )}
 

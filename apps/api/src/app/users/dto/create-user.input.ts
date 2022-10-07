@@ -7,7 +7,7 @@ import {
   MaxLength,
   MinLength,
   IsString,
-  IsArray,
+  IsBoolean,
 } from "class-validator";
 
 @InputType()
@@ -40,4 +40,7 @@ export class CreateUserInput {
   @IsNotEmpty()
   @Field(() => ROLES, { description: "user's role" })
   role: ROLES;
+  @IsBoolean()
+  @Field(() => Boolean, { description: "user's status", nullable: true })
+  isActive?: boolean;
 }

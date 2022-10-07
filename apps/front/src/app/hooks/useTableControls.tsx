@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-import { Header } from '@components/data-display/Table';
+import { Header } from "@components/data-display/Table";
 
-import Edit from '@assets/svg/edit.svg';
-import Trash from '@assets/svg/trash.svg';
+import Edit from "@assets/svg/edit.svg";
+import Trash from "@assets/svg/trash.svg";
 
-const checkboxClassName = 'h-5 w-5';
+const checkboxClassName = "h-5 w-5 rounded";
 
 function useTableControls<T extends { id: string }>(
   headers: Header<T>[],
@@ -56,9 +56,9 @@ function useTableControls<T extends { id: string }>(
           checked={values.every((value) => value.checked)}
         />
       ) : (
-        ''
+        ""
       ),
-      key: '__check__',
+      key: "__check__",
       render(row: T, i: number) {
         return (
           <input
@@ -74,8 +74,8 @@ function useTableControls<T extends { id: string }>(
     },
     ...headers,
     (onMultipleDelete || onEdit || onDelete) && {
-      title: 'Action',
-      key: '__controls__',
+      title: "Action",
+      key: "__controls__",
       render: (row: T, index: number) => {
         return (
           <div className="flex gap-3 justify-center">

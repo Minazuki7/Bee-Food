@@ -1,28 +1,29 @@
-import { Item } from "./../items/entities/item.entity";
-import { Resolver, Query, Mutation, Args, ID } from "@nestjs/graphql";
+import { Model } from "mongoose";
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ID,
+  ObjectType,
+} from "@nestjs/graphql";
 
 import { StockService } from "./stock.service";
-import { Stock } from "./entities/stock.entity";
-import { CreateStockInput } from "./dto/create-stock.input";
+import { Stock, StockDocument } from "@fd-wereact/schemas";
 import { UpdateStockInput } from "./dto/update-stock.input";
+import { CrudResolver, PaginatedList } from "@fd-wereact/nest-common";
+import { InjectModel } from "@nestjs/mongoose";
 
+@ObjectType()
+export class PaginatedStock extends PaginatedList(Stock) {}
 @Resolver(() => Stock)
-export class StockResolver {
-  constructor(private readonly stockService: StockService) {}
-
-  @Mutation(() => Stock)
-  createStock(@Args("createStockInput") createStockInput: CreateStockInput) {
-    return this.stockService.create(createStockInput);
-  }
-
-  @Query(() => [Stock], { name: "stocks" })
-  findAll() {
-    return this.stockService.findAll();
-  }
-
-  @Query(() => Stock, { name: "stock" })
-  findById(@Args("id", { type: () => ID }) id: string) {
-    return this.stockService.findById(id);
+export class StockResolver extends CrudResolver(Stock, PaginatedStock) {
+  constructor(
+    private readonly stockService: StockService,
+    @InjectModel(Stock.name)
+    StockModel: Model<StockDocument>
+  ) {
+    super(StockModel);
   }
 
   @Mutation(() => Stock)
@@ -36,13 +37,6 @@ export class StockResolver {
   @Mutation(() => Stock)
   removeStock(@Args("id", { type: () => ID }) id: string) {
     return this.stockService.remove(id);
-  }
-  @Mutation(() => Stock)
-  updateStockCount(
-    @Args("id", { type: () => String }) id: string,
-    @Args("iditem", { type: () => String }) idItem: string
-  ) {
-    return this.stockService.updateCount(id, idItem);
   }
 
   @Query(() => Stock, { name: "stockone" })

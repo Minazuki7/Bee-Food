@@ -44,10 +44,11 @@ export default async function startup(): Promise<User | null> {
     //   accessToken = token;
     // }
 
-    if (accessToken) {
-      setToken(token);
-      return user;
-    }
+    // if (accessToken) {
+    //   setToken(token);
+    //   return user;
+    // }
+    setToken(token);
     return user;
   } catch (e) {
     return null;

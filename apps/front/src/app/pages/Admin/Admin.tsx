@@ -7,60 +7,58 @@ import client from "../../assets/svg/CLIENTT.svg";
 import users from "../../assets/svg/MANGER.svg";
 import zone from "../../assets/svg/zone.svg";
 import Order from "../../components/modules/orders";
+import Branch from "@components/modules/branchs";
+import Franchise from "@components/modules/franchises";
+import Driver from "@components/modules/drivers";
+import Drawer, { adminResources } from "@components/layout/Drawer/Drawer";
+import Countries from "@components/modules/countries";
+import City from "@components/modules/cities";
+import Zone from "@components/modules/zones";
+import Protected from "@components/layout/Protected";
+import { RESOURCE, ROLE } from "@shared/permission";
+import Page from "@components/layout/Page";
+import { Route, Routes } from "react-router-dom";
+import { Redirect } from "@nestjs/common";
+import NotFound from "@components/layout/NotFound";
+import Client from "@components/modules/clintes";
+import ClientForm from "@components/forms/ClientForm";
+import { useCreateClient } from "@requests/client";
+import Register from "@pages/Register";
 
 const Admin = () => {
-  const items: { name: string; icon: string; url: string }[] = [
-    { name: "Orders", icon: shoppingBag, url: "" },
-    { name: "Drivers", icon: driver, url: "" },
-    { name: "Franchises", icon: franchise, url: "" },
-    { name: "Branches", icon: branch, url: "" },
-    { name: "Clients", icon: client, url: "" },
-    { name: "Users", icon: users, url: "" },
-    { name: "Zones", icon: zone, url: "" },
-  ];
-
   return (
-    <div className=" flex gap-4 ">
-      <div
-        className="w-1/5 h-screen shadow-md bg-blue  rounded-r-lg
-      px-20"
-        id="sidenav"
-      >
-        <div className="pt-4 pb-2 px-10 py-24 mb-20 mt-10 self-center ">
-          <a href="#!">
-            <div className="flex items-center">
-              <div className="shrink-0">
-                <img src={LOGO} alt="alt"></img>
-              </div>
-            </div>
-          </a>
-        </div>
-        {items.map((items) => (
-          <div>
-            <ul className="relative px-1 py-5">
-              <li className="relative">
-                <a
-                  className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-white text-text26 whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out"
-                  href={items.url}
-                  data-mdb-ripple="true"
-                  data-mdb-ripple-color="primary"
-                >
-                  <img src={items.icon} alt="alt"></img>
-                  <span>{items.name}</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        ))}
+    <Protected role={ROLE.ADMIN}>
+      {(user) => (
+        <Page>
+          <Routes>
+            <Route path="drivers/*" element={<Driver />} />
+            <Route path="clients/*" element={<Client />} />
+            <Route path="franchises/*" element={<Franchise />} />
+            <Route path="branches/*" element={<Branch />} />
+            <Route path="orders/*" element={<Order />} />
+            <Route path="zones/*" element={<Zone />} />
+            <Route path="users/*" element={<Register />} />
 
-        <div className="text-center bottom-0 absolute w-full">
-          <p className="py-2 text-sm text-white">food-DilveryⒸ® </p>
-        </div>
-      </div>
-      <div className="bg-baseBlue  left-0 relative rounded-r-4xl bg-cyan flex-2  w-8/12">
-        <Order />
-      </div>
-    </div>
+            {/* <Route
+            path="/"
+            element={
+              <Redirect
+                to={
+                  adminResources.find(({ resource }) =>
+                    user.permissions.some(
+                      (permission) =>
+                        permission.resource === RESOURCE.ANY ||
+                        permission.resource === resource
+                    )
+                  )?.path || 'admin'
+                }
+              /> */}
+
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Page>
+      )}
+    </Protected>
   );
 };
 

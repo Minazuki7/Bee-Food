@@ -1,32 +1,31 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const CITIES_QUERY = gql`
-  query cities($page: Int, $perPage: Int, $search: String) {
-    cities(page: $page, perPage: $perPage, search: $search) {
-      count
+  query {
+    findAllCitys {
       page
+      perPage
+      totalPages
+      count
       data {
         id
         name
-        code
-        governorate {
+        country {
           id
           name
         }
       }
-      perPage
-      totalPages
     }
   }
 `;
 
 export const CITY_QUERY = gql`
   query city($id: ID!) {
-    city(id: $id) {
+    findCity(id: $id) {
       id
       name
-      code
-      governorate {
+
+      country {
         id
         name
       }
@@ -39,33 +38,29 @@ export const CITY_RENDER_QUERY = gql`
     city(id: $id) {
       id
       name
+      country
     }
   }
 `;
 
 export const CREATE_CITY_MUTATION = gql`
-  mutation createCity($name: String!, $governorate: ID!, $code: String!) {
-    createCity(name: $name, governorate: $governorate, code: $code) {
+  mutation createCity($name: String!, $country: ID!) {
+    createCity(createCityInput: { name: $name, country: $country }) {
       id
     }
   }
 `;
 
 export const UPDATE_CITY_MUTATION = gql`
-  mutation updateCity(
-    $id: ID!
-    $name: String
-    $governorate: ID
-    $code: String
-  ) {
-    updateCity(id: $id, name: $name, governorate: $governorate, code: $code) {
+  mutation updateCity($id: ID!, $name: String, $country: ID) {
+    updateCity(id: $id, updateCityInput: { name: $name, country: $country }) {
       id
     }
   }
 `;
 
 export const DELETE_CITY_MUTATION = gql`
-  mutation removeCity($id: ID, $ids: [ID]) {
-    removeCity(id: $id, ids: $ids)
+  mutation removeCity($id: ID!) {
+    removeCity(id: $id)
   }
 `;

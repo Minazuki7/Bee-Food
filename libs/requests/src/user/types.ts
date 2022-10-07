@@ -11,10 +11,15 @@ export interface User {
   //username: string;
   role: ROLE;
   email: string;
-  //isActive: boolean;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  isActive: boolean;
+  password: string;
   extraFields?: {
     id: string;
-    name: string;
+    firstName: string;
+    lastName: string;
     phone: string;
     confirmed: boolean;
     accepted: boolean;

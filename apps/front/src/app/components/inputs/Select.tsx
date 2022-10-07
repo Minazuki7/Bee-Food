@@ -1,13 +1,13 @@
-import { useRef, useState } from 'react';
-import classNames from 'classnames';
+import { useRef, useState } from "react";
+import classNames from "classnames";
 
-import useOnclickOutside from '@hooks/useOnclickOutside';
-import InputWrapper from './InputWrapper';
-import Popover from '@components/feedback/Popover';
-import SelectItem from '@components/items/SelectItem';
-import Chip from '@components/data-display/Chip';
+import useOnclickOutside from "@hooks/useOnclickOutside";
+import InputWrapper from "./InputWrapper";
+import Popover from "@components/feedback/Popover";
+import SelectItem from "@components/items/SelectItem";
+import Chip from "@components/data-display/Chip";
 
-import expandMore from '@assets/svg/expand-more.svg';
+import expandMore from "@assets/svg/expand-more.svg";
 
 export type SelectValue<Multiple extends boolean> = Multiple extends true
   ? string[]
@@ -33,10 +33,12 @@ export type SelectProps<Multiple extends boolean = false> = {
   onClose?: () => void;
   onClick?: () => void;
   showPlaceholder?: boolean;
+  label?: string;
 };
 
 const Select = <Multiple extends boolean = false>({
   options,
+  label,
   className,
   value,
   placeholder,
@@ -129,6 +131,7 @@ const Select = <Multiple extends boolean = false>({
         if (onClick) onClick();
       }}
       ref={containerRef}
+      label={label}
     >
       <div className="self-stretch flex flex-1 items-center mr-4 relative">
         <div className="absolute gap-2 flex items-center inset-0 overflow-auto">
@@ -139,8 +142,8 @@ const Select = <Multiple extends boolean = false>({
       <div className="flex items-center justify-center w-[40px] h-input border-l-2 border-dropdown-border">
         <div
           className={classNames(
-            'transition duration-200 h-[20px] w-[20px]',
-            open ? 'rotate-0' : 'rotate-180'
+            "transition duration-200 h-[20px] w-[20px]",
+            open ? "rotate-0" : "rotate-180"
           )}
         >
           {arrow}

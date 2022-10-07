@@ -1,8 +1,8 @@
-import React, { ChangeEvent, useRef } from 'react';
-import classNames from '@utils/classNames';
-import check from '../../assets/svg/check.svg';
-import checkDisabled from '../../assets/svg/checkDisable.svg';
-import checkWhite from '../../assets/svg/checkWhite.svg';
+import React, { ChangeEvent, useRef } from "react";
+import classNames from "@utils/classNames";
+import check from "../../assets/svg/check.svg";
+import checkDisabled from "../../assets/svg/checkDisable.svg";
+import checkWhite from "../../assets/svg/checkWhite.svg";
 
 interface checkBoxProps {
   label?: string;
@@ -36,8 +36,8 @@ const CheckBox = ({
     >
       <div
         className={classNames(
-          'border-2 border-baseBlue w-checkBox h-checkBox flex justify-center items-center rounded-checkBox',
-          fill ? 'bg-baseBlue' : '',
+          "border-2 border-baseBlue w-checkBox h-checkBox flex justify-center items-center rounded-checkBox",
+          fill ? "bg-baseBlue" : "",
           borderColor
         )}
       >
@@ -49,7 +49,7 @@ const CheckBox = ({
       <span
         style={{ color: textColor }}
         className={classNames(
-          'text-baseBlue text-text18 ml-2',
+          "text-baseBlue text-text18 ml-2",
           extraLabelStyle
         )}
       >

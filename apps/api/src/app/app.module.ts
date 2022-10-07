@@ -36,8 +36,8 @@ import { CompaniesModule } from "./companies/companies.module";
       autoSchemaFile: join(process.cwd(), "apps/api/src/schema.gql"),
       installSubscriptionHandlers: true,
       subscriptions: {
-        'graphql-ws': true,
-        'subscriptions-transport-ws': true,
+        "graphql-ws": true,
+        "subscriptions-transport-ws": true,
       },
     }),
     ConfigModule.forRoot(),

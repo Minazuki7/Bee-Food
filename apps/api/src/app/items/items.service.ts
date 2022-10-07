@@ -1,19 +1,24 @@
 import { Model } from "mongoose";
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 
 import { CreateItemInput } from "./dto/create-item.input";
 import { UpdateItemInput } from "./dto/update-item.input";
-import { Item, ItemDocument } from "./entities/item.entity";
+import { Item, ItemDocument } from "@fd-wereact/schemas";
+import { StockService } from "./../stock/stock.service";
 
 @Injectable()
 export class ItemsService {
   constructor(
+    private StockService: StockService,
     @InjectModel(Item.name)
     private itemModel: Model<ItemDocument>
   ) {}
-  async create(createItemInput: CreateItemInput): Promise<Item> {
-    const createdItem = new this.itemModel(createItemInput);
+  async create(createItemInput: CreateItemInput, stock: number): Promise<Item> {
+    const createdItem = new this.itemModel(createItemInput, stock);
+    const itemId = createdItem.id;
+
+    await this.StockService.create(itemId, stock);
     return createdItem.save();
   }
 
@@ -25,16 +30,8 @@ export class ItemsService {
     return this.itemModel.findById(id).exec();
   }
 
-  async findItems(catgory?: string, branch?: string) {
-    let filter: { catgory?: string; branch?: string } = {};
-    if (catgory) {
-      filter = { ...filter, catgory };
-    }
-    if (branch) {
-      filter = { ...filter, branch };
-    }
-
-    return this.itemModel.find(filter).exec();
+  async findItems(branch?: string) {
+    return this.itemModel.find({ branch: branch }).exec();
   }
 
   async update(id: string, updateItemInput: UpdateItemInput) {
@@ -63,5 +60,30 @@ export class ItemsService {
     );
 
     return price;
+  }
+  async updateCount(stockId: string, itemId: string) {
+    const item = await this.findOne(itemId);
+    const stock = await this.StockService.findById(stockId);
+    const reduce = 1;
+
+    if (!item) throw new NotFoundException({ message: "item not found" });
+
+    if (stock.rest === 0) {
+      throw new NotFoundException({ message: "item out of stock" });
+    } else {
+      stock.rest -= reduce;
+    }
+
+    return stock.save();
+  }
+  async checkStock(stockId: string, itemId: string) {
+    const item = await this.findOne(itemId);
+    const stock = await this.StockService.findById(stockId);
+
+    if (!item) throw new NotFoundException({ message: "item not found" });
+
+    if (stock.rest === 0) return false;
+
+    return true;
   }
 }

@@ -2,7 +2,7 @@ import { ObjectType, Field } from "@nestjs/graphql";
 import { Prop, SchemaFactory } from "@nestjs/mongoose";
 import * as mongoose from "mongoose";
 
-import { User } from "../../users/entities/users.entity";
+import { User } from "@fd-wereact/schemas";
 
 export type RefreshTokenDocument = RefreshToken & Document;
 

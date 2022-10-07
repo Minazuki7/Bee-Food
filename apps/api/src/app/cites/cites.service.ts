@@ -4,7 +4,7 @@ import { Model } from "mongoose";
 
 import { CreateCityInput } from "./dto/create-city.input";
 import { UpdateCityInput } from "./dto/update-city.input";
-import { City, CityDocument } from "./entities/city.entity";
+import { City, CityDocument } from "@fd-wereact/schemas";
 
 @Injectable()
 export class CitesService {

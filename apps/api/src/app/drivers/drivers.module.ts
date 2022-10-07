@@ -4,7 +4,7 @@ import { MongooseModule } from "@nestjs/mongoose";
 
 import { DriversService } from "./drivers.service";
 import { DriversResolver } from "./drivers.resolver";
-import { Driver, DriverSchema } from "./entities/driver.entity";
+import { Driver, DriverSchema } from "@fd-wereact/schemas";
 
 @Module({
   imports: [

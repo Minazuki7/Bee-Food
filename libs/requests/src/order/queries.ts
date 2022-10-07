@@ -7,9 +7,9 @@ import { ORDERS_QUERY, ORDER_QUERY } from "./documents";
 import { Order } from "./types";
 
 export const useOrders = (
-  options?: QueryHookOptions<{ order: List<Order> }, ListVariables>
+  options?: QueryHookOptions<{ findAllOrders: List<Order> }, ListVariables>
 ) => useLocalQuery(ORDERS_QUERY, options);
 
 export const useLazyOrder = (
-  options?: QueryHookOptions<{ order: Order }, GetVariables>
+  options?: QueryHookOptions<{ findOrders: Order }, GetVariables>
 ) => useLocalLazyQuery(ORDER_QUERY, options);

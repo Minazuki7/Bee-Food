@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
-import { useMatch, useParams, useResolvedPath } from 'react-router-dom';
-import { GenericMutation } from './Create';
+import { useEffect } from "react";
+import { useMatch, useParams, useResolvedPath } from "react-router-dom";
+import { GenericMutation } from "./Create";
 
 interface DeleteProps {
   delete: GenericMutation<{ id?: string; ids?: string[] }>;
@@ -9,7 +9,7 @@ interface DeleteProps {
 }
 
 const Delete = ({ delete: useRemove, onClose, onDone }: DeleteProps) => {
-  const path = useResolvedPath('delete/:id');
+  const path = useResolvedPath("delete/:id");
   const match = useMatch(path.pathname);
 
   const [remove, { data }] = useRemove();
@@ -55,7 +55,7 @@ const Delete = ({ delete: useRemove, onClose, onDone }: DeleteProps) => {
         <button
           onClick={() => {
             if (match?.params.id)
-              remove({ variables: { ids: match.params.id.split(',') } });
+              remove({ variables: { id: match.params.id.split(",")[0] } });
           }}
           type="button"
           className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"

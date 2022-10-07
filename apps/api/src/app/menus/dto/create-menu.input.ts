@@ -7,7 +7,6 @@ import {
 } from "class-validator";
 import { InputType, Int, Field, ID } from "@nestjs/graphql";
 import { IsNotEmpty } from "class-validator";
-import { Item } from "../../items/entities/item.entity";
 
 @InputType()
 export class CreateMenuInput {
@@ -39,4 +38,9 @@ export class CreateMenuInput {
   @IsBoolean()
   @Field(() => Boolean, { description: "menu's status" })
   status: boolean;
+
+  @IsString()
+  @IsNotEmpty()
+  @Field(() => ID, { description: "branch's id" })
+  branch: string;
 }

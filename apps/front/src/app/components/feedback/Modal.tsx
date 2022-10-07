@@ -1,27 +1,31 @@
-import AbsoluteFill from '@components/ui/AbsoluteFill';
-import classNames from 'classnames';
-import { useEffect, useRef } from 'react';
-import { createPortal } from 'react-dom';
-import { Transition } from 'react-transition-group';
+import AbsoluteFill from "@components/ui/AbsoluteFill";
+import classNames from "classnames";
+import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
+import { Transition } from "react-transition-group";
 
 interface ModalProps {
   open: boolean;
   children: React.ReactNode;
   classNameContainer?: string;
   contentClasses?: string;
+  color?: boolean;
+  client?: boolean;
 }
 
 const Modal = ({
   open,
+  color,
   children,
   classNameContainer,
   contentClasses,
+  client,
 }: ModalProps) => {
   const divRef = useRef(null);
 
   useEffect(() => {
-    if (!open) document.body.setAttribute('style', 'overflow:auto;');
-    else document.body.setAttribute('style', 'overflow:hidden;');
+    if (!open) document.body.setAttribute("style", "overflow:auto;");
+    else document.body.setAttribute("style", "overflow:hidden;");
   }, [open]);
 
   return createPortal(
@@ -41,33 +45,61 @@ const Modal = ({
         >
           <div
             className={classNames(
-              'bg-black transition-opacity',
-              state === 'entered' ? 'opacity-75' : 'opacity-0'
+              "bg-black transition-opacity",
+              state === "entered" ? "opacity-75" : "opacity-0"
             )}
             aria-hidden="true"
           />
           <div
             className={classNames(
-              'flex items-center justify-center py-10',
+              "flex items-center justify-center py-10",
               contentClasses
             )}
           >
-            <div
-              className={classNames(
-                'flex flex-col min-w-1/2 bg-white rounded-lg shadow-xl transform transition-all overflow-hidden',
-                state === 'entered'
-                  ? 'translate-y-0 opacity-1'
-                  : 'translate-y-4 opacity-0',
-                classNameContainer
-              )}
-            >
-              {children}
-            </div>
+            {!color && (
+              <div
+                className={classNames(
+                  "flex flex-col min-w-1/2 bg-white rounded-lg shadow-xl transform transition-all overflow-hidden",
+                  state === "entered"
+                    ? "translate-y-0 opacity-1"
+                    : "translate-y-4 opacity-0",
+                  classNameContainer
+                )}
+              >
+                {children}
+              </div>
+            )}
+            {!client && color && (
+              <div
+                className={classNames(
+                  "flex flex-col min-w-1/2 bg-blue rounded-lg shadow-xl transform transition-all overflow-hidden",
+                  state === "entered"
+                    ? "translate-y-0 opacity-1"
+                    : "translate-y-4 opacity-0",
+                  classNameContainer
+                )}
+              >
+                {children}
+              </div>
+            )}
+            {client && color && (
+              <div
+                className={classNames(
+                  "flex flex-col min-w-1/2 bg-[#623b1e] rounded-lg shadow-xl transform transition-all overflow-hidden",
+                  state === "entered"
+                    ? "translate-y-0 opacity-90"
+                    : "translate-y-4 opacity-0",
+                  classNameContainer
+                )}
+              >
+                {children}
+              </div>
+            )}
           </div>
         </AbsoluteFill>
       )}
     </Transition>,
-    document.getElementById('modals') as HTMLDivElement
+    document.getElementById("modals") as HTMLDivElement
   );
 };
 

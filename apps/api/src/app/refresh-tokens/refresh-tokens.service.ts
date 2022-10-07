@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
-import { User, UserDocument } from "../users/entities/users.entity";
+import { User, UserDocument } from "@fd-wereact/schemas";
 import { Model } from "mongoose";
 import * as crypto from "crypto";
 import { InjectModel } from "@nestjs/mongoose";
-import * as moment from "moment";
+import moment from "moment";
 
 import {
   RefreshToken,

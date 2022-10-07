@@ -4,7 +4,7 @@ import { InjectModel } from "@nestjs/mongoose";
 
 import { CreateFranchiseInput } from "./dto/create-franchise.input";
 import { UpdateFranchiseInput } from "./dto/update-franchise.input";
-import { Franchise, FranchiseDocument } from "./entities/franchise.entity";
+import { Franchise, FranchiseDocument } from "@fd-wereact/schemas";
 
 @Injectable()
 export class FranchisesService {

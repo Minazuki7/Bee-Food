@@ -1,14 +1,31 @@
-import { Resolver, Query, Mutation, Args, ID } from "@nestjs/graphql";
-import { SkipAuth } from "@fd-wereact/nest-common";
+import { Model } from "mongoose";
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ID,
+  ObjectType,
+} from "@nestjs/graphql";
+import { CrudResolver, PaginatedList, SkipAuth } from "@fd-wereact/nest-common";
 
 import { UsersService } from "./users.service";
-import { User } from "./entities/users.entity";
+import { User, UserDocument } from "@fd-wereact/schemas";
 import { CreateUserInput } from "./dto/create-user.input";
 import { UpdateUserInput } from "./dto/update-user.input";
+import { InjectModel } from "@nestjs/mongoose";
 
+@ObjectType()
+export class PaginatedUsers extends PaginatedList(User) {}
 @Resolver(() => User)
-export class UsersResolver {
-  constructor(private readonly usersService: UsersService) {}
+export class UsersResolver extends CrudResolver(User, PaginatedUsers) {
+  constructor(
+    private readonly usersService: UsersService,
+    @InjectModel(User.name)
+    userModel: Model<UserDocument>
+  ) {
+    super(userModel);
+  }
 
   @SkipAuth()
   @Mutation(() => User)
@@ -16,29 +33,16 @@ export class UsersResolver {
     return this.usersService.create(createUserInput);
   }
 
-  @Query(() => [User], { name: "users" })
-  findAll() {
-    return this.usersService.findAll();
-  }
-
-  @SkipAuth()
-  @Query(() => User, { name: "user" })
-  findById(@Args("id", { type: () => ID }) id: string) {
-    return this.usersService.findById(id);
+  @Mutation(() => User)
+  updateUser(
+    @Args("updateUserInput") updateUserInput: UpdateUserInput,
+    @Args("id", { type: () => ID }) id: string
+  ) {
+    return this.usersService.update(id, updateUserInput);
   }
 
   @Mutation(() => User)
-  updateUser(@Args("updateUserInput") updateUserInput: UpdateUserInput) {
-    return this.usersService.update(updateUserInput.id, updateUserInput);
-  }
-
-  @Mutation(() => User)
-  removeUser(@Args("id", { type: () => ID }) id: string) {
-    return this.usersService.remove(id);
-  }
-
-  @Mutation(() => User)
-  displayDriver(@Args("id", { type: () => ID }) id: string)  {
+  displayDriver(@Args("id", { type: () => ID }) id: string) {
     return this.usersService.displayDriver(id);
   }
 }
