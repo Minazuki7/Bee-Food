@@ -4,7 +4,7 @@ import { InjectModel } from "@nestjs/mongoose";
 
 import { CreateCategoryInput } from "./dto/create-category.input";
 import { UpdateCategoryInput } from "./dto/update-category.input";
-import { Category, CategoryDocument } from "./entities/category.entity";
+import { Category, CategoryDocument } from "@fd-wereact/schemas";
 
 @Injectable()
 export class CategoriesService {

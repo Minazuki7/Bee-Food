@@ -14,12 +14,14 @@ module.exports = {
       colors: {
         white: '#fff',
         black: '#131F2A',
+        trueblack: ' #000000',
         'dropdown-border': '#7070701A',
-        orange: '#f15010',
+        blue: '#0019BB',
         borderOrange: '#131F2A21',
         borderBle: '#ED590A4A',
         inputColor: '#131F2A',
         gray: '#B8B8B8',
+        ghost:'#707070',
         baseGray: '#5e6162',
         lightGray: '#f1f1f1',
         inputError: '#f87272',
@@ -32,7 +34,14 @@ module.exports = {
         search: 'rgba(255, 255, 255, 0.06)',
         tableBorder: '#70707040',
         tableRow: '#F6F6F7',
+        cyan:"#CBDEFF",
+        redbox : 'rgba(255, 103, 108, 0.2)',
+        redtyping :'rgba(255, 103, 108, 1)',
+        greenbox : 'rgba(75, 194, 119, 0.2)',
+        greentyping :'rgba(75, 194, 119, 1)',
+        
       },
+      
       minWidth: {
         '1/4': '25%',
         '1/2': '50%',
@@ -69,12 +78,25 @@ module.exports = {
         drawer: DRAWER_WIDTH,
         input: '60px',
         chip: '24px',
+
       },
       borderRadius: {
+        '4xl':'5rem',
         DEFAULT: '5px',
         checkBox: '3px',
         boxRegister: '11px',
       },
+      borderWidth: {
+        DEFAULT: '1px',
+        '0': '0',
+        '2': '2px',
+        '3': '3px',
+        '4': '4px',
+        '6': '6px',
+        '8': '8px',
+        '9':'20px'
+      },
+  
       inset: {
         select: 'calc(100% + 10px)',
       },
@@ -90,6 +112,7 @@ module.exports = {
         text26: '26px',
         text27: '27px',
         text28: '28px',
+        text38: '38px',
         text42: '42px',
         text43: '43px',
         text48: '48px',

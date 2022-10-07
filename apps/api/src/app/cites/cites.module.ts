@@ -3,7 +3,7 @@ import { CitesService } from "./cites.service";
 import { CitesResolver } from "./cites.resolver";
 import { MongooseModule } from "@nestjs/mongoose";
 
-import { City, CitySchema } from "./entities/city.entity";
+import { City, CitySchema } from "@fd-wereact/schemas";
 
 @Module({
   imports: [

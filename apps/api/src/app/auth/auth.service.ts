@@ -6,7 +6,7 @@ import {
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from "bcrypt";
 
-import { User } from "./../users/entities/users.entity";
+import { User } from "@fd-wereact/schemas";
 import { UsersService } from "../users/users.service";
 import { RefreshTokensService } from "../refresh-tokens/refresh-tokens.service";
 import moment = require("moment");
@@ -38,6 +38,10 @@ export class AuthService {
     if (!user) {
       throw new NotFoundException({ message: "User not found" });
     }
+
+    if (!user.isActive) {
+      throw new NotFoundException({ message: "User disabled" });
+    }
     const expiresIn = moment().add("10h", "minutes");
     const { password: encryptedPassword } = user;
 
@@ -61,7 +65,6 @@ export class AuthService {
     throw new UnauthorizedException();
   }
 
-
   async loginDriver(
     phone: string,
     password: string
@@ -72,7 +75,7 @@ export class AuthService {
     expiresIn: moment.Moment;
   }> {
     const user = await this.usersService.findByPhone(phone);
-    
+
     if (!user) {
       throw new NotFoundException({ message: "User not found" });
     }
@@ -99,17 +102,22 @@ export class AuthService {
     throw new UnauthorizedException();
   }
 
-  async ChangePassword(
-    id:string,
-    password:string,
-    updateUserInput:UpdateUserInput
-  ){
-    const user = await this.usersService.findById(id);   
+  async ChangePassword(phone: string, password: string, newPassword: string) {
+    const user = await this.usersService.findByPhone(phone);
     const { password: encryptedPassword } = user;
-    
-    if (await bcrypt.compare(password, encryptedPassword)) {
-      return this.usersService.update(id,updateUserInput);
+
+    if (password == newPassword)
+      throw new NotFoundException({
+        message: "Error: Cannot update the same password",
+      });
+    else {
+      if (await bcrypt.compare(password, encryptedPassword)) {
+        console.log(password);
+        const salt = await bcrypt.genSalt(Number(process.env.BCRYPT_ROUNDS));
+        user.password = await bcrypt.hash(newPassword, salt);
+        return user.save();
+      }
     }
-    throw new NotFoundException({ message: "Please enter your old password" });
+    throw new NotFoundException({ message: "Error: Can't update password" });
   }
 }

@@ -4,7 +4,7 @@ import { Model } from "mongoose";
 
 import { CreateCompanyInput } from "./dto/create-company.input";
 import { UpdateCompanyInput } from "./dto/update-company.input";
-import { Company, CompanyDocument } from "./entities/company.entity";
+import { Company, CompanyDocument } from "@fd-wereact/schemas";
 
 @Injectable()
 export class CompaniesService {

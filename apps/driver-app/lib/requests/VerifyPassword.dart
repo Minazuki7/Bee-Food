@@ -3,6 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:driver_app/const/Colors.dart';
 
 import '../components/Buttons.dart';
+import '../components/dialog.dart';
 
 class VerifyPassword extends StatefulWidget {
   const VerifyPassword({Key? key}) : super(key: key);
@@ -33,11 +34,19 @@ class _VerifyPasswordState extends State<VerifyPassword> {
             title: "Confirm",
             primaryColor: colors.MainColor,
             secondaryColor: colors.SecondaryColor,
-            onClick: () async {}
+            onClick: () async {
+
+              Dialogs.Dialog(
+                  icon: Icons.cancel_rounded,
+                  color: colors.Red,
+                  text:"Sorry, we can't change your password. Please try again.",
+                  size: 70,
+                  onClick:(){
+                    Navigator.of(context).pop();
+                  }, context: context);
+            }
         );
       }
     );
   }
 }
-
-

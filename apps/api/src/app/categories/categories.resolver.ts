@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Args } from "@nestjs/graphql";
 import { CategoriesService } from "./categories.service";
-import { Category } from "./entities/category.entity";
+import { Category } from "@fd-wereact/schemas";
 import { CreateCategoryInput } from "./dto/create-category.input";
 import { UpdateCategoryInput } from "./dto/update-category.input";
 

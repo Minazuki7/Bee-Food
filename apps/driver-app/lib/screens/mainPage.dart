@@ -1,13 +1,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:driver_app/const/Colors.dart';
-import 'package:driver_app/components/Cont.dart';
 
 import '../components/BottomNavBar.dart';
 import '../components/NavBar.dart';
 import '../requests/OrderList.dart';
-import '../requests/getDriverInfos.dart';
-import 'Navigation.dart';
+import '../requests/WalletAndCash.dart';
+import '../requests/get.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -18,16 +17,13 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   bool status = false;
-  late double Cash;
-  late double Wallet;
+  String? textStatus = "offline";
+  int cash = 20;
+  int wallet = 210;
 
   @override
   void initState() {
-    setState(()async{
-      await DriverInfos.GetDriverInfos();
-    });
-    Cash = DriverInfos.getCash();
-    Wallet = DriverInfos.getWallet();
+    Get.getLoginNeeds();
     super.initState();
   }
 
@@ -43,10 +39,11 @@ class _MainPageState extends State<MainPage> {
             ),
             child: Scaffold(
               backgroundColor: Colors.transparent,
-              drawer: const Navigation(),
-              appBar: NavBars.NavBar(status: status, onClick: (val) {
+              appBar: NavBars.NavBar(status: status,textStatus: textStatus, onClick: (val) {
                 setState(() {
                   status = val;
+                  if(status) textStatus = "online";
+                  else textStatus = "offline";
                 });
               },),
               body: SingleChildScrollView(
@@ -66,35 +63,7 @@ class _MainPageState extends State<MainPage> {
                         ),
                       ),
                       const SizedBox(height: 40),
-                      SizedBox(
-                        height: 135,
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          children: [
-                            Cont.InformationContainer(
-                              width: (MediaQuery.of(context).size.width / 2) - 10,
-                              icon: const Icon(
-                                Icons.account_balance_wallet,
-                                size: 40,
-                                color: colors.MainColor,
-                              ),
-                              title: "Wallet",
-                              info: Cash.toString() + " TND",
-                            ),
-                            Cont.InformationContainer(
-                              width: (MediaQuery.of(context).size.width / 2) - 20,
-                              icon: const Icon(
-                                Icons.monetization_on,
-                                size: 40,
-                                color: colors.MainColor,
-                              ),
-                              title: "Cash",
-                              info: Wallet.toString() + " TND",
-                            ),
-                          ],
-                        ),
-                      ),
+                      WalletAndCash(cash,wallet),
                       const SizedBox(height: 20),
                       Container(
                         decoration: const BoxDecoration(

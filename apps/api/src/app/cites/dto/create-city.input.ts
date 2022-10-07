@@ -1,4 +1,3 @@
-import { Country } from "../../countries/entities/country.entity";
 import { InputType, Field, ID } from "@nestjs/graphql";
 import { IsNotEmpty, IsString } from "class-validator";
 
@@ -12,5 +11,5 @@ export class CreateCityInput {
   @IsString()
   @IsNotEmpty()
   @Field(() => ID, { description: "country's id" })
-  country: Country;
+  country: string;
 }

@@ -1,10 +1,10 @@
 import Pagination, {
   PaginationProps,
-} from '@components/data-display/Pagination';
-import Table, { TableProps, TableItem } from '@components/data-display/Table';
-import useTableControls from '@hooks/useTableControls';
-import { useMemo } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+} from "@components/data-display/Pagination";
+import Table, { TableProps, TableItem } from "@components/data-display/Table";
+import useTableControls from "@hooks/useTableControls";
+import { useMemo } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 interface ListProps<T extends TableItem>
   extends TableProps<T>,
@@ -34,17 +34,20 @@ const List = <T extends TableItem>({
       : undefined,
     onMultipleDelete: canDelete
       ? (ids) =>
-          navigate({ pathname: `delete/${ids.join(',')}` }, { replace: true })
+          navigate({ pathname: `delete/${ids.join(",")}` }, { replace: true })
       : undefined,
   });
   return (
-    <div className="p-10 flex-1 flex flex-col items-center">
+    <div className="flex-1 flex flex-col items-center">
       {canCreate && (
         <Link
-          className="self-end my-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="self-end my-4 bg-blue-500 hover:bg-blue-700 text-white  bg-blue font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           to="add"
         >
-          Add
+          + Add a new{" "}
+          {location.pathname
+            .split("/")[2]
+            .slice(0, location.pathname.split("/")[2].length - 1)}
         </Link>
       )}
 

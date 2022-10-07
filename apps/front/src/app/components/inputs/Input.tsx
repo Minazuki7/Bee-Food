@@ -1,5 +1,5 @@
-import { ChangeEvent } from 'react';
-import InputWrapper from '@components/inputs/InputWrapper';
+import { ChangeEvent } from "react";
+import InputWrapper from "@components/inputs/InputWrapper";
 
 interface InputProps
   extends React.DetailedHTMLProps<
@@ -30,6 +30,7 @@ const Input = ({
   errorText,
   className,
   labelClassName,
+  width,
   ...inputProps
 }: InputProps) => {
   return (

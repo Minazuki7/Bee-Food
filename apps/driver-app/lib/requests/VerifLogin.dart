@@ -21,10 +21,11 @@ class VerifLogin extends StatefulWidget {
 
 class _VerifLoginState extends State<VerifLogin> {
 
-  Future<void> setLoginNeeds(id,token) async {
+  Future<void> setLoginNeeds(id,token,phone) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('id', id);
     prefs.setString('token', token);
+    prefs.setString('phone', phone);
   }
 
     String query = r'''mutation login($phone:String!,$password:String!){
@@ -51,10 +52,11 @@ class _VerifLoginState extends State<VerifLogin> {
           onCompleted: (dynamic resultData) async {
 
             if (resultData != null) {
-              print(resultData['loginDriver']['token']);
               GraphQLConfiguration.setToken(resultData['loginDriver']['token']);
-              setLoginNeeds(resultData['loginDriver']['user']['id'],resultData['loginDriver']['token']);
+              setLoginNeeds(resultData['loginDriver']['user']['id'],resultData['loginDriver']['token'],resultData['loginDriver']['phone']);
               setState(() => widget.isLoading = true);
+              widget.phoneController = "";
+              widget.passwordController = "";
               await Future.delayed(
                   const Duration(seconds: 1));
               // ignore: avoid_print
@@ -68,7 +70,7 @@ class _VerifLoginState extends State<VerifLogin> {
               widget.phoneController = "";
               widget.passwordController = "";
               Dialogs.Dialog(icon: Icons.security_update_warning_rounded,
-                  text:"Invalid Phone/Password",
+                  text:"Sorry, we can't find your account. Please try to enter valid phone number and password.",
                   onClick:(){
                     Navigator.of(context).pop();
                   }, context: context);

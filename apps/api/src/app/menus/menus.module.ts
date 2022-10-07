@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 
-import { Menu, MenuSchema } from "./entities/menu.entity";
+import { Menu, MenuSchema } from "@fd-wereact/schemas";
 import { MenusService } from "./menus.service";
 import { MenusResolver } from "./menus.resolver";
 

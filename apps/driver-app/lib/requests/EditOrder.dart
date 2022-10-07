@@ -6,6 +6,7 @@ import '../components/Buttons.dart';
 import '../components/dialog.dart';
 import '../const/Colors.dart';
 import '../screens/Orders.dart';
+import 'get.dart';
 
 class EditOrder extends StatefulWidget {
 
@@ -21,16 +22,11 @@ class EditOrder extends StatefulWidget {
 
 class _EditOrderState extends State<EditOrder> {
 
-  late final String? id;
-  Future<void> getLoginNeeds() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    id = prefs.getString('id');
-  }
 
   @override
   void initState() {
+    Get.getLoginNeeds();
     super.initState();
-    getLoginNeeds();
   }
 
   String mutation = r''' mutation($id:String!){

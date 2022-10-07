@@ -47,6 +47,16 @@
         "jestConfig": "apps/api/jest.config.js",
         "passWithNoTests": true
       }
+    },
+    "fixtures": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/fixtures",
+        "main": "apps/api/src/generateFixtures.ts",
+        "tsConfig": "apps/api/tsconfig.app.json",
+        "outputFileName": "generateFixtures.js"
+      }
     }
   },
   "tags": []

@@ -1,26 +1,33 @@
-import { Resolver, Query, Mutation, Args, ID } from "@nestjs/graphql";
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ID,
+  ObjectType,
+} from "@nestjs/graphql";
+import { Model } from "mongoose";
 import { ZonesService } from "./zones.service";
-import { Zone } from "./entities/zone.entity";
+import { Zone, ZoneDocument } from "@fd-wereact/schemas";
 import { CreateZoneInput } from "./dto/create-zone.input";
 import { UpdateZoneInput } from "./dto/update-zone.input";
-
+import { CrudResolver, PaginatedList } from "@fd-wereact/nest-common";
+import { InjectModel } from "@nestjs/mongoose";
+@ObjectType()
+export class PaginatedZones extends PaginatedList(Zone) {}
 @Resolver(() => Zone)
-export class ZonesResolver {
-  constructor(private readonly zonesService: ZonesService) {}
+export class ZonesResolver extends CrudResolver(Zone, PaginatedZones) {
+  constructor(
+    private readonly zonesService: ZonesService,
+    @InjectModel(Zone.name)
+    zoneModel: Model<ZoneDocument>
+  ) {
+    super(zoneModel);
+  }
 
   @Mutation(() => Zone)
   createZone(@Args("createZoneInput") createZoneInput: CreateZoneInput) {
     return this.zonesService.create(createZoneInput);
-  }
-
-  @Query(() => [Zone], { name: "zones" })
-  findAll() {
-    return this.zonesService.findAll();
-  }
-
-  @Query(() => Zone, { name: "zone" })
-  findOne(@Args("id", { type: () => ID }) id: string) {
-    return this.zonesService.findOne(id);
   }
 
   @Mutation(() => Zone)
@@ -29,10 +36,5 @@ export class ZonesResolver {
     @Args("updateZoneInput") updateZoneInput: UpdateZoneInput
   ) {
     return this.zonesService.update(id, updateZoneInput);
-  }
-
-  @Mutation(() => Zone)
-  removeZone(@Args("id", { type: () => ID }) id: string) {
-    return this.zonesService.remove(id);
   }
 }

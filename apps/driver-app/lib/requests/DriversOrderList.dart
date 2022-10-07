@@ -1,11 +1,10 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../components/Cont.dart';
+import '../screens/MyOrders.dart';
 import '../screens/Orders.dart';
+import '../components/Cont.dart';
+import '../components/tools.dart';
+import 'get.dart';
 
 class DriversOrderList extends StatefulWidget {
   const DriversOrderList({Key? key}) : super(key: key);
@@ -16,16 +15,17 @@ class DriversOrderList extends StatefulWidget {
 
 class _DriversOrderListState extends State<DriversOrderList> {
 
-  static String? id;
-  Future<void> getLoginNeeds() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    id = prefs.getString('id');
-  }
 
   @override
   void initState() {
-    getLoginNeeds();
+    Get.getLoginNeeds();
     super.initState();
+  }
+
+  Future<void> _refresh() async {
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const MyOrders()));
+    });
   }
 
   String query = r'''
@@ -44,7 +44,7 @@ class _DriversOrderListState extends State<DriversOrderList> {
         options: QueryOptions(
           document: gql(query),
           variables: {
-            "driver": id
+            "driver": Get.id
           },
           fetchPolicy: FetchPolicy.noCache,
         ),
@@ -57,12 +57,11 @@ class _DriversOrderListState extends State<DriversOrderList> {
               child: const Center(
                 child: CircularProgressIndicator()),
             );
-          }else if(result.data == null){
-            return Container(
-                height: 600,
-                child: const Center(
-                    child: Text("Error database"))
-            );
+          }else if(result.data == null) {
+             WidgetsBinding.instance.addPostFrameCallback((_){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const MyOrders()));
+            });
+            return const CircularProgressIndicator();
           }else {
             return Container(
             height: 600,
@@ -72,24 +71,26 @@ class _DriversOrderListState extends State<DriversOrderList> {
               child: const Center(
                   child: Text("You don't have deliveries yet!"))
             ):
-            SizedBox(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: ListView.builder(
-                  itemCount: result.data!['DriversOrders'].length,
-                  itemBuilder: (context, index) {
-                    return result.data!['DriversOrders'][index]['status'] == null?const Center(child: CircularProgressIndicator()):Cont.ContentContainer(
-                      height: 80,
-                      width: MediaQuery.of(context).size.width,
-                      content: ListTile(
-                        title: Text("Ordering from : ${result.data!['DriversOrders'][index]['branch']['name'].toString()}"),
-                        subtitle: Text("For the client: ${result.data!['DriversOrders'][index]['totalPrice'].toString()},000"),
-                        trailing: const Icon(Icons.arrow_forward_outlined),
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => Order(result.data!['DriversOrders'][index]['id'].toString())));},
-                      ),
-                    );
-                  }
+            RefreshIndicator(onRefresh: _refresh,
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: ListView.builder(
+                    itemCount: result.data!['DriversOrders'].length,
+                    itemBuilder: (context, index) {
+                      return result.data!['DriversOrders'][index]['status'] == null?const Center(child: CircularProgressIndicator()):Cont.ContentContainer(
+                        height: 80,
+                        width: MediaQuery.of(context).size.width,
+                        content: ListTile(
+                          title: Text("Ordering from : ${result.data!['DriversOrders'][index]['branch']['name'].toString()}"),
+                          subtitle: Text("For the client: ${result.data!['DriversOrders'][index]['totalPrice'].toString()},000 TND"),
+                          trailing: Text(tools.editText(result.data!['DriversOrders'][index]['status'].toString())),
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Order(result.data!['DriversOrders'][index]['id'].toString())));},
+                        ),
+                      );
+                    }
+                ),
               ),
             ),
           );

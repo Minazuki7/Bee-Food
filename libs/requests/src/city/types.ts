@@ -1,13 +1,10 @@
-import { ListVariables } from '../generic';
+import { Country } from "../country";
+import { ListVariables } from "../generic";
 
 export interface City {
   id: string;
   name: string;
-  code: string;
-  governorate: {
-    id: string;
-    name: string;
-  };
+  country: Country;
 }
 
 export interface CitiesVariables extends ListVariables {
@@ -16,13 +13,11 @@ export interface CitiesVariables extends ListVariables {
 
 export interface CreateCityVariables {
   name: string;
-  code: string;
-  governorate: string;
+  country: string;
 }
 
 export interface UpdateCityVariables {
   id: string;
   name?: string;
-  code?: string;
-  governorate?: string;
+  country?: string;
 }

@@ -7,6 +7,7 @@ import { encodeUri } from "@utils/url";
 import { User } from "@requests/user";
 import { RESOURCE, ROLE } from "@shared/permission";
 import NotFound from "./NotFound";
+import NotFoundImg from "../../assets/png/NotFound.png";
 
 const isValid = <T,>(data: T | T[], value: T | T[], allValue: T): boolean => {
   if (Array.isArray(data))
@@ -49,15 +50,20 @@ const Protected = <Protected extends boolean = true>({
   if (
     user &&
     !(
-      isValid(role, user.role, ROLE.ALL) &&
-      isValid(
-        resource,
-        user.permissions.map((p) => p.resource) || [],
-        RESOURCE.ANY
-      )
+      isValid(role, user.role, ROLE.ALL)
+      // &&
+      // isValid(
+      //   resource,
+      //   user.permissions.map((p) => p.resource) || [],
+      //   RESOURCE.ANY
+      // )
     )
   ) {
-    return <NotFound />;
+    return (
+      <h1>
+        <img src={NotFoundImg} width="500" height="500"></img>
+      </h1>
+    );
   }
 
   return typeof children === "function" ? (

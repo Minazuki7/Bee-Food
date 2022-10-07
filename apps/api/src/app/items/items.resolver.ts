@@ -1,27 +1,31 @@
-import { ID } from "@nestjs/graphql";
+import { Model } from "mongoose";
+import { ID, ObjectType } from "@nestjs/graphql";
 import { Resolver, Query, Mutation, Args } from "@nestjs/graphql";
 import { ItemsService } from "./items.service";
-import { Item } from "./entities/item.entity";
+import { Item, ItemDocument } from "@fd-wereact/schemas";
 import { CreateItemInput } from "./dto/create-item.input";
 import { UpdateItemInput } from "./dto/update-item.input";
+import { CrudResolver, PaginatedList } from "@fd-wereact/nest-common";
+import { InjectModel } from "@nestjs/mongoose";
 
+@ObjectType()
+export class PaginatedItems extends PaginatedList(Item) {}
 @Resolver(() => Item)
-export class ItemsResolver {
-  constructor(private readonly itemsService: ItemsService) {}
+export class ItemsResolver extends CrudResolver(Item, PaginatedItems) {
+  constructor(
+    private readonly itemsService: ItemsService,
+    @InjectModel(Item.name)
+    itemModel: Model<ItemDocument>
+  ) {
+    super(itemModel);
+  }
 
   @Mutation(() => Item)
-  createItem(@Args("createItemInput") createItemInput: CreateItemInput) {
-    return this.itemsService.create(createItemInput);
-  }
-
-  @Query(() => [Item], { name: "items" })
-  findAll() {
-    return this.itemsService.findAll();
-  }
-
-  @Query(() => Item, { name: "item" })
-  findOne(@Args("id", { type: () => ID }) id: string) {
-    return this.itemsService.findOne(id);
+  createItem(
+    @Args("createItemInput") createItemInput: CreateItemInput,
+    @Args("stock") stock: number
+  ) {
+    return this.itemsService.create(createItemInput, stock);
   }
 
   @Mutation(() => Item)
@@ -31,9 +35,9 @@ export class ItemsResolver {
   ) {
     return this.itemsService.update(id, updateItemInput);
   }
-
-  @Mutation(() => Item)
-  removeItem(@Args("id", { type: () => ID }) id: string) {
-    return this.itemsService.remove(id);
+  @Query(() => PaginatedItems)
+  findItemByBranch(@Args("branch", { type: () => ID }) branch: string) {
+    const items = this.itemsService.findItems(branch);
+    return { data: items };
   }
 }

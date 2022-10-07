@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../const/String.dart';
 import 'EditOrder.dart';
+import 'get.dart';
 
 class verifOrder extends StatefulWidget {
 
@@ -19,16 +20,9 @@ class verifOrder extends StatefulWidget {
 
 class _verifOrderState extends State<verifOrder> {
 
-
-  static late String? id;
-  Future<void> getLoginNeeds() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    id = prefs.getString('id');
-  }
-
   @override
   void initState() {
-      getLoginNeeds();
+    Get.getLoginNeeds();
     super.initState();
   }
   
@@ -45,7 +39,7 @@ class _verifOrderState extends State<verifOrder> {
             fetchPolicy: FetchPolicy.noCache,
     variables: {
       "order": widget.order,
-      "driver": id
+      "driver": Get.id
     }
     ),
     builder: (QueryResult result,

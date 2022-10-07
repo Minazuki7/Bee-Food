@@ -1,42 +1,44 @@
-import { Truck } from '../truck/types';
+//import { Truck } from '../truck/types';
+
+import { Company } from "../company";
+import { Zone } from "../zone";
 
 export interface Driver {
   id: string;
-  code: string;
   firstName: string;
   lastName: string;
-  address: string;
-  phone: string[];
-  truck: Truck;
-  city: string;
-  transportMode: string;
-  profitMargin: string;
-  ratePackage: string;
+  wallet: number;
+  phone: string;
+  cash: number;
+  status: boolean;
+  email: string;
+  password: string;
+  company: Company;
+  zone: Zone;
 }
 
 export interface UpdateDriverVariables {
   id: string;
-  code?: string;
   firstName?: string;
   lastName?: string;
-  address?: string;
-  phone?: string[];
-  truck?: string;
-  city?: string;
-  transportMode?: string;
-  profitMargin?: string;
-  ratePackage?: string;
+  wallet?: number;
+  phone?: string;
+  status?: boolean;
+  cash?: number;
+  email?: string;
+  password?: string;
+  company?: string;
+  zone?: string;
 }
 
 export interface CreateDriverVariables {
-  code: string;
+  company: string;
   firstName: string;
   lastName: string;
-  address: string;
-  phone: string[];
-  truck: string;
-  city: string;
-  transportMode: string;
-  profitMargin: string;
-  ratePackage: string;
+
+  phone: string;
+
+  zone: string;
+  email: string;
+  password: string;
 }

@@ -4,7 +4,7 @@ import { ROLES } from "@fd-wereact/nest-common";
 import { registerEnumType } from "@nestjs/graphql";
 
 import { UsersResolver } from "./users.resolver";
-import { User, UserSchema } from "./entities/users.entity";
+import { User, UserSchema } from "@fd-wereact/schemas";
 import { UsersService } from "./users.service";
 
 @Module({

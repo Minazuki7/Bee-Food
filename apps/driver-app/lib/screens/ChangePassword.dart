@@ -5,6 +5,7 @@ import 'package:driver_app/components/TextField.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../components/BottomNavBar.dart';
+import '../components/NavBar.dart';
 import '../components/tools.dart';
 
 import '../requests/VerifyPassword.dart';
@@ -19,6 +20,7 @@ class ChangePassword extends StatefulWidget {
 
 class _ChangePasswordState extends State<ChangePassword> {
   bool status = false;
+  String? textStatus = "offline";
   static TextEditingController OldPasswordController = TextEditingController();
   static TextEditingController NewPasswordController = TextEditingController();
 
@@ -53,40 +55,13 @@ class _ChangePasswordState extends State<ChangePassword> {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        drawer: const Navigation(),
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: Builder(
-            builder: (context) => Padding(
-              padding: const EdgeInsets.only(left: 10, top: 10),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.menu,
-                  size: 40,
-                ),
-                color: Colors.white,
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-              ),
-            ),
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20, right: 20),
-              child: FlutterSwitch(
-                width: 60,
-                value: status,
-                activeColor: colors.MainColor,
-                onToggle: (val) {
-                  setState(() {
-                    status = val;
-                  });
-                },
-              ),
-            ),
-          ],
+          appBar: NavBars.NavBar(status: status, onClick: (val) {
+            setState(() {
+              status = val;
+              if(status) textStatus = "online";
+              else textStatus = "offline";
+            });
+          },
         ),
         body: Stack(
           children: [
@@ -156,7 +131,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                                       title: "New Password",
                                       obscureText: true),
                                   const SizedBox(height: 40),
-                                  VerifyPassword(),
+                                  const VerifyPassword(),
                                 ],
                               ),
                             ),

@@ -5,7 +5,7 @@ import "package:graphql_flutter/graphql_flutter.dart";
 
 class GraphQLConfiguration {
   static String token ="";
-  static String url = 'http://192.168.1.55:3333/graphql';
+  static String url = 'http://192.168.1.124:3333/graphql';
   static HttpLink httpLink = HttpLink(url);
   static AuthLink authLink = AuthLink(getToken: () async {
     return token;

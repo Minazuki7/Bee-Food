@@ -5,6 +5,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../components/BottomNavBar.dart';
 import '../components/Buttons.dart';
+import '../components/NavBar.dart';
 import '../components/tools.dart';
 
 import '../requests/get.dart';
@@ -22,6 +23,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   bool status = false;
+  String? textStatus = "offline";
 
 
   @override
@@ -53,41 +55,14 @@ query($id:ID!) {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        drawer: const Navigation(),
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: Builder(
-            builder: (context) => Padding(
-              padding: const EdgeInsets.only(left: 10, top: 10),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.menu,
-                  size: 40,
-                ),
-                color: Colors.white,
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-              ),
-            ),
+          appBar: NavBars.NavBar(status: status, onClick: (val) {
+            setState(() {
+              status = val;
+              if(status) textStatus = "online";
+              else textStatus = "offline";
+            });
+          },
           ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20, right: 20),
-              child: FlutterSwitch(
-                width: 60,
-                value: status,
-                activeColor: colors.MainColor,
-                onToggle: (val) {
-                  setState(() {
-                    status = val;
-                  });
-                },
-              ),
-            ),
-          ],
-        ),
         body: Stack(
           children: [
             Container(

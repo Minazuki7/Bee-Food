@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const CLIENTS_SEARCH_QUERY = gql`
   query clients($page: Int, $perPage: Int) {
@@ -13,26 +13,18 @@ export const CLIENTS_SEARCH_QUERY = gql`
 `;
 
 export const CLIENTS_QUERY = gql`
-  query clients($page: Int, $perPage: Int) {
-    clients(page: $page, perPage: $perPage) {
+  query {
+    findAllClients {
       count
       page
       data {
         id
+        email
         firstName
         lastName
         phone
-        locality {
-          name
-          city {
-            name
-            code
-            governorate {
-              name
-            }
-          }
-        }
       }
+
       perPage
       totalPages
     }
@@ -41,41 +33,69 @@ export const CLIENTS_QUERY = gql`
 
 export const CLIENT_QUERY = gql`
   query client($id: ID!) {
-    client(id: $id) {
+    findClient(id: $id) {
       id
       firstName
       lastName
       phone
-      locality {
-        id
-        name
-        city {
-          id
-          name
-          code
-          governorate {
-            id
-            name
-          }
-        }
-      }
+      email
     }
   }
 `;
 
 export const CREATE_CLIENT_MUTATION = gql`
-  mutation CreateClient(
+  mutation createClient(
     $firstName: String!
     $lastName: String!
-    $locality: String!
     $phone: String!
+    $email: String!
+    $password: String!
   ) {
     createClient(
-      firstName: $firstName
-      lastName: $lastName
-      locality: $locality
-      phone: $phone
+      createUserInput: {
+        email: $email
+        firstName: $firstName
+        lastName: $lastName
+        phone: $phone
+        role: client
+        password: $password
+      }
     ) {
+      id
+    }
+  }
+`;
+
+export const UPDATE_CLIENT_MUTATION = gql`
+  mutation updateClient(
+    $id: ID!
+    $firstName: String!
+    $lastName: String!
+    $phone: String!
+    $email: String!
+  ) {
+    updateClient(
+      id: $id
+      updateClientInput: {
+        email: $email
+        firstName: $firstName
+        lastName: $lastName
+        phone: $phone
+      }
+    ) {
+      id
+    }
+  }
+`;
+
+export const DELETE_CLIENT_MUTATION = gql`
+  mutation removeClient($id: ID!) {
+    removeClient(id: $id)
+  }
+`;
+export const GET_CLIENT = gql`
+  query findClientByUserID($id: ID!) {
+    findClientByUserID(id: $id) {
       id
     }
   }

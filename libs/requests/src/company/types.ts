@@ -1,21 +1,22 @@
 export interface Company {
   id: string;
   name: string;
-  phone: string;
-  address: string;
-  user: string;
+  email: string;
+  description: string;
+  deliveryFee: number;
 }
 
 export interface CreateCompanyVariables {
   name: string;
-  phone: string;
-  address: string;
-  isActive: boolean;
+  email: string;
+  description: string;
+  deliveryFee: number;
 }
 
 export interface UpdateCompanyVariables {
   id: string;
   name?: string;
-  phone?: string;
-  address?: string;
+  description?: string;
+  deliveryFee?: number;
+  email?: string;
 }

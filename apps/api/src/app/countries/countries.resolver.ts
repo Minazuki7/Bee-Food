@@ -1,12 +1,33 @@
-import { Resolver, Query, Mutation, Args, ID } from "@nestjs/graphql";
+import { Model } from "mongoose";
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ID,
+  ObjectType,
+} from "@nestjs/graphql";
 import { CountriesService } from "./countries.service";
-import { Country } from "./entities/country.entity";
+import { Country, CountryDocument } from "@fd-wereact/schemas";
 import { CreateCountryInput } from "./dto/create-country.input";
 import { UpdateCountryInput } from "./dto/update-country.input";
+import { CrudResolver, PaginatedList } from "@fd-wereact/nest-common";
+import { InjectModel } from "@nestjs/mongoose";
 
+@ObjectType()
+export class PaginatedCountries extends PaginatedList(Country) {}
 @Resolver(() => Country)
-export class CountriesResolver {
-  constructor(private readonly countriesService: CountriesService) {}
+export class CountriesResolver extends CrudResolver(
+  Country,
+  PaginatedCountries
+) {
+  constructor(
+    private readonly countriesService: CountriesService,
+    @InjectModel(Country.name)
+    countryModel: Model<CountryDocument>
+  ) {
+    super(countryModel);
+  }
 
   @Mutation(() => Country)
   createCountry(
@@ -15,26 +36,11 @@ export class CountriesResolver {
     return this.countriesService.create(createCountryInput);
   }
 
-  @Query(() => [Country], { name: "countries" })
-  findAll() {
-    return this.countriesService.findAll();
-  }
-
-  @Query(() => Country, { name: "country" })
-  findOne(@Args("id", { type: () => ID }) id: string) {
-    return this.countriesService.findOne(id);
-  }
-
   @Mutation(() => Country)
   updateCountry(
     @Args("updateCountryInput") updateCountryInput: UpdateCountryInput,
-    @Args("id", { type: () => String }) id: string
+    @Args("id", { type: () => ID }) id: string
   ) {
     return this.countriesService.update(id, updateCountryInput);
-  }
-
-  @Mutation(() => Country)
-  removeCountry(@Args("id", { type: () => ID }) id: string) {
-    return this.countriesService.remove(id);
   }
 }

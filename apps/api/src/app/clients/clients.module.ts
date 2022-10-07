@@ -4,7 +4,7 @@ import { MongooseModule } from "@nestjs/mongoose";
 
 import { ClientsService } from "./clients.service";
 import { ClientsResolver } from "./clients.resolver";
-import { Client, ClientSchema } from "./entities/client.entity";
+import { Client, ClientSchema } from "@fd-wereact/schemas";
 
 @Module({
   imports: [
