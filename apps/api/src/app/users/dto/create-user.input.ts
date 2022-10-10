@@ -1,4 +1,4 @@
-import { ROLES } from "@fd-wereact/nest-common";
+import { ROLES } from "@fd-wereact/schemas";
 import { InputType, Field } from "@nestjs/graphql";
 
 import {

@@ -1,4 +1,4 @@
-import { FOOD_TYPE } from "@fd-wereact/nest-common";
+import { FOOD_TYPE } from "@fd-wereact/schemas";
 import { InputType, Int, Field, ID } from "@nestjs/graphql";
 import {
   IsArray,

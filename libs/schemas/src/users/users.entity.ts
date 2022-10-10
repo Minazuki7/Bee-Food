@@ -1,10 +1,10 @@
-import { ObjectType, Field, ID } from "@nestjs/graphql";
+import { ObjectType, Field, ID, registerEnumType } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
-import { ROLES } from "../../enums/role.enum";
+import { ROLES } from "../../enums";
 
 export type UserDocument = User & Document;
-
+registerEnumType(ROLES, { name: "ROLES" });
 @Schema()
 @ObjectType()
 export class User {

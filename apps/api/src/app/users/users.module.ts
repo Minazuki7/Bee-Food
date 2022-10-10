@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
-import { ROLES } from "@fd-wereact/nest-common";
+import { ROLES } from "@fd-wereact/schemas";
 import { registerEnumType } from "@nestjs/graphql";
 
 import { UsersResolver } from "./users.resolver";

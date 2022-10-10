@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int, ID } from "@nestjs/graphql";
+import { ObjectType, Field, Int, ID, registerEnumType } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import * as mongoose from "mongoose";
 
@@ -6,10 +6,10 @@ import { Zone } from "../zones";
 import { Client, Driver, Branch, Company, User } from "../index";
 
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { ORDER_STATUS } from "../../enums/status.enum";
+import { ORDER_STATUS } from "../../enums/index";
 
 export type OrderDocument = Order & Document;
-
+registerEnumType(ORDER_STATUS, { name: "ORDER_STATUS" });
 @Schema()
 @ObjectType()
 export class Order {

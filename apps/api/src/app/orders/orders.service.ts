@@ -1,4 +1,4 @@
-import { ORDER_STATUS } from "@fd-wereact/nest-common";
+import { ORDER_STATUS } from "@fd-wereact/schemas";
 import { Model } from "mongoose";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";

@@ -2,7 +2,7 @@ import { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
 import { Injectable, NotFoundException } from "@nestjs/common";
 
-import { ROLES } from "@fd-wereact/nest-common";
+import { ROLES } from "@fd-wereact/schemas";
 import { UsersService } from "./../users/users.service";
 import { CreateUserInput } from "./../users/dto/create-user.input";
 import { UpdateClientInput } from "./dto/update-client.input";
