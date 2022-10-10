@@ -36,3 +36,14 @@ build-api:
     - ssh root@149.202.94.4 "cd /var/www/food-delivery && npm run build api && pm2 restart food-delivery"
   only:
     - master
+fixture-run:
+  stage: fixture
+  environment: production
+  before_script:
+  extends: .before_script_template
+  script:
+  - ssh ubuntu@51.91.98.204 "cd /var/www/food-delivery && npm run fixtures"
+  only:
+    - master
+  when: manual
+
