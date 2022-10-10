@@ -1,8 +1,8 @@
 import React, { ChangeEvent, useRef } from "react";
 import classNames from "@utils/classNames";
-import check from "../../assets/svg/check.svg";
-import checkDisabled from "../../assets/svg/checkDisable.svg";
-import checkWhite from "../../assets/svg/checkWhite.svg";
+import check from "@assets/svg/check.svg";
+import checkDisabled from "@assets/svg/checkDisable.svg";
+import checkWhite from "@assets/svg/checkWhite.svg";
 
 interface checkBoxProps {
   label?: string;

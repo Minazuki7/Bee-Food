@@ -6,7 +6,7 @@ import { Zone } from "../zones";
 import { Client, Driver, Branch, Company, User } from "../index";
 
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { ORDER_STATUS } from "@fd-wereact/nest-common";
+import { ORDER_STATUS } from "../../../nest-common/src/index";
 
 export type OrderDocument = Order & Document;
 

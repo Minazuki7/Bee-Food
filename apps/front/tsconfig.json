@@ -20,9 +20,9 @@
       "@requests/*": ["libs/requests/src/*"],
       "@shared/*": ["libs/shared/src/lib/*"],
       "@contexts/*": ["apps/front/src/app/contexts/*"],
-      "@fd-wereact/nest-common": ["libs/nest-common/src/index.ts"],
-      "@fd-wereact/nest-common/*": ["libs/nest-common/src/*"],
-      "@fd-wereact/schemas": ["libs/schemas/src/index.ts"]
+      
+  
+      
     }
   },
   "files": [],

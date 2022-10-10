@@ -11,16 +11,16 @@ import {
   validateEmail,
   validatePassword,
 } from "@utils/validation";
-import hiddenPassword from "../../assets/svg/password.svg";
-import home from "../../assets/svg/homeOrange.svg";
-import address from "../../assets/svg/addressOrange.svg";
+import hiddenPassword from "@assets/svg/password.svg";
+import home from "@assets/svg/homeOrange.svg";
+import address from "@assets/svg/addressOrange.svg";
 import { FormikProps, Formik, Form, useFormik } from "formik";
 import { useLocation, useNavigate } from "react-router-dom";
 import React from "react";
 import ReactGA from "react-ga";
 import * as Yup from "yup";
 import AutoComplete from "@components/inputs/AutoComplete";
-import Countries from "@fd-wereact/nest-common/lib/enums/countries";
+import Countries from "@requests/country/countries";
 
 import { Map } from "@components/map";
 import Select from "react-select";

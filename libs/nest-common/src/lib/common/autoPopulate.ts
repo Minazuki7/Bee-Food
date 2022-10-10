@@ -3,8 +3,8 @@ import { isArray } from "lodash";
 import { FragmentDefinitionNode, SelectionSetNode } from "graphql";
 import { PopulateOptions, Schema } from "mongoose";
 import { ObjMap } from "graphql/jsutils/ObjMap";
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { schemas } from "@fd-wereact/schemas";
+
+import { schemas } from "../../../../schemas/src/index";
 
 function findDoc(doc: any): any {
   if (!isArray(doc)) return doc;

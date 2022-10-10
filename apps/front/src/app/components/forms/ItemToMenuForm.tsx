@@ -7,9 +7,9 @@ import {
   validateEmail,
   validatePassword,
 } from "@utils/validation";
-import hiddenPassword from "../../assets/svg/password.svg";
-import home from "../../assets/svg/homeOrange.svg";
-import address from "../../assets/svg/addressOrange.svg";
+import hiddenPassword from "@assets/svg/password.svg";
+import home from "@assets/svg/homeOrange.svg";
+import address from "@assets/svg/addressOrange.svg";
 import { FormikProps, Formik, Form, useFormik } from "formik";
 import { useLocation } from "react-router-dom";
 import React from "react";
@@ -18,7 +18,7 @@ import * as Yup from "yup";
 import Select from "@components/inputs/Select";
 import { useBranches } from "@requests/branch";
 import { useCreateItem, useItemes } from "@requests/item";
-import { FOOD_TYPE } from "@fd-wereact/nest-common";
+
 import { useNavigate } from "react-router-dom";
 import Card from "@components/cards/cardItem";
 import CardItem from "@components/cards/cardItem";

@@ -1,7 +1,7 @@
-import classNames from 'classnames';
-import React from 'react';
+import classNames from "classnames";
+import React from "react";
 
-import close from '../../assets/svg/close.svg';
+import close from "@assets/svg/close.svg";
 
 interface ChipProps
   extends React.DetailedHTMLProps<
@@ -15,8 +15,8 @@ const Chip = ({ children, className, onDelete, ...rest }: ChipProps) => {
   return (
     <div
       className={classNames(
-        'h-chip bg-orange text-sm text-white flex items-center pl-2 rounded overflow-hidden whitespace-nowrap',
-        onDelete ? 'cursor-pointer' : 'pr-2',
+        "h-chip bg-orange text-sm text-white flex items-center pl-2 rounded overflow-hidden whitespace-nowrap",
+        onDelete ? "cursor-pointer" : "pr-2",
         className
       )}
       {...rest}
