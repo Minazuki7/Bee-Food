@@ -21,7 +21,7 @@ update:
   script:
     - ssh root@149.202.94.4 "cd /var/www/food-delivery/ && git fetch --all && git reset --hard origin/main && git pull origin main"
   only:
-    - main
+    - master
   when: always
 build-front:
   extends: .before_script_template
@@ -29,6 +29,8 @@ build-front:
   environment: prod
   script:
     - ssh root@149.202.94.4 "cd /var/www/food-delivery/ && npm run build front"
+  only:
+    - master
 
 build-api:
   extends: .before_script_template
@@ -36,3 +38,5 @@ build-api:
   environment: prod
   script:
     - ssh root@149.202.94.4 "cd /var/www/food-delivery && npm run build api && pm2 restart food-delivery"
+  only:
+    - master
