@@ -2,10 +2,6 @@ stages:
   - update
   - build-front
   - build-api
-  - deploy-api
-  - env
-  - build
-  - deploy
 .before_script_template:
   before_script:
     - "which ssh-agent || ( apt-get update -y && apt-get install rsync openssh-client zip unzip -y )"
@@ -19,7 +15,7 @@ update:
   stage: update
   environment: prod
   script:
-    - ssh root@149.202.94.4 "cd /var/www/food-delivery/ && git fetch --all && git reset --hard origin/master && git pull origin master"
+    - ssh root@149.202.94.4 "cd /var/www/food-delivery/ && git fetch --all && git reset --hard origin/master && git pull origin master && npm i"
   only:
     - master
   when: always
