@@ -47,7 +47,6 @@ export class CreateItemInput {
   @Field(() => Int, { description: "item's price" })
   price: number;
 
-  @IsArray()
   @IsNotEmpty()
   @Field(() => FOOD_TYPE, { description: "food's type" })
   foodType: FOOD_TYPE;
