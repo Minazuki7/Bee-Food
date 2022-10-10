@@ -2,6 +2,7 @@ stages:
   - update
   - build-front
   - build-api
+  - fixture
 .before_script_template:
   before_script:
     - "which ssh-agent || ( apt-get update -y && apt-get install rsync openssh-client zip unzip -y )"
@@ -36,6 +37,7 @@ build-api:
     - ssh root@149.202.94.4 "cd /var/www/food-delivery && npm run build api && pm2 restart food-delivery"
   only:
     - master
+    
 fixture-run:
   stage: fixture
   environment: production
