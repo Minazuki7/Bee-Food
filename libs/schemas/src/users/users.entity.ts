@@ -1,8 +1,7 @@
 import { ObjectType, Field, ID } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { ROLES } from "../../../nest-common/src/index";
+import { ROLES } from "../../enums/role.enum";
 
 export type UserDocument = User & Document;
 

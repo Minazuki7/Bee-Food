@@ -4,7 +4,7 @@ import { FragmentDefinitionNode, SelectionSetNode } from "graphql";
 import { PopulateOptions, Schema } from "mongoose";
 import { ObjMap } from "graphql/jsutils/ObjMap";
 
-import { schemas } from "../../../../schemas/src/index";
+import { schemas } from "@fd-wereact/schemas";
 
 function findDoc(doc: any): any {
   if (!isArray(doc)) return doc;
