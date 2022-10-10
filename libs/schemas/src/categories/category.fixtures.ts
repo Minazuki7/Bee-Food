@@ -5,4 +5,10 @@ export default [
     description: "pizza",
     slug: "pizza",
   },
+  {
+    _id: "62666e727de0ad0c1373f8fd",
+    title: "burger",
+    description: "burger",
+    slug: "bruger",
+  },
 ];
