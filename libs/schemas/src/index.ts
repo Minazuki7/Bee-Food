@@ -14,6 +14,7 @@ export * from "./orders";
 export * from "./stocks";
 export * from "./users";
 export * from "./zones";
+export * from "../enums/index";
 
 import { FranchiseSchema } from "./franchises";
 import { CompanySchema } from "./companies";

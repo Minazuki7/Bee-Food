@@ -1,8 +1,8 @@
-import { ObjectType, Field, ID, Int } from "@nestjs/graphql";
+import { ObjectType, Field, ID, Int, registerEnumType } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import * as mongoose from "mongoose";
 
-import { FOOD_TYPE } from "../../enums/foodType.enum";
+import { FOOD_TYPE } from "../index";
 import { Category } from "../categories";
 import { Branch } from "../branches";
 

@@ -9,7 +9,7 @@ import { registerEnumType } from "@nestjs/graphql";
 import { OrdersService } from "./orders.service";
 import { OrdersResolver } from "./orders.resolver";
 import { Order, OrderSchema } from "@fd-wereact/schemas";
-import { ORDER_STATUS } from "@fd-wereact/nest-common";
+import { ORDER_STATUS } from "@fd-wereact/schemas";
 
 @Module({
   imports: [

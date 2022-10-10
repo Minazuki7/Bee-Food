@@ -1,5 +1,4 @@
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { ORDER_STATUS } from "libs/nest-common/src";
+import { ORDER_STATUS } from "@shared/permission";
 import { Branch } from "../branch";
 
 export interface Order {

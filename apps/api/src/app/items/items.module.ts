@@ -5,7 +5,7 @@ import { registerEnumType } from "@nestjs/graphql";
 import { Item, ItemSchema } from "@fd-wereact/schemas";
 import { ItemsService } from "./items.service";
 import { ItemsResolver } from "./items.resolver";
-import { FOOD_TYPE } from "@fd-wereact/nest-common";
+import { FOOD_TYPE } from "@fd-wereact/schemas";
 import { StockModule } from "../stock/stock.module";
 
 @Module({

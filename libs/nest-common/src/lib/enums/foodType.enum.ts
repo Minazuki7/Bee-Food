@@ -1,4 +1,4 @@
-export enum FOOD_TYPE {
-  food = "food",
-  addon = "addon",
-}
+// export enum FOOD_TYPE11 {
+//   food = "food",
+//   addon = "addon",
+// }
