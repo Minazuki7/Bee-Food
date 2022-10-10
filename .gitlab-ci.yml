@@ -19,7 +19,7 @@ update:
   stage: update
   environment: prod
   script:
-    - ssh root@149.202.94.4 "cd /var/www/food-delivery/ && git fetch --all && git reset --hard origin/main && git pull origin main"
+    - ssh root@149.202.94.4 "cd /var/www/food-delivery/ && git fetch --all && git reset --hard origin/master && git pull origin master"
   only:
     - master
   when: always
