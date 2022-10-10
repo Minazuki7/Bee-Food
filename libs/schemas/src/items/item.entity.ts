@@ -2,7 +2,6 @@ import { ObjectType, Field, ID, Int } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import * as mongoose from "mongoose";
 
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { FOOD_TYPE } from "../../enums/foodType.enum";
 import { Category } from "../categories";
 import { Branch } from "../branches";
