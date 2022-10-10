@@ -2,7 +2,7 @@ import { ObjectType, Field, ID } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { ROLES } from "@fd-wereact/nest-common";
+import { ROLES } from "../../../nest-common/src/index";
 
 export type UserDocument = User & Document;
 

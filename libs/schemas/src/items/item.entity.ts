@@ -3,7 +3,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import * as mongoose from "mongoose";
 
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { FOOD_TYPE } from "@fd-wereact/nest-common";
+import { FOOD_TYPE } from "../../../nest-common/src";
 import { Category } from "../categories";
 import { Branch } from "../branches";
 

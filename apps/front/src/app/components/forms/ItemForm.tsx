@@ -18,7 +18,7 @@ import * as Yup from "yup";
 import Select from "@components/inputs/Select";
 import { useBranches } from "@requests/branch";
 import { useCreateItem } from "@requests/item";
-import { FOOD_TYPE } from "@fd-wereact/nest-common";
+
 import { useNavigate } from "react-router-dom";
 
 export interface ItemFormProps {

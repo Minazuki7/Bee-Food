@@ -20,7 +20,7 @@ import React from "react";
 import ReactGA from "react-ga";
 import * as Yup from "yup";
 import AutoComplete from "@components/inputs/AutoComplete";
-import Countries from "@fd-wereact/nest-common/lib/enums/countries";
+import Countries from "@requests/country/countries";
 
 import { Map } from "@components/map";
 import Select from "react-select";
