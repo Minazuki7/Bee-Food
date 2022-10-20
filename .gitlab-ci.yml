@@ -44,7 +44,7 @@ fixture-run:
   before_script:
   extends: .before_script_template
   script:
-  - ssh ubuntu@51.91.98.204 "cd /var/www/food-delivery && npm run fixtures"
+  - ssh root@149.202.94.4 "cd /var/www/food-delivery && npm run fixtures"
   only:
     - master
   when: manual
