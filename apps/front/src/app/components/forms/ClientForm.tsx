@@ -167,53 +167,49 @@ const ClientForm = ({ onSubmit, item, onClose }: ClientFormProps) => {
 
         <Input
           value={formik.values.firstName}
-          label="firstName"
-          name="firstName"
-          placeholder="firstName"
+          label="First Name"
+          name="First Name"
+          placeholder="First Name"
           required
-          icon={hiddenPassword}
           onChange={formik.handleChange}
           errorText={formik.errors.firstName /*&& touched.name*/}
         />
         <Input
           value={formik.values.lastName}
-          label="lastName"
-          name="lastName"
-          placeholder="lastName"
+          label="Last Name"
+          name="Last Name"
+          placeholder="Last Name"
           required
-          icon={hiddenPassword}
           onChange={formik.handleChange}
           errorText={formik.errors.lastName /*&& touched.name*/}
         />
 
         <Input
           value={formik.values.email}
-          label="email"
-          name="email"
-          placeholder="email"
+          label="Email"
+          name="Email"
+          placeholder="Email"
           required
-          icon={hiddenPassword}
           onChange={formik.handleChange}
           errorText={formik.errors.email /*&& touched.name*/}
         />
         <Input
           value={formik.values.phone}
-          label="phone"
-          name="phone"
-          placeholder="phone"
+          label="Phone"
+          name="Phone"
+          placeholder="Phone"
           required
-          icon={hiddenPassword}
           onChange={formik.handleChange}
           errorText={formik.errors.phone /*&& touched.name*/}
         />
         {userID === "" && (
           <Input
-            type="password"
+            type="Password"
             value={formik.values.password}
-            label="password"
+            label="Password"
             placeholder="password"
             onChange={formik.handleChange}
-            name="password"
+            name="Password"
             errorText={formik.errors.password}
             required
           />
@@ -225,7 +221,7 @@ const ClientForm = ({ onSubmit, item, onClose }: ClientFormProps) => {
         )}
         {userID === "" && (
           <button className="bg-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            CreateAccount
+            Create Account
           </button>
         )}
       </form>

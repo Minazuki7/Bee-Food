@@ -60,9 +60,9 @@ const Protected = <Protected extends boolean = true>({
     )
   ) {
     return (
-      <h1>
+      <div className="grid justify-center items-center mt-36">
         <img src={NotFoundImg} width="500" height="500"></img>
-      </h1>
+      </div>
     );
   }
 

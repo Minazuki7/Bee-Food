@@ -123,12 +123,12 @@ export class OrdersResolver extends CrudResolver(Order, PaginatedOrders) {
     return this.ordersService.getOrder(id);
   }
 
-  @ResolveField()
-  async items(@Parent() order: Order) {
-    const { id } = order;
-    const { items } = await this.OrderDetailsService.findByOrder(id);
-    return items;
-  }
+  // @ResolveField()
+  // async items(@Parent() order: Order) {
+  //   const { id } = order;
+  //   const { items } = await this.OrderDetailsService.findByOrder(id);
+  //   return items;
+  // }
 
   @Mutation(() => Order, { name: "setOrderStatus" })
   setOrderStatus(@Args("id", { type: () => String }) id: string) {

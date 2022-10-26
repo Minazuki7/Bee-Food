@@ -7,7 +7,10 @@ export const ORDERS_QUERY = gql`
         id
         totalPrice
         status
-
+        client {
+          firstName
+          lastName
+        }
         branch {
           name
         }
@@ -23,16 +26,35 @@ export const ORDER_QUERY = gql`
   query ($id: ID!) {
     findOrder(id: $id) {
       id
-      items
-      status
-      price
       totalPrice
       deliveryFees
+      price
+      status
+      client {
+        firstName
+        lastName
+      }
       branch {
         name
+        zone {
+          name
+        }
       }
-
-      totalPrice
+      company {
+        name
+      }
+      items {
+        id
+        title
+        price
+        description
+      }
+      menus {
+        id
+        name
+        price
+        description
+      }
     }
   }
 `;
@@ -45,17 +67,25 @@ export const CREATE_ORDER_MUTATION = gql`
     }
   }
 `;
-// export const UPDATE_ADMIN_MUTATION = gql`
-//   mutation updateAdmin(
-//     $id: ID!
-//     $name: String
-
-//   ) {
-//     updateAdmin(id: $id, name: $name, permissions: $permissions) {
-//       id
-//     }
-//   }
-// `;
+export const UPDATE_ORDER_MUTATION = gql`
+  mutation updateFranchise(
+    $name: String
+    $email: String
+    $description: String
+    $id: ID!
+  ) {
+    updateFranchise(
+      id: $id
+      updateFranchiseInput: {
+        name: $name
+        email: $email
+        description: $description
+      }
+    ) {
+      id
+    }
+  }
+`;
 // export const DELETE_ADMIN_MUTATION = gql`
 //   mutation removeAdmin($id: ID, $ids: [ID]) {
 //     removeAdmin(id: $id, ids: $ids)

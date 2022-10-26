@@ -144,61 +144,56 @@ const ItemForm = ({ onSubmit, item, onClose }: ItemFormProps) => {
 
       <Input
         value={formik.values.slug}
-        label="slug"
-        name="slug"
-        placeholder="slug"
+        label="Slug"
+        name="Slug"
+        placeholder="Slug"
         required
-        icon={hiddenPassword}
         onChange={formik.handleChange}
         errorText={formik.errors.slug /*&& touched.name*/}
       />
       <Input
         value={formik.values.title}
-        label="title"
-        name="title"
-        placeholder="title"
+        label="Title"
+        name="Title"
+        placeholder="Title"
         required
-        icon={hiddenPassword}
         onChange={formik.handleChange}
         errorText={formik.errors.title /*&& touched.name*/}
       />
 
       <Input
         value={formik.values.description}
-        label="description"
-        name="description"
-        placeholder="description"
+        label="Description"
+        name="Description"
+        placeholder="Description"
         required
-        icon={hiddenPassword}
         onChange={formik.handleChange}
         errorText={formik.errors.description /*&& touched.name*/}
       />
       <Input
         type="number"
         value={formik.values.price}
-        label="price"
-        name="price"
-        placeholder="price"
+        label="Price"
+        name="Price"
+        placeholder="Price"
         required
-        icon={hiddenPassword}
         onChange={formik.handleChange}
         errorText={formik.errors.price /*&& touched.name*/}
       />
       <Input
         type="number"
         value={formik.values.stock}
-        label="stock"
-        name="stock"
-        placeholder="stock"
+        label="Stock"
+        name="Stock"
+        placeholder="Stock"
         required
-        icon={hiddenPassword}
         onChange={formik.handleChange}
         errorText={formik.errors.stock /*&& touched.name*/}
       />
 
       <Select
-        className="branch"
-        label="branch"
+        className="Branch"
+        label="Branch"
         options={branchesOptions}
         value={formik.values.branch}
         onChange={(value) =>

@@ -35,7 +35,7 @@ export class OrdersService {
     ).populate("company");
 
     createdOrder.client = client;
-    createdOrder.compnay = branch.company;
+    createdOrder.company = branch.company;
     createdOrder.deliveryFees = branch.company.deliveryFee;
     createdOrder.zone = createdOrder.branch.zone;
 
@@ -96,7 +96,7 @@ export class OrdersService {
   }
 
   async findAll() {
-    return this.orderModel.find().populate("branch client").exec();
+    return this.orderModel.find().populate("branch client items").exec();
   }
 
   async findOne(id: string) {

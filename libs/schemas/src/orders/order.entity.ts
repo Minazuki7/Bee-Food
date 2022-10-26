@@ -3,7 +3,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import * as mongoose from "mongoose";
 
 import { Zone } from "../zones";
-import { Client, Driver, Branch, Company, User } from "../index";
+import { Client, Driver, Branch, Company, User, Item, Menu } from "../index";
 
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { ORDER_STATUS } from "../../enums/index";
@@ -13,25 +13,38 @@ registerEnumType(ORDER_STATUS, { name: "ORDER_STATUS" });
 @Schema()
 @ObjectType()
 export class Order {
-  @Field(() => ID)
+  @Field(() => Zone)
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Zone" })
   zone!: Zone;
-  @Field(() => ID)
+  @Field(() => User)
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "User" })
   client!: User;
   @Field()
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Driver" })
   driver!: Driver;
 
+  @Field()
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Company" })
-  compnay!: Company;
+  company!: Company;
 
   @Field()
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Branch" })
   branch!: Branch;
 
-  @Field(() => [String], { description: "order's items" })
-  items!: string[];
+  @Field(() => [Item], { description: "order's items", nullable: true })
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Item" }],
+  })
+  items?: Item[];
+
+  @Field(() => [Menu], { description: "order's menus", nullable: true })
+  @Prop({
+    type: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "Menu" },
+      { required: false },
+    ],
+  })
+  menus?: Menu[];
 
   @Field(() => ID, { description: "order's _id" })
   id!: string;

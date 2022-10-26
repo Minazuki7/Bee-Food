@@ -13,43 +13,43 @@ export type ItemDocument = Item & Document;
 export class Item {
   @Field()
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Branch" })
-  branch!: Branch;
+  branch?: Branch;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "categorie" })
-  category!: Category;
+  category?: Category;
 
   // @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: "stock" }] })
   // stock: Stock;
 
   @Field(() => ID, { description: "item's _id" })
-  id!: string;
+  id?: string;
 
   @Prop()
   @Field(() => String, { description: "item's title " })
-  title!: string;
+  title?: string;
 
   @Prop({ required: false })
   @Field(() => String, { description: "item's picture", nullable: true })
-  picture!: string;
+  picture?: string;
 
   @Prop()
   @Field(() => String, { description: "item's description" })
-  description!: string;
+  description?: string;
   @Prop()
   @Field(() => String, { description: "item's slug" })
-  slug!: string;
+  slug?: string;
 
   @Prop()
   @Field(() => Boolean, { description: "item's status" })
-  status!: boolean;
+  status?: boolean;
 
   @Prop()
   @Field(() => Int, { description: "item's price" })
-  price!: number;
+  price?: number;
 
   @Prop({ type: "string", enum: FOOD_TYPE })
   @Field(() => FOOD_TYPE, { description: "food's type" })
-  foodType!: FOOD_TYPE;
+  foodType?: FOOD_TYPE;
 }
 
 export const ItemSchema = SchemaFactory.createForClass(Item);

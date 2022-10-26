@@ -24,7 +24,7 @@ export class OrderDetail {
       { required: false },
     ],
   })
-  menu: Menu[] = [];
+  menus: Menu[] = [];
   @Field(() => ID)
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Order" })
   order: Order = new Order();

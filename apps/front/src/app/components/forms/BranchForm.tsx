@@ -1,14 +1,11 @@
 import { useEffect, useRef } from "react";
-import { useForm } from "@hooks/useForm";
+
 import Input from "@components/inputs/Input";
 import { CreateBranchVariables, Branch } from "@requests/branch";
-import {
-  isStringEmpty,
-  validateEmail,
-  validatePassword,
-} from "@utils/validation";
+import { isStringEmpty } from "@utils/validation";
+
 import hiddenPassword from "@assets/svg/password.svg";
-import home from "@assets/svg/homeOrange.svg";
+
 import address from "@assets/svg/addressOrange.svg";
 import { FormikProps, Formik, Form, useFormik } from "formik";
 import { useCompanies } from "@requests/company";
@@ -23,6 +20,7 @@ export interface BranchFormProps {
 }
 
 interface FormProps {
+  id?: string;
   name: string;
   description: string;
   openAt: string;
@@ -116,6 +114,7 @@ const BranchForm = ({ onSubmit, item, onClose }: BranchFormProps) => {
           status: item.status,
           franchise: item.franchise.id,
           zone: item.zone.id,
+          id: item.id,
         });
       }
     }
@@ -136,26 +135,25 @@ const BranchForm = ({ onSubmit, item, onClose }: BranchFormProps) => {
 
       <Input
         value={formik.values.name}
-        label="name"
-        name="name"
-        placeholder="name"
+        label="Name"
+        name="Name"
+        placeholder="Name"
         required
-        icon={hiddenPassword}
         onChange={formik.handleChange}
         errorText={formik.errors.name /*&& touched.name*/}
       />
       <Input
         value={formik.values.description}
-        label="description"
-        name="description"
-        placeholder="description"
+        label="Description"
+        name="Description"
+        placeholder="Description"
         onChange={formik.handleChange}
         required
         errorText={formik.errors.description /*&& touched.description*/}
       />
       <Select
-        className="company"
-        label="company"
+        className="Company"
+        label="Company"
         options={CompaniesOptions}
         value={formik.values.company}
         onChange={(value) =>
@@ -163,8 +161,8 @@ const BranchForm = ({ onSubmit, item, onClose }: BranchFormProps) => {
         }
       />
       <Select
-        className="franchise"
-        label="franchise"
+        className="Franchise"
+        label="Franchise"
         options={franchisesOptions}
         value={formik.values.franchise}
         onChange={(value) =>
@@ -172,8 +170,8 @@ const BranchForm = ({ onSubmit, item, onClose }: BranchFormProps) => {
         }
       />
       <Select
-        className="zone"
-        label="zone"
+        className="Zone"
+        label="Zone"
         options={zonesOptions}
         value={formik.values.zone}
         onChange={(value) =>
@@ -182,23 +180,21 @@ const BranchForm = ({ onSubmit, item, onClose }: BranchFormProps) => {
       />
       <Input
         value={formik.values.openAt}
-        label="openAt"
-        placeholder="openAt"
-        name="openAt"
+        label="Opening Time"
+        placeholder="Opening Time"
+        name="Opening Time"
         onChange={formik.handleChange}
         required
         errorText={formik.errors.openAt /*&& touched.email*/}
-        icon={address}
       />
       <Input
         value={formik.values.closeAt}
-        label="closeAt"
-        placeholder="closeAt"
-        name="closeAt"
+        label="Colosing Time"
+        placeholder="Colosing Time"
+        name="Colosing Time"
         onChange={formik.handleChange}
         required
         errorText={formik.errors.closeAt /*&& touched.email*/}
-        icon={address}
       />
 
       <button className="bg-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">

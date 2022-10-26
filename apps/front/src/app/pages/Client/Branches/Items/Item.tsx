@@ -8,6 +8,7 @@ import { useMenusPerBranch } from "@requests/menu";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import cart from "@assets/svg/Cart.svg";
+import NotFound from "@assets/png/NotFound.png";
 
 interface itemType {
   name: string;
@@ -111,47 +112,59 @@ const AdminFranchises = () => {
       <div className=" text-6xl my-4">LIST OF ITEMS</div>
 
       <div className=" flex justify-end w-full "></div>
-      <div className="grid grid-cols-3 gap-1 cursor-pointer">
-        {items?.map((item) => (
-          <div className=" w-11/12">
-            <Card
-              id={item.id}
-              name={item.title}
-              status={item.status}
-              price={item.price}
-              onClick={() => {
-                setOpen(true);
-              }}
-              onConfirm={(name, price, id) => {
-                setCurrentItem({ name, price, id });
-                setType(true);
-              }}
-            />
-          </div>
-        ))}
-      </div>
+      {items?.length ? (
+        <div className="grid grid-cols-3 gap-1 cursor-pointer">
+          {items?.map((item) => (
+            <div className=" w-11/12">
+              <Card
+                id={item.id}
+                name={item.title}
+                status={item.status}
+                price={item.price}
+                onClick={() => {
+                  setOpen(true);
+                }}
+                onConfirm={(name, price, id) => {
+                  setCurrentItem({ name, price, id });
+                  setType(true);
+                }}
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className=" text-center content-center w-full ml-80 mt-4  font-bold">
+          <img src={NotFound} width="500" height="500"></img>
+        </div>
+      )}
       <div className=" text-6xl my-4">LIST OF MENUS</div>
 
       <div className=" flex justify-end w-full "></div>
-      <div className="grid grid-cols-3 gap-1 cursor-pointer mt-2">
-        {menus?.map((item) => (
-          <div className=" w-11/12">
-            <Card
-              name={item.name}
-              status={item.status}
-              price={item.price}
-              id={item.id}
-              onClick={() => {
-                setOpen(true);
-              }}
-              onConfirm={(name, price, id) => {
-                setCurrentItem({ name, price, id });
-                setType(false);
-              }}
-            />
-          </div>
-        ))}
-      </div>
+      {menus?.length ? (
+        <div className="grid grid-cols-3 gap-1 cursor-pointer mt-2">
+          {menus?.map((item) => (
+            <div className=" w-11/12">
+              <Card
+                name={item.name}
+                status={item.status}
+                price={item.price}
+                id={item.id}
+                onClick={() => {
+                  setOpen(true);
+                }}
+                onConfirm={(name, price, id) => {
+                  setCurrentItem({ name, price, id });
+                  setType(false);
+                }}
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className=" text-center content-center w-full ml-80 mt-4  font-bold">
+          <img src={NotFound} width="500" height="500"></img>
+        </div>
+      )}
     </div>
   );
 };

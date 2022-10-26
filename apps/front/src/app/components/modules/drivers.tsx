@@ -9,6 +9,9 @@ import {
 } from "@requests/driver";
 import { RESOURCE } from "@shared/permission";
 
+const aaa = () => {
+  console.log("A");
+};
 const Driver = () => (
   <Crud
     resource={RESOURCE.ANY}
@@ -35,6 +38,11 @@ const Driver = () => (
           ) : (
             <div className="text-[#FF0000]">not Avalaibe</div>
           ),
+      },
+      {
+        title: " status",
+        key: "status",
+        render: (row) => (row.status ? "Open" : "Closed"),
       },
     ]}
     list={useDrivers}
