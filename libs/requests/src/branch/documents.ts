@@ -59,6 +59,15 @@ export const BRANCH_QUERY = gql`
       openAt
       closeAt
       description
+      franchise {
+        name
+      }
+      zone {
+        name
+      }
+      company {
+        name
+      }
     }
   }
 `;
@@ -90,8 +99,30 @@ export const CREATE_BRANCH_MUTATION = gql`
   }
 `;
 export const UPDATE_BRANCH_MUTATION = gql`
-  mutation updateAdmin($id: ID!, $name: String) {
-    updateAdmin(id: $id, name: $name, permissions: $permissions) {
+  mutation updateBranch(
+    $id: String!
+    $name: String!
+    $zone: ID!
+    $franchise: ID!
+    $openAt: String!
+    $closeAt: String!
+    $company: ID!
+    $status: Boolean!
+    $description: String!
+  ) {
+    updateBranch(
+      id: $id
+      updateBranchInput: {
+        name: $name
+        zone: $zone
+        franchise: $franchise
+        openAt: $openAt
+        closeAt: $closeAt
+        company: $company
+        status: $status
+        description: $description
+      }
+    ) {
       id
     }
   }

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "@hooks/useForm";
 import Input from "@components/inputs/Input";
 import { CreateDriverVariables, Driver } from "@requests/driver";
@@ -248,110 +248,148 @@ const DriverForm = ({ onSubmit, item, onClose }: DriverFormProps) => {
   //     </form>
   //   );
   // }
+
+  const [page, setpage] = useState(false);
+  const locations = [
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3197.8465142788395!2d10.31320295056048!3d36.72624727946101!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x1952dba5ec458440!2zMzbCsDQzJzM0LjUiTiAxMMKwMTgnNTUuNCJF!5e0!3m2!1sen!2stn!4v1666639583783!5m2!1sen!2stn",
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3197.7960440947436!2d10.296937950560517!3d36.72745927939291!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xeb5048d4d0afeaf5!2zMzbCsDQzJzM4LjgiTiAxMMKwMTcnNTYuOSJF!5e0!3m2!1sen!2stn!4v1666639520086!5m2!1sen!2stn",
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3197.6714449067476!2d10.29616595056062!3d36.730451279224646!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x7a8fa876bf734a0b!2zMzbCsDQzJzQ5LjYiTiAxMMKwMTcnNTQuMSJF!5e0!3m2!1sen!2stn!4v1666639412728!5m2!1sen!2stn",
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3197.4888197139226!2d10.291970950560774!3d36.73483627897833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x92c4479ce032d4d4!2zMzbCsDQ0JzA1LjQiTiAxMMKwMTcnMzkuMCJF!5e0!3m2!1sen!2stn!4v1666637741293!5m2!1sen!2stn",
+  ];
+  const randomElement = locations[Math.floor(Math.random() * locations.length)];
   return (
-    <form
-      className=" flex flex-col gap-5 item-center m-8 bg-white"
-      onSubmit={formik.handleSubmit}
-    >
-      <button
-        onClick={onClose}
-        className="self-start bg-blue hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-      >
-        Back
-      </button>
+    <div>
+      {page && item && (
+        <div>
+          <button
+            onClick={() => setpage(false)}
+            className="self-start bg-blue hover:bg-indigo-700 text-white font-bold ml-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Back
+          </button>
 
-      <Input
-        value={formik.values.firstName}
-        label="firstName"
-        name="firstName"
-        placeholder="firstName"
-        icon={hiddenPassword}
-        onChange={formik.handleChange}
-        errorText={formik.errors.firstName}
-        required
-      />
-
-      <Input
-        value={formik.values.lastName}
-        label="lastName"
-        name="lastName"
-        placeholder="lastName"
-        onChange={formik.handleChange}
-        errorText={formik.errors.lastName}
-        required
-      />
-      <Input
-        value={formik.values.email}
-        label="Email"
-        placeholder="Email"
-        name="email"
-        onChange={formik.handleChange}
-        errorText={formik.errors.email}
-        icon={address}
-        required
-      />
-
-      <Select
-        label="zone"
-        className="zone"
-        options={zonesOptions}
-        value={formik.values.zone}
-        onChange={(value) =>
-          formik.setValues((values) => ({ ...values, zone: value }))
-        }
-      />
-
-      <Input
-        value={formik.values.phone}
-        label="Phone"
-        placeholder="phone"
-        onChange={formik.handleChange}
-        name="phone"
-        type="string"
-        errorText={formik.errors.phone}
-        required
-      />
-
-      <Select
-        className="company"
-        label="company"
-        options={CompaniesOptions}
-        value={formik.values.company}
-        onChange={(value) =>
-          formik.setValues((values) => ({ ...values, company: value }))
-        }
-      />
-
-      {!item && (
-        <Input
-          type="password"
-          value={formik.values.password}
-          label="password"
-          placeholder="password"
-          onChange={formik.handleChange}
-          name="password"
-          errorText={formik.errors.password}
-          required
-        />
+          <div className=" flex justify-center mt-10rounded-xl ">
+            <iframe
+              src={randomElement}
+              width="1400"
+              height="850"
+              loading="lazy"
+              className=" rounded-3xl"
+            ></iframe>
+          </div>
+        </div>
       )}
-
-      {!item && (
-        <button
-          type="submit"
-          className="bg-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+      {!page && (
+        <form
+          className=" flex flex-col gap-5 item-center m-8 bg-white"
+          onSubmit={formik.handleSubmit}
         >
-          Submit
-        </button>
+          <button
+            onClick={onClose}
+            className="self-start bg-blue hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Back
+          </button>
+          {item && (
+            <button
+              onClick={() => setpage(true)}
+              className="bg-blue self-end text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Check Postion
+            </button>
+          )}
+
+          <Input
+            value={formik.values.firstName}
+            label="First Name"
+            name="First Name"
+            placeholder="First Name"
+            onChange={formik.handleChange}
+            errorText={formik.errors.firstName}
+            required
+          />
+
+          <Input
+            value={formik.values.lastName}
+            label="Last Name"
+            name="Last Name"
+            placeholder="Last Name"
+            onChange={formik.handleChange}
+            errorText={formik.errors.lastName}
+            required
+          />
+          <Input
+            value={formik.values.email}
+            label="Email"
+            placeholder="Email"
+            name="Email"
+            onChange={formik.handleChange}
+            errorText={formik.errors.email}
+            required
+          />
+
+          <Input
+            value={formik.values.phone}
+            label="Phone"
+            placeholder="phone"
+            onChange={formik.handleChange}
+            name="phone"
+            type="string"
+            errorText={formik.errors.phone}
+            required
+          />
+
+          <Select
+            className="Company"
+            label="Company"
+            options={CompaniesOptions}
+            value={formik.values.company}
+            onChange={(value) =>
+              formik.setValues((values) => ({ ...values, company: value }))
+            }
+          />
+          <Select
+            label="Zone"
+            className="Zone"
+            options={zonesOptions}
+            value={formik.values.zone}
+            onChange={(value) =>
+              formik.setValues((values) => ({ ...values, zone: value }))
+            }
+          />
+
+          {!item && (
+            <Input
+              type="Password"
+              value={formik.values.password}
+              label="Password"
+              placeholder="Password"
+              onChange={formik.handleChange}
+              name="Password"
+              errorText={formik.errors.password}
+              required
+            />
+          )}
+
+          {!item && (
+            <button
+              type="submit"
+              className="bg-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Submit
+            </button>
+          )}
+          {item && (
+            <button
+              type="submit"
+              className="bg-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Update
+            </button>
+          )}
+        </form>
       )}
-      {item && (
-        <button
-          type="submit"
-          className="bg-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        >
-          update
-        </button>
-      )}
-    </form>
+    </div>
   );
 };
 export default DriverForm;

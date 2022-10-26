@@ -85,7 +85,6 @@ const FranchiseForm = ({ onSubmit, item, onClose }: FranchiseFormProps) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item]);
-  console.log(item);
   return (
     <form
       className="flex flex-col gap-5 item-center m-8 bg-white"
@@ -100,19 +99,18 @@ const FranchiseForm = ({ onSubmit, item, onClose }: FranchiseFormProps) => {
 
       <Input
         value={formik.values.name}
-        label="name"
-        name="name"
-        placeholder="name"
+        label="Name"
+        name="Name"
+        placeholder="Name"
         required
-        icon={hiddenPassword}
         onChange={formik.handleChange}
         errorText={formik.errors.name /*&& touched.name*/}
       />
       <Input
         value={formik.values.description}
-        label="description"
-        name="description"
-        placeholder="description"
+        label="Description"
+        name="Description"
+        placeholder="Description"
         onChange={formik.handleChange}
         required
         errorText={formik.errors.description /*&& touched.description*/}
@@ -121,7 +119,7 @@ const FranchiseForm = ({ onSubmit, item, onClose }: FranchiseFormProps) => {
         value={formik.values.email}
         label="Email"
         placeholder="Email"
-        name="email"
+        name="Email"
         onChange={formik.handleChange}
         errorText={formik.errors.email}
         icon={address}

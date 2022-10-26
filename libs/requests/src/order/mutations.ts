@@ -5,7 +5,7 @@ import { DeleteVariables } from "../generic";
 
 import {
   CREATE_ORDER_MUTATION,
-  //UPDATE_ORDER_MUTATION,
+  UPDATE_ORDER_MUTATION,
   //DELETE_ORDER_MUTATION,
 } from "./documents";
 
@@ -18,12 +18,12 @@ export const useCreateOrder = (
   >
 ) => useLocalMutation(CREATE_ORDER_MUTATION, options);
 
-// export const useUpdateOrder = (
-//   options?: MutationHookOptions<
-//     { updateOrder: { id: string } },
-//     UpdateOrderVariables
-//   >
-// ) => useLocalMutation(UPDATE_ORDER_MUTATION, options);
+export const useUpdateOrder = (
+  options?: MutationHookOptions<
+    { updateOrder: { id: string } },
+    UpdateOrderVariables
+  >
+) => useLocalMutation(UPDATE_ORDER_MUTATION, options);
 
 // export const useDeleteOrder = (
 //   options?: MutationHookOptions<{ deleteOrder: string }, DeleteVariables>

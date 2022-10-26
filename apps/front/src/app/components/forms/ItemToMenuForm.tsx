@@ -216,41 +216,38 @@ const ItemForm = ({ onSubmit, item, onClose }: ItemFormProps) => {
           </div>
           <Input
             value={formik.values.name}
-            label="name"
-            name="name"
-            placeholder="name"
+            label="Name"
+            name="Name"
+            placeholder="Name"
             required
-            icon={hiddenPassword}
             onChange={formik.handleChange}
             errorText={formik.errors.name /*&& touched.name*/}
           />
 
           <Input
             value={formik.values.description}
-            label="description"
-            name="description"
-            placeholder="description"
+            label="Description"
+            name="Description"
+            placeholder="Description"
             required
-            icon={hiddenPassword}
             onChange={formik.handleChange}
             errorText={formik.errors.description /*&& touched.name*/}
           />
           <Input
             type="number"
             value={formik.values.price}
-            label="price      "
-            name="price"
-            placeholder="price"
+            label="Price      "
+            name="Price"
+            placeholder="Price"
             required
-            icon={hiddenPassword}
             onChange={formik.handleChange}
             errorText={formik.errors.price /*&& touched.name*/}
           />
           <a className="font-bold">FULL PRICE {itemPrice}</a>
 
           <Select
-            className="branch"
-            label="branch"
+            className="Branch"
+            label="Branch"
             options={branchesOptions}
             value={formik.values.branch}
             onChange={(value) =>

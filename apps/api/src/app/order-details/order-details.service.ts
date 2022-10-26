@@ -34,6 +34,7 @@ export class OrderDetailsService {
     if (!items.length) {
       throw new NotFoundException({ message: "order is empty" });
     }
+
     await Promise.all([...items.map((items) => this.checkStock(items))]);
     const prices =
       (await this.getPriceItem(

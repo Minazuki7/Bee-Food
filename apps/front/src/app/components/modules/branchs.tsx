@@ -32,12 +32,12 @@ const Branch = () => (
       },
     ]}
     list={useBranches}
+    get={useLazyBranch}
     create={useCreateBranch}
     Form={BranchForm}
-    formVariant="page"
-    get={useLazyBranch}
     delete={useDeleteBranch}
     update={useUpdateBranch}
+    formVariant="page"
   />
 );
 

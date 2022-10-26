@@ -108,22 +108,20 @@ const ZoneForm = ({ onSubmit, item, onClose }: ZoneFormProps) => {
 
       <Input
         value={formik.values.name}
-        label="name"
-        name="name"
-        placeholder="name"
+        label="Name"
+        name="Name"
+        placeholder="Name"
         required
-        icon={hiddenPassword}
         onChange={formik.handleChange}
         errorText={formik.errors.name /*&& touched.name*/}
       />
       <Input
         type="number"
         value={formik.values.raduis}
-        label="raduis"
-        name="raduis"
-        placeholder="raduis"
+        label="Raduis"
+        name="Raduis"
+        placeholder="Raduis In KM"
         required
-        icon={hiddenPassword}
         onChange={formik.handleChange}
         errorText={formik.errors.raduis /*&& touched.name*/}
       />
@@ -134,7 +132,7 @@ const ZoneForm = ({ onSubmit, item, onClose }: ZoneFormProps) => {
         name="city"
         placeholder="city"
         required
-        icon={hiddenPassword}
+        
         onChange={formik.handleChange}
         errorText={formik.errors.city 
       /> */}

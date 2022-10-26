@@ -104,11 +104,10 @@ const CityForm = ({ onSubmit, item, onClose }: CityFormProps) => {
 
       <Input
         value={formik.values.name}
-        label="name"
-        name="name"
-        placeholder="name"
+        label="Name"
+        name="Name"
+        placeholder="Name"
         required
-        icon={hiddenPassword}
         onChange={formik.handleChange}
         errorText={formik.errors.name /*&& touched.name*/}
       />

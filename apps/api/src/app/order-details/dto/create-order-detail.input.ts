@@ -3,9 +3,9 @@ import { IsArray, IsOptional } from "class-validator";
 export class CreateOrderDetailInput {
   @IsOptional()
   @IsArray()
-  items: string[];
+  items?: string[];
 
   @IsOptional()
   @IsArray()
-  menus: string[];
+  menus?: string[];
 }

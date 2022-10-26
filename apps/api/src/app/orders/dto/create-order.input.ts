@@ -9,13 +9,13 @@ export class CreateOrderInput {
   @Field(() => ID, { description: "branch's id" })
   branch: string;
 
-  @IsOptional()
   @IsArray()
+  @IsOptional()
   @Field(() => [ID], { description: "items id list", nullable: true })
-  items: string[];
+  items?: string[];
 
-  @IsOptional()
   @IsArray()
+  @IsOptional()
   @Field(() => [ID], { description: "menus list", nullable: true })
-  menus: string[];
+  menus?: string[];
 }

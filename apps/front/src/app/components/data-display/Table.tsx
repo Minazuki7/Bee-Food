@@ -37,8 +37,8 @@ const Table = <T extends TableItem>({
         className
       )}
     >
-      <div className="flex-1">
-        <table className="min-w-full align-middle border-collapse ">
+      <div className="flex-1 ">
+        <table className="min-w-full align-middle border-collapse border-solid border-trueblack border-2 rounded-lg">
           <thead className="min-h-[80px] bg-white">
             <tr>
               {headers.map((header, i) => (
