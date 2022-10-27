@@ -62,10 +62,7 @@ const CityForm = ({ onSubmit, item, onClose }: CityFormProps) => {
     },
 
     validationSchema: AddCityValdationSchema,
-    // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //   e.preventDefault();
-    //   if (validateForm()) {
-    //     console.log(values);
+
     onSubmit: (values: FormProps) => {
       onSubmit({
         name: values.name,
@@ -73,10 +70,6 @@ const CityForm = ({ onSubmit, item, onClose }: CityFormProps) => {
       });
     },
   });
-  //   } else {
-  //     setAllTouched(true);
-  //   }
-  // };
 
   useEffect(() => {
     if (item) {

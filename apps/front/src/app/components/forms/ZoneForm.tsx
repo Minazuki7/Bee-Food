@@ -67,7 +67,7 @@ const ZoneForm = ({ onSubmit, item, onClose }: ZoneFormProps) => {
     // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     //   e.preventDefault();
     //   if (validateForm()) {
-    //     console.log(values);
+    //      (values);
     onSubmit: (values: FormProps) => {
       onSubmit({
         name: values.name,

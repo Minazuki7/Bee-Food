@@ -68,7 +68,7 @@ const CountryForm = ({ onSubmit, item, onClose }: CountryFormProps) => {
     // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     //   e.preventDefault();
     //   if (validateForm()) {
-    //     console.log(values);
+    //      (values);
 
     onSubmit: (values: FormProps) => {
       if (CountryName != "") {

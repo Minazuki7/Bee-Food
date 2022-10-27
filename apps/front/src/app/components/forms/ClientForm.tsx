@@ -102,21 +102,7 @@ const ClientForm = ({ onSubmit, item, onClose }: ClientFormProps) => {
       password: "",
     },
 
-    // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //   e.preventDefault();
-    //   if (validateForm()) {
-    //     console.log(values);
-
     onSubmit: (values: FormProps) => {
-      // onSubmit({
-      //   slug: values.slug,
-      //   title: values.title,
-      //   price: values.price,
-      //   foodType: values.foodType,
-      //   description: values.description,
-      //   status: values.status,
-      //   branch: values.branch,
-      // });
       addClient({
         variables: {
           firstName: values.firstName,

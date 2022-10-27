@@ -80,7 +80,7 @@ const ItemForm = ({ onSubmit, item, onClose }: ItemFormProps) => {
     // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     //   e.preventDefault();
     //   if (validateForm()) {
-    //     console.log(values);
+    //      (values);
 
     onSubmit: (values: FormProps) => {
       // onSubmit({

@@ -19,6 +19,13 @@ const ConfirmationModal = ({ open, onClose, onSubmit }: PropsModal) => {
   const handleChange = (event: any) => {
     setValue(event.target.value);
   };
+  const reduce = (old: number) => {
+    let newValue = old;
+    if (old > 1) {
+      newValue -= 1;
+    }
+    setValue(newValue);
+  };
 
   return (
     <ModalContainer
@@ -32,22 +39,36 @@ const ConfirmationModal = ({ open, onClose, onSubmit }: PropsModal) => {
         <img src={Close} alt="Close" width={20} height={20} onClick={onClose} />
       </div>
       <div className="h-full w-full relative flex flex-col items-center mt-20">
-        <p className="text-center text-text48 text-white">
+        <p className="text-center text-text48 text-[#623b1e]">
           Number of item(s){" "}
+          <button
+            className=" text-[#623b1e] font-bold rounded-lg"
+            onClick={() => reduce(input)}
+          >
+            {" "}
+            -{" "}
+          </button>
           <input
             type="number"
-            className="text-black rounded-lg w-16 text-center"
+            className="text-black rounded-lg w-16 text-center shadow-2xl"
             onChange={handleChange}
             value={input}
           />
+          <button
+            className=" text-[#623b1e] font-bold rounded-lg"
+            onClick={() => setValue(() => input + 1)}
+          >
+            {" "}
+            +
+          </button>
         </p>
-        <textarea
-          placeholder="Addtional Request "
-          className="w-11/12 h-1/4 mt-4 rounded-lg p-2"
+        <input
+          placeholder="Addtional Request ..."
+          className="w-11/12 h-16 mt-4 rounded-lg p-2 shadow-2xl placeholder:pt-4"
         />
 
         <button
-          className="bg-white rounded-lg h-12 w-24 my-8 "
+          className="bg-[#623b1e] text-white font-bold rounded-lg h-16 w-28 my-8 opacity-100 "
           onClick={() => {
             onSubmit(input);
             setValue(1);

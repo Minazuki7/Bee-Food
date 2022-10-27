@@ -112,7 +112,6 @@ export class AuthService {
       });
     else {
       if (await bcrypt.compare(password, encryptedPassword)) {
-        console.log(password);
         const salt = await bcrypt.genSalt(Number(process.env.BCRYPT_ROUNDS));
         user.password = await bcrypt.hash(newPassword, salt);
         return user.save();

@@ -146,7 +146,7 @@ export class OrdersService {
       { _id: id },
       { status: ORDER_STATUS.delivered }
     );
-    console.log(order, id);
+
     return order;
   }
 }

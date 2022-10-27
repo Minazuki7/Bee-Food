@@ -41,9 +41,9 @@ const AdminFranchises = () => {
   const [itemNumber, setitemNumber] = useState(0);
   const [currentItem, setCurrentItem] = useState<itemType>();
   const [type, setType] = useState(true);
+  const deliveryFee = items ? items[0].branch.company.deliveryFee : 0;
 
   const [orderPrice, setorderPrice] = useState(0);
-
   const addItemToCart = (count: number, item?: itemType) => {
     for (let i = 0; i < count; i++) {
       if (item && type) {
@@ -69,6 +69,7 @@ const AdminFranchises = () => {
         menus={newMenus}
         branch={branchID}
         price={orderPrice}
+        deliveryFee={deliveryFee}
         onConfirm={() => {
           setOpenCart(false);
         }}
@@ -94,7 +95,7 @@ const AdminFranchises = () => {
       <div className="flex">
         <button
           onClick={back}
-          className="self-start bg-blue hover:bg-indigo-700 justify-start mt-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="self-start bg-[#623b1e] justify-start mt-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         >
           Back
         </button>

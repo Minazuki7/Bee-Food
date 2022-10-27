@@ -29,6 +29,11 @@ export const ITEMS_PER_BRANCH_QUERY = gql`
         slug
         description
         price
+        branch {
+          company {
+            deliveryFee
+          }
+        }
       }
     }
   }

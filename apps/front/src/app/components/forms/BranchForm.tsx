@@ -80,10 +80,6 @@ const BranchForm = ({ onSubmit, item, onClose }: BranchFormProps) => {
       status: true,
     },
 
-    // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //   e.preventDefault();
-    //   if (validateForm()) {
-    //     console.log(values);
     onSubmit: (values: FormProps) => {
       onSubmit({
         name: values.name,
@@ -97,10 +93,6 @@ const BranchForm = ({ onSubmit, item, onClose }: BranchFormProps) => {
       });
     },
   });
-  //   } else {
-  //     setAllTouched(true);
-  //   }
-  // };
 
   useEffect(() => {
     if (item) {

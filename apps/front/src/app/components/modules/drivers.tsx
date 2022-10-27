@@ -9,9 +9,6 @@ import {
 } from "@requests/driver";
 import { RESOURCE } from "@shared/permission";
 
-const aaa = () => {
-  console.log("A");
-};
 const Driver = () => (
   <Crud
     resource={RESOURCE.ANY}

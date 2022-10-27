@@ -31,7 +31,10 @@ export class ItemsService {
   }
 
   async findItems(branch?: string) {
-    return this.itemModel.find({ branch: branch }).exec();
+    return this.itemModel
+      .find({ branch: branch })
+      .populate({ path: "branch", populate: { path: "company" } })
+      .exec();
   }
 
   async update(id: string, updateItemInput: UpdateItemInput) {

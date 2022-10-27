@@ -113,7 +113,7 @@ const DriverForm = ({ onSubmit, item, onClose }: DriverFormProps) => {
     // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     //   e.preventDefault();
     //   if (validateForm()) {
-    //     console.log(values);
+    //      (values);
     validationSchema: item
       ? UpdateDriverValdationSchema
       : AddDriverValdationSchema,
@@ -167,7 +167,7 @@ const DriverForm = ({ onSubmit, item, onClose }: DriverFormProps) => {
   //       className="flex flex-col gap-5 item-center m-8 bg-white"
   //       onSubmit={(e) => {
   //         e.preventDefault();
-  //         console.log("string sub", e);
+  //          ("string sub", e);
   //         formik.handleSubmit(e);
   //       }}
   //     >
