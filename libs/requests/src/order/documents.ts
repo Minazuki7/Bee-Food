@@ -86,8 +86,25 @@ export const UPDATE_ORDER_MUTATION = gql`
     }
   }
 `;
-// export const DELETE_ADMIN_MUTATION = gql`
-//   mutation removeAdmin($id: ID, $ids: [ID]) {
-//     removeAdmin(id: $id, ids: $ids)
-//   }
-//;
+export const ORDER_STATS_QUERY = gql`
+  query OrdersStats {
+    getStats {
+      items {
+        name
+        occurrence
+      }
+      menus {
+        name
+        occurrence
+      }
+      branchs {
+        name
+        occurrence
+      }
+      clients {
+        name
+        occurrence
+      }
+    }
+  }
+`;

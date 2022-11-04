@@ -24,8 +24,8 @@ export const ZONES_QUERY = gql`
 `;
 
 export const DELETE_ZONE_MUTATION = gql`
-  mutation removeZone($id: ID, $ids: [ID]) {
-    removeZone(id: $id, ids: $ids)
+  mutation removeZone($id: ID!) {
+    removeZone(id: $id)
   }
 `;
 
@@ -55,8 +55,11 @@ export const CREATE_ZONE_MUTATION = gql`
 `;
 
 export const UPDATE_ZONE_MUTATION = gql`
-  mutation updateZone($id: ID!, $name: String!, $city: ID!, $raduis: Int!) {
-    updateZone(id: $id, name: $name, city: $city, raduis: $raduis) {
+  mutation updateZone($id: String!, $name: String!, $city: ID!, $raduis: Int!) {
+    updateZone(
+      id: $id
+      updateZoneInput: { name: $name, city: $city, raduis: $raduis }
+    ) {
       id
     }
   }

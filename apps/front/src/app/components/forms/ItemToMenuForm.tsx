@@ -91,7 +91,7 @@ const ItemForm = ({ onSubmit, item, onClose }: ItemFormProps) => {
     // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     //   e.preventDefault();
     //   if (validateForm()) {
-    //     console.log(values);
+    //      (values);
 
     onSubmit: (values: FormProps) => {
       // onSubmit({
@@ -217,7 +217,7 @@ const ItemForm = ({ onSubmit, item, onClose }: ItemFormProps) => {
           <Input
             value={formik.values.name}
             label="Name"
-            name="Name"
+            name="name"
             placeholder="Name"
             required
             onChange={formik.handleChange}
@@ -227,7 +227,7 @@ const ItemForm = ({ onSubmit, item, onClose }: ItemFormProps) => {
           <Input
             value={formik.values.description}
             label="Description"
-            name="Description"
+            name="description"
             placeholder="Description"
             required
             onChange={formik.handleChange}
@@ -237,7 +237,7 @@ const ItemForm = ({ onSubmit, item, onClose }: ItemFormProps) => {
             type="number"
             value={formik.values.price}
             label="Price      "
-            name="Price"
+            name="price"
             placeholder="Price"
             required
             onChange={formik.handleChange}

@@ -50,7 +50,7 @@ class VectorLayerComponent extends PureComponent<TVectorLayerComponentProps> {
 
     const coord = this.props.selected;
     let x = transform(coord, source, destination);
-    console.log("LOCATION", x, coord);
+
     const featureToAdd = new Feature({
       geometry: new Point(x),
     });
@@ -70,7 +70,6 @@ class VectorLayerComponent extends PureComponent<TVectorLayerComponentProps> {
   };
 
   render() {
-    //console.log("con", this.props.selected);
     return null;
   }
 }
@@ -79,8 +78,6 @@ export const VectorLayerWithContext = (props: TVectorLayerProps) => {
     <MapContext.Consumer>
       {(mapContext: IMapContext | void) => {
         if (mapContext) {
-          //setcoord(mapContext.selected);
-          //console.log("aaa", coord);
           return (
             <VectorLayerComponent
               {...props}

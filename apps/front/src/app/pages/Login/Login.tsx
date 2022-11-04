@@ -32,7 +32,6 @@ const Login = () => {
 
   const [loginCall, { error }] = useAuth(useLogin);
   if (error) {
-    console.log("TTTS", error.message);
   }
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

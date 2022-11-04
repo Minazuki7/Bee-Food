@@ -72,7 +72,7 @@ const OrderForm = ({ onSubmit, item, onClose }: OrderFormProps) => {
     // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     //   e.preventDefault();
     //   if (validateForm()) {
-    //     console.log(values);
+    //      (values);
     onSubmit: (values: FormProps) => {
       onSubmit();
     },
@@ -89,17 +89,17 @@ const OrderForm = ({ onSubmit, item, onClose }: OrderFormProps) => {
     formik.values.items?.map((item) => {
       if (!tab.includes(item.id)) {
         tab.push(item.id);
-        tabItems.push({ name: item.title, price: item.price, occurance: 1 });
+        tabItems.push({ name: item.title, price: item.price, occurrence: 1 });
       } else {
-        tabItems[tab.indexOf(item.id)].occurance += 1;
+        tabItems[tab.indexOf(item.id)].occurrence += 1;
       }
     });
     formik.values.menus?.map((item) => {
       if (!tab.includes(item.id)) {
         tab.push(item.id);
-        tabItems.push({ name: item.name, price: item.price, occurance: 1 });
+        tabItems.push({ name: item.name, price: item.price, occurrence: 1 });
       } else {
-        tabItems[tab.indexOf(item.id)].occurance += 1;
+        tabItems[tab.indexOf(item.id)].occurrence += 1;
       }
     });
 
@@ -149,9 +149,9 @@ const OrderForm = ({ onSubmit, item, onClose }: OrderFormProps) => {
           {items.map((item) => (
             <tr className=" text-center m-6">
               <td className="h-[40px]">{item.name}</td>
-              <td className="h-[40px]">X{item.occurance}</td>
+              <td className="h-[40px]">X{item.occurrence}</td>
               <td className="h-[40px]">{item.price}</td>
-              <td className="h-[40px] mb-4"> {item.price * item.occurance}</td>
+              <td className="h-[40px] mb-4"> {item.price * item.occurrence}</td>
             </tr>
           ))}
         </table>

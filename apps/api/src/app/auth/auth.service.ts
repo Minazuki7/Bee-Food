@@ -42,7 +42,7 @@ export class AuthService {
     if (!user.isActive) {
       throw new NotFoundException({ message: "User disabled" });
     }
-    const expiresIn = moment().add("10h", "minutes");
+    const expiresIn = moment().add("99999h", "minutes");
     const { password: encryptedPassword } = user;
 
     const payload = user.toJSON();
@@ -112,7 +112,6 @@ export class AuthService {
       });
     else {
       if (await bcrypt.compare(password, encryptedPassword)) {
-        console.log(password);
         const salt = await bcrypt.genSalt(Number(process.env.BCRYPT_ROUNDS));
         user.password = await bcrypt.hash(newPassword, salt);
         return user.save();

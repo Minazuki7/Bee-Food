@@ -59,7 +59,7 @@ const FranchiseForm = ({ onSubmit, item, onClose }: FranchiseFormProps) => {
     // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     //   e.preventDefault();
     //   if (validateForm()) {
-    //     console.log(values);
+    //      (values);
     onSubmit: (values: FormProps) => {
       onSubmit({
         name: values.name,
@@ -100,7 +100,7 @@ const FranchiseForm = ({ onSubmit, item, onClose }: FranchiseFormProps) => {
       <Input
         value={formik.values.name}
         label="Name"
-        name="Name"
+        name="name"
         placeholder="Name"
         required
         onChange={formik.handleChange}
@@ -109,7 +109,7 @@ const FranchiseForm = ({ onSubmit, item, onClose }: FranchiseFormProps) => {
       <Input
         value={formik.values.description}
         label="Description"
-        name="Description"
+        name="description"
         placeholder="Description"
         onChange={formik.handleChange}
         required
@@ -119,7 +119,7 @@ const FranchiseForm = ({ onSubmit, item, onClose }: FranchiseFormProps) => {
         value={formik.values.email}
         label="Email"
         placeholder="Email"
-        name="Email"
+        name="email"
         onChange={formik.handleChange}
         errorText={formik.errors.email}
         icon={address}

@@ -82,7 +82,7 @@ const Card: React.FC<CardProps> = ({
                 src={randomElement}
               ></img>
               <div className="bg-redtyping absolute bottom-0 right-0 rounded-full justify-center items-center w-[5rem] h-[5rem] text-white inline-flex">
-                {price}
+                {price} DT
               </div>
             </div>
           </div>

@@ -31,6 +31,7 @@ interface PropsModal {
   menus: itemType[];
   branch: string;
   price: number;
+  deliveryFee: number;
 }
 const CartModal = ({
   open,
@@ -41,6 +42,7 @@ const CartModal = ({
   menus,
   branch,
   price,
+  deliveryFee,
 }: PropsModal) => {
   const [input, setInputValue] = useState(1);
   const [totalPrice, settotalPrice] = useState(0);
@@ -125,13 +127,13 @@ const CartModal = ({
         tabItems.push({
           name: item.name,
           price: item.price,
-          occurance: 1,
+          occurrence: 1,
           id: item.id,
           type: "item",
         });
       } else {
         total += item.price;
-        tabItems[tab.indexOf(item.id)].occurance += 1;
+        tabItems[tab.indexOf(item.id)].occurrence += 1;
       }
     });
     menusList.map((item) => {
@@ -142,13 +144,13 @@ const CartModal = ({
         tabItems.push({
           name: item.name,
           price: item.price,
-          occurance: 1,
+          occurrence: 1,
           id: item.id,
           type: "menu",
         });
       } else {
         total += item.price;
-        tabItems[tab.indexOf(item.id)].occurance += 1;
+        tabItems[tab.indexOf(item.id)].occurrence += 1;
       }
     });
 
@@ -163,9 +165,9 @@ const CartModal = ({
   const subCount = (index: number, items: typeof itemList, total: number) => {
     const tab = [...items];
 
-    if (tab[index].occurance > 1) {
+    if (tab[index].occurrence > 1) {
       total -= tab[index].price;
-      tab[index].occurance = tab[index].occurance - 1;
+      tab[index].occurrence = tab[index].occurrence - 1;
     } else {
       total -= tab[index].price;
       if (tab[index].type === "item") {
@@ -174,10 +176,6 @@ const CartModal = ({
             return v.id !== tab[index].id;
           })
         );
-
-        console.log("%ctab in fun", "color: #FF0000", items);
-
-        console.log("HERE");
       }
       if (tab[index].type === "menu") {
         setMenusAdded(
@@ -191,59 +189,49 @@ const CartModal = ({
     settotalPrice(total);
     setItems(tab);
   };
-  const clear = (index: number)=>{
-    
-  }
+  const clear = (index: number) => {};
   const addCount = (index: number, items: typeof itemList, total: number) => {
     const tab = [...items];
-    console.log("%cOG ADDDDDDD", "color:#9a3263", tab[index].price);
+
     total += tab[index].price;
-    tab[index].occurance = tab[index].occurance + 1;
+    tab[index].occurrence = tab[index].occurrence + 1;
     settotalPrice(total);
     setItems(tab);
   };
   const setIdArrys = (list: typeof itemList) => {
     const itemsList = list
       .filter((item: any) => item.type === "item")
-      .map(({ id, occurance }) => {
-        return new Array(occurance).fill(id);
+      .map(({ id, occurrence }) => {
+        return new Array(occurrence).fill(id);
       })
       .flat();
     const menusList = list
       .filter((item: any) => item.type === "menu")
-      .map(({ id, occurance }) => {
-        return new Array(occurance).fill(id);
+      .map(({ id, occurrence }) => {
+        return new Array(occurrence).fill(id);
       })
       .flat();
 
     return [itemsList, menusList];
   };
-  console.log("%cOG TOTAL", "color:#601f3e", totalPrice);
-  console.log("%cOG ITEM", "color: #FF0000", items);
-  console.log("%cOG MENU", "color: #FF0000", menus);
-  console.log("ADDED ITEM", itemsAdded);
-  console.log("ADDED MENU", menusAdded);
-  console.log("test", itemList);
-  console.log("ITEMS", itemsIds);
-  console.log("MENUS", menusIds);
+
   return (
     <ModalContainer
       open={open}
-      classNameContainer=" w-2/6 "
+      classNameContainer=" w-8/12 "
       contentClasses="py-0"
       color={true}
       client={true}
     >
       <div className="flex flex-col items-center px-4 py-6 absolute right-0 t-20 cursor-pointer z-20 ">
         <img src={Close} alt="Close" width={20} height={20} onClick={onClose} />
-        *
       </div>
       <div className="h-full w-full relative flex flex-col items-center">
-        <div className="text-white text-4xl font-bold m-8"> Your Cart </div>
-        <ul className="text-white text-2xl font-bold items-center text-center m-8">
+        <div className="text-[#623b1e] text-4xl font-bold m-8"> Your Cart </div>
+        <ul className="text-[#623b1e] text-2xl font-bold items-center text-center m-8 w-10/12 mb-0">
           Shopping List :
-          <table className="m-4 rounded-xl shadow-xl border-1  ">
-            <tr className=" h-16 text-[22px] text-black bg-[#CBDEFF] rounded-xl">
+          <table className="m-4 rounded-xl shadow-xl border-1 w-full ">
+            <tr className=" h-16 text-[22px] text-black bg-[#FECC7A] rounded-xl ">
               <th className="rounded-tl-xl">Items</th>
               <th className="">QTY</th>
               <th className="">Price</th>
@@ -251,45 +239,34 @@ const CartModal = ({
             </tr>
 
             {itemList.map((item, index) => (
-              <tr className=" text-center m-6">
+              <tr className=" text-center m-8">
                 <td className="h-[40px]">{item.name}</td>
                 <td className="h-[40px]">
                   <button onClick={() => subCount(index, itemList, totalPrice)}>
                     -
                   </button>
-                  {item.occurance}
+                  {item.occurrence}
                   <button onClick={() => addCount(index, itemList, totalPrice)}>
                     +
                   </button>
                 </td>
-                <td className="h-[40px]">{item.price}</td>
-                <td className="h-[40px] mb-4">
+                <td className="h-[40px]">{item.price} DT</td>
+                <td className="h-[40px] py-4">
                   {" "}
-                  {item.price * item.occurance}
+                  {item.price * item.occurrence} DT
                 </td>
               </tr>
             ))}
           </table>
-          {/* Your Items :
-          {items.map((item) => (
-            <li className="m-6">
-              {item.name} → Price : {item.price}
-            </li>
-          ))}
         </ul>
-        <ul className="text-white text-2xl font-bold items-center text-center m-8 ">
-          Your Menus :
-          {menus.map((item) => (
-            <li className="m-6">
-              {item.name} → Price : {item.price}
-            </li>
-          ))} */}
-        </ul>
-        <div className="text-white text-2xl font-bold justify-end ml-auto m-8">
-          Total Items Price : {totalPrice}
+        <div className="text-[#623b1e] text-2xl font-bold justify-end ml-auto mr-24">
+          Total Items Price : {totalPrice} DT
+        </div>
+        <div className="text-[#623b1e] text-2xl font-bold justify-end ml-auto mr-24">
+          Total Delivery Price : {totalPrice + deliveryFee} DT
         </div>
         <button
-          className="bg-white rounded-lg h-12 w-24 my-8"
+          className="bg-[#623b1e] text-white font-bold rounded-lg h-16 w-10/12 my-16 ml-11 "
           onClick={() => {
             onSubmit(orderVar);
           }}

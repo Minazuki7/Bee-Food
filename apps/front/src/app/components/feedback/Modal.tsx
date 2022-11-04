@@ -85,9 +85,9 @@ const Modal = ({
             {client && color && (
               <div
                 className={classNames(
-                  "flex flex-col min-w-1/2 bg-[#623b1e] rounded-lg shadow-xl transform transition-all overflow-hidden",
+                  "flex flex-col min-w-1/2 bg-white rounded-lg shadow-xl transform transition-all overflow-hidden",
                   state === "entered"
-                    ? "translate-y-0 opacity-90"
+                    ? "translate-y-0 opacity-70"
                     : "translate-y-4 opacity-0",
                   classNameContainer
                 )}

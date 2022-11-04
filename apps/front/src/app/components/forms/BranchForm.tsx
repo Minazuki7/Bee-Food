@@ -80,10 +80,6 @@ const BranchForm = ({ onSubmit, item, onClose }: BranchFormProps) => {
       status: true,
     },
 
-    // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //   e.preventDefault();
-    //   if (validateForm()) {
-    //     console.log(values);
     onSubmit: (values: FormProps) => {
       onSubmit({
         name: values.name,
@@ -97,10 +93,6 @@ const BranchForm = ({ onSubmit, item, onClose }: BranchFormProps) => {
       });
     },
   });
-  //   } else {
-  //     setAllTouched(true);
-  //   }
-  // };
 
   useEffect(() => {
     if (item) {
@@ -136,7 +128,7 @@ const BranchForm = ({ onSubmit, item, onClose }: BranchFormProps) => {
       <Input
         value={formik.values.name}
         label="Name"
-        name="Name"
+        name="name"
         placeholder="Name"
         required
         onChange={formik.handleChange}
@@ -145,7 +137,7 @@ const BranchForm = ({ onSubmit, item, onClose }: BranchFormProps) => {
       <Input
         value={formik.values.description}
         label="Description"
-        name="Description"
+        name="description"
         placeholder="Description"
         onChange={formik.handleChange}
         required
@@ -182,7 +174,7 @@ const BranchForm = ({ onSubmit, item, onClose }: BranchFormProps) => {
         value={formik.values.openAt}
         label="Opening Time"
         placeholder="Opening Time"
-        name="Opening Time"
+        name="openAt"
         onChange={formik.handleChange}
         required
         errorText={formik.errors.openAt /*&& touched.email*/}
@@ -191,7 +183,7 @@ const BranchForm = ({ onSubmit, item, onClose }: BranchFormProps) => {
         value={formik.values.closeAt}
         label="Colosing Time"
         placeholder="Colosing Time"
-        name="Colosing Time"
+        name="closeAt"
         onChange={formik.handleChange}
         required
         errorText={formik.errors.closeAt /*&& touched.email*/}

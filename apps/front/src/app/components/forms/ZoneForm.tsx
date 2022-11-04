@@ -67,7 +67,7 @@ const ZoneForm = ({ onSubmit, item, onClose }: ZoneFormProps) => {
     // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     //   e.preventDefault();
     //   if (validateForm()) {
-    //     console.log(values);
+    //      (values);
     onSubmit: (values: FormProps) => {
       onSubmit({
         name: values.name,
@@ -109,7 +109,7 @@ const ZoneForm = ({ onSubmit, item, onClose }: ZoneFormProps) => {
       <Input
         value={formik.values.name}
         label="Name"
-        name="Name"
+        name="name"
         placeholder="Name"
         required
         onChange={formik.handleChange}
@@ -118,8 +118,8 @@ const ZoneForm = ({ onSubmit, item, onClose }: ZoneFormProps) => {
       <Input
         type="number"
         value={formik.values.raduis}
-        label="Raduis"
-        name="Raduis"
+        label="Raduis In KM"
+        name="raduis"
         placeholder="Raduis In KM"
         required
         onChange={formik.handleChange}
@@ -140,6 +140,7 @@ const ZoneForm = ({ onSubmit, item, onClose }: ZoneFormProps) => {
         className="city"
         options={citiessOptions}
         value={formik.values.city}
+        label="City"
         onChange={(value) =>
           formik.setValues((values) => ({ ...values, city: value }))
         }

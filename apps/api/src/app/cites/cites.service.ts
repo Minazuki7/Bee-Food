@@ -13,9 +13,8 @@ export class CitesService {
     private cityModel: Model<CityDocument>
   ) {}
   async create(createCityInput: CreateCityInput): Promise<City> {
-    console.log(createCityInput);
     const result = await this.cityModel.create(createCityInput);
-    console.log(result);
+
     return result;
   }
 

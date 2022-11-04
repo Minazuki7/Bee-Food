@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
-import { Transition } from 'react-transition-group';
+import { useEffect, useRef, useState } from "react";
+import { Transition } from "react-transition-group";
 
-import classNames from 'classnames';
+import classNames from "classnames";
 
 export interface DropDownProps {
   children?: React.ReactNode;
@@ -27,13 +27,13 @@ const DropDown = ({ children, classes = {}, open, items }: DropDownProps) => {
   }, [open]);
 
   return (
-    <div className={classNames('flex flex-col', classes.container)}>
+    <div className={classNames("flex flex-col", classes.container)}>
       {children}
       <Transition nodeRef={itemsWrapperRef} in={!!height} timeout={250}>
         {() => (
           <div
             ref={itemsWrapperRef}
-            className={'w-full overflow-hidden transition-all'}
+            className={"w-full overflow-hidden transition-all"}
             style={{ maxHeight: height }}
           >
             <div className={classes.items} ref={itemsRef}>

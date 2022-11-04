@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import Pagination, { PaginationProps } from "./Pagination";
-
+import NotFound from "@assets/png/NotFound.png";
 export interface TableItem {
   id: string;
 }
@@ -24,7 +24,7 @@ export interface TableProps<T extends TableItem> {
 const Table = <T extends TableItem>({
   headers,
   data,
-  emptyComponent = "No data to display",
+  emptyComponent = <img src={NotFound} width="500" height="500"></img>,
   onRowClick,
   className,
   pagination,
@@ -38,7 +38,7 @@ const Table = <T extends TableItem>({
       )}
     >
       <div className="flex-1 ">
-        <table className="min-w-full align-middle border-collapse border-solid border-trueblack border-2 rounded-lg">
+        <table className="min-w-full align-middle border-collapse border-solid  border-1 rounded-lg">
           <thead className="min-h-[80px] bg-white">
             <tr>
               {headers.map((header, i) => (

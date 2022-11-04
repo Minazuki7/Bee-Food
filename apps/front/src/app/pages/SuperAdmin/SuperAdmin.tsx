@@ -9,6 +9,7 @@ import { ROLE } from "@shared/permission";
 import { Route, Routes } from "react-router-dom";
 import Franchise from "@components/modules/franchises";
 import Companies from "./Companies";
+import Stats from "./Stats/Stats";
 
 const SuperAdmin = () => {
   return (
@@ -22,6 +23,7 @@ const SuperAdmin = () => {
             <Route path="franchises/*" element={<Franchise />} />
             <Route path="zones/*" element={<Zone />} />
             <Route path="Companies/*" element={<Companies />} />
+            <Route path="Stats/*" element={<Stats />} />
           </Routes>
         </Page>
       )}

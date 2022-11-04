@@ -62,10 +62,7 @@ const CityForm = ({ onSubmit, item, onClose }: CityFormProps) => {
     },
 
     validationSchema: AddCityValdationSchema,
-    // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //   e.preventDefault();
-    //   if (validateForm()) {
-    //     console.log(values);
+
     onSubmit: (values: FormProps) => {
       onSubmit({
         name: values.name,
@@ -73,10 +70,6 @@ const CityForm = ({ onSubmit, item, onClose }: CityFormProps) => {
       });
     },
   });
-  //   } else {
-  //     setAllTouched(true);
-  //   }
-  // };
 
   useEffect(() => {
     if (item) {
@@ -105,7 +98,7 @@ const CityForm = ({ onSubmit, item, onClose }: CityFormProps) => {
       <Input
         value={formik.values.name}
         label="Name"
-        name="Name"
+        name="name"
         placeholder="Name"
         required
         onChange={formik.handleChange}
@@ -124,6 +117,7 @@ const CityForm = ({ onSubmit, item, onClose }: CityFormProps) => {
       /> */}
       <Select
         className="country"
+        label="Country"
         options={countriesOptions}
         value={formik.values.country}
         onChange={(value) =>
