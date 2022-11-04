@@ -154,7 +154,7 @@ const ClientForm = ({ onSubmit, item, onClose }: ClientFormProps) => {
         <Input
           value={formik.values.firstName}
           label="First Name"
-          name="First Name"
+          name="first Name"
           placeholder="First Name"
           required
           onChange={formik.handleChange}
@@ -163,7 +163,7 @@ const ClientForm = ({ onSubmit, item, onClose }: ClientFormProps) => {
         <Input
           value={formik.values.lastName}
           label="Last Name"
-          name="Last Name"
+          name="last Name"
           placeholder="Last Name"
           required
           onChange={formik.handleChange}
@@ -173,7 +173,7 @@ const ClientForm = ({ onSubmit, item, onClose }: ClientFormProps) => {
         <Input
           value={formik.values.email}
           label="Email"
-          name="Email"
+          name="email"
           placeholder="Email"
           required
           onChange={formik.handleChange}
@@ -182,7 +182,7 @@ const ClientForm = ({ onSubmit, item, onClose }: ClientFormProps) => {
         <Input
           value={formik.values.phone}
           label="Phone"
-          name="Phone"
+          name="phone"
           placeholder="Phone"
           required
           onChange={formik.handleChange}
@@ -195,7 +195,7 @@ const ClientForm = ({ onSubmit, item, onClose }: ClientFormProps) => {
             label="Password"
             placeholder="password"
             onChange={formik.handleChange}
-            name="Password"
+            name="password"
             errorText={formik.errors.password}
             required
           />

@@ -15,21 +15,21 @@ registerEnumType(ORDER_STATUS, { name: "ORDER_STATUS" });
 export class Order {
   @Field(() => Zone)
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Zone" })
-  zone!: Zone;
+  zone?: Zone;
   @Field(() => User)
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "User" })
-  client!: User;
+  client?: User;
   @Field()
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Driver" })
-  driver!: Driver;
+  driver?: Driver;
 
   @Field()
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Company" })
-  company!: Company;
+  company?: Company;
 
   @Field()
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Branch" })
-  branch!: Branch;
+  branch?: Branch;
 
   @Field(() => [Item], { description: "order's items", nullable: true })
   @Prop({
@@ -47,48 +47,48 @@ export class Order {
   menus?: Menu[];
 
   @Field(() => ID, { description: "order's _id" })
-  id!: string;
+  id?: string;
 
   @Prop()
   @Field(() => Int, { description: "order's price" })
-  price!: number;
+  price?: number;
 
   @Prop()
   @Field(() => Int, { description: "order's total price" })
-  totalPrice!: number;
+  totalPrice?: number;
 
   @Prop()
   @Field(() => Int, { description: "order's deliveryFees" })
-  deliveryFees!: number;
+  deliveryFees?: number;
 
   @Prop({ type: "string", enum: ORDER_STATUS })
   @Field(() => ORDER_STATUS, { description: "order's status" })
-  status!: ORDER_STATUS;
+  status?: ORDER_STATUS;
 
   @Prop()
   @Field(() => Date, { description: "order's time" })
-  recievedAt!: string;
+  recievedAt?: string;
   @Prop()
   @Field(() => Date, { description: "order's time" })
-  acceptedAt!: string;
+  acceptedAt?: string;
   @Prop()
   @Field(() => Date, { description: "order's time" })
-  preparingStart!: string;
+  preparingStart?: string;
   @Prop()
   @Field(() => Date, { description: "order's time" })
-  readyAt!: string;
+  readyAt?: string;
   @Prop()
   @Field(() => Date, { description: "order's time" })
-  pickedAt!: string;
+  pickedAt?: string;
   @Prop()
   @Field(() => Date, { description: "order's time" })
-  deliveredAt!: string;
+  deliveredAt?: string;
   @Prop()
   @Field(() => Date, { description: "order's time" })
-  rejectedAt!: string;
+  rejectedAt?: string;
   @Prop()
   @Field(() => Date, { description: "order's time" })
-  canceledAt!: string;
+  canceledAt?: string;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);

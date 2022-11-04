@@ -98,7 +98,7 @@ const CompanyForm = ({ onSubmit, item, onClose }: CompanyFormProps) => {
       <Input
         value={formik.values.name}
         label="Name"
-        name="Name"
+        name="name"
         placeholder="Name"
         required
         onChange={formik.handleChange}
@@ -107,7 +107,7 @@ const CompanyForm = ({ onSubmit, item, onClose }: CompanyFormProps) => {
       <Input
         value={formik.values.description}
         label="Description"
-        name="Description"
+        name="description"
         placeholder="Description"
         onChange={formik.handleChange}
         required
@@ -117,7 +117,7 @@ const CompanyForm = ({ onSubmit, item, onClose }: CompanyFormProps) => {
         value={formik.values.email}
         label="Email"
         placeholder="Email"
-        name="Email"
+        name="email"
         onChange={formik.handleChange}
         errorText={formik.errors.email}
         icon={address}
@@ -126,9 +126,9 @@ const CompanyForm = ({ onSubmit, item, onClose }: CompanyFormProps) => {
       <Input
         type="number"
         value={formik.values.deliveryFee}
-        label="Delivery Fee"
-        name="Delivery Fee"
-        placeholder="Delivery Fee"
+        label="Delivery Fee in DT"
+        name="deliveryFee"
+        placeholder="Delivery Fee in DT"
         required
         onChange={formik.handleChange}
         errorText={formik.errors.deliveryFee /*&& touched.name*/}

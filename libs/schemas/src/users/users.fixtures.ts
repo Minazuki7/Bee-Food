@@ -1,4 +1,4 @@
-[
+export default [
   {
     _id: "633ebc2e0d51fd97d86b8475",
     email: "client@client.com",
@@ -11,7 +11,7 @@
   },
   {
     _id: "633ebc5b0d51fd97d86b847a",
-    email: "client@client.com",
+    email: "client@cl1ient.com",
     firstName: "client",
     lastName: "client",
     password: "$2b$10$O.mSUHiP9akxAEVsERI91OeiZ0nYPh7buvJ.Lyqr6koS6lVkciOr2",

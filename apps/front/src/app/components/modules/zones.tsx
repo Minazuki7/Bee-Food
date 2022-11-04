@@ -4,6 +4,7 @@ import { useUpdateBranch } from "@requests/branch";
 import {
   useCreateZone,
   useDeleteZone,
+  useLazyZone,
   useUpdateZone,
   useZones,
 } from "@requests/zone";
@@ -14,7 +15,7 @@ const Zone = () => (
     resource={RESOURCE.ANY}
     headers={[
       { title: "Zone ID ", dataIndex: "name", key: "name" },
-      { title: "raduis ", dataIndex: "raduis", key: "raduis" },
+      { title: "raduis ", render: (row) => row.raduis + "Km", key: "raduis" },
       { title: "city", render: (row) => row.city.name, key: "city" },
       {
         title: "country",
@@ -28,6 +29,7 @@ const Zone = () => (
     update={useUpdateZone}
     delete={useDeleteZone}
     formVariant="page"
+    get={useLazyZone}
   />
 );
 

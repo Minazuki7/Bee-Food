@@ -98,7 +98,7 @@ const CityForm = ({ onSubmit, item, onClose }: CityFormProps) => {
       <Input
         value={formik.values.name}
         label="Name"
-        name="Name"
+        name="name"
         placeholder="Name"
         required
         onChange={formik.handleChange}
@@ -117,6 +117,7 @@ const CityForm = ({ onSubmit, item, onClose }: CityFormProps) => {
       /> */}
       <Select
         className="country"
+        label="Country"
         options={countriesOptions}
         value={formik.values.country}
         onChange={(value) =>

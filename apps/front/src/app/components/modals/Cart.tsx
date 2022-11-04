@@ -127,13 +127,13 @@ const CartModal = ({
         tabItems.push({
           name: item.name,
           price: item.price,
-          occurance: 1,
+          occurrence: 1,
           id: item.id,
           type: "item",
         });
       } else {
         total += item.price;
-        tabItems[tab.indexOf(item.id)].occurance += 1;
+        tabItems[tab.indexOf(item.id)].occurrence += 1;
       }
     });
     menusList.map((item) => {
@@ -144,13 +144,13 @@ const CartModal = ({
         tabItems.push({
           name: item.name,
           price: item.price,
-          occurance: 1,
+          occurrence: 1,
           id: item.id,
           type: "menu",
         });
       } else {
         total += item.price;
-        tabItems[tab.indexOf(item.id)].occurance += 1;
+        tabItems[tab.indexOf(item.id)].occurrence += 1;
       }
     });
 
@@ -165,9 +165,9 @@ const CartModal = ({
   const subCount = (index: number, items: typeof itemList, total: number) => {
     const tab = [...items];
 
-    if (tab[index].occurance > 1) {
+    if (tab[index].occurrence > 1) {
       total -= tab[index].price;
-      tab[index].occurance = tab[index].occurance - 1;
+      tab[index].occurrence = tab[index].occurrence - 1;
     } else {
       total -= tab[index].price;
       if (tab[index].type === "item") {
@@ -194,21 +194,21 @@ const CartModal = ({
     const tab = [...items];
 
     total += tab[index].price;
-    tab[index].occurance = tab[index].occurance + 1;
+    tab[index].occurrence = tab[index].occurrence + 1;
     settotalPrice(total);
     setItems(tab);
   };
   const setIdArrys = (list: typeof itemList) => {
     const itemsList = list
       .filter((item: any) => item.type === "item")
-      .map(({ id, occurance }) => {
-        return new Array(occurance).fill(id);
+      .map(({ id, occurrence }) => {
+        return new Array(occurrence).fill(id);
       })
       .flat();
     const menusList = list
       .filter((item: any) => item.type === "menu")
-      .map(({ id, occurance }) => {
-        return new Array(occurance).fill(id);
+      .map(({ id, occurrence }) => {
+        return new Array(occurrence).fill(id);
       })
       .flat();
 
@@ -225,7 +225,6 @@ const CartModal = ({
     >
       <div className="flex flex-col items-center px-4 py-6 absolute right-0 t-20 cursor-pointer z-20 ">
         <img src={Close} alt="Close" width={20} height={20} onClick={onClose} />
-        *
       </div>
       <div className="h-full w-full relative flex flex-col items-center">
         <div className="text-[#623b1e] text-4xl font-bold m-8"> Your Cart </div>
@@ -246,25 +245,25 @@ const CartModal = ({
                   <button onClick={() => subCount(index, itemList, totalPrice)}>
                     -
                   </button>
-                  {item.occurance}
+                  {item.occurrence}
                   <button onClick={() => addCount(index, itemList, totalPrice)}>
                     +
                   </button>
                 </td>
-                <td className="h-[40px]">{item.price}</td>
+                <td className="h-[40px]">{item.price} DT</td>
                 <td className="h-[40px] py-4">
                   {" "}
-                  {item.price * item.occurance}
+                  {item.price * item.occurrence} DT
                 </td>
               </tr>
             ))}
           </table>
         </ul>
         <div className="text-[#623b1e] text-2xl font-bold justify-end ml-auto mr-24">
-          Total Items Price : {totalPrice}
+          Total Items Price : {totalPrice} DT
         </div>
         <div className="text-[#623b1e] text-2xl font-bold justify-end ml-auto mr-24">
-          Total Delivery Price : {totalPrice + deliveryFee}
+          Total Delivery Price : {totalPrice + deliveryFee} DT
         </div>
         <button
           className="bg-[#623b1e] text-white font-bold rounded-lg h-16 w-10/12 my-16 ml-11 "

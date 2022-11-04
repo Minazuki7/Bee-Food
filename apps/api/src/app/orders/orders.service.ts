@@ -4,7 +4,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { CreateOrderInput } from "./dto/create-order.input";
 import { UpdateOrderInput } from "./dto/update-order.input";
-import { Order, OrderDocument, Client, User } from "@fd-wereact/schemas";
+import { Order, OrderDocument, User } from "@fd-wereact/schemas";
 import { OrderDetailsService } from "./../order-details/order-details.service";
 import { BranchesService } from "./../branches/branches.service";
 import { GraphQLError } from "graphql";
@@ -96,7 +96,7 @@ export class OrdersService {
   }
 
   async findAll() {
-    return this.orderModel.find().populate("branch client items").exec();
+    return this.orderModel.find().populate("branch client items menus").exec();
   }
 
   async findOne(id: string) {
@@ -132,7 +132,7 @@ export class OrdersService {
     return this.orderModel.findByIdAndUpdate(id, { driver: driverId });
   }
 
-  remove(id: string) {
+  async remove(id: string) {
     return this.orderModel.findByIdAndRemove(id).exec();
   }
 
@@ -148,5 +148,70 @@ export class OrdersService {
     );
 
     return order;
+  }
+  async ordersStats(): Promise<{
+    items: { name; occurrence }[];
+    menus: { name; occurrence }[];
+    clients: { name; occurrence }[];
+    branchs: { name; occurrence }[];
+  }> {
+    const orders = await this.findAll();
+    const tabItemsIds: string[] = [];
+    const tabItems: { name: string; occurrence: number }[] = [];
+    const tabMenusIds: string[] = [];
+    const tabMenus: { name: string; occurrence: number }[] = [];
+    const tabBranchsIds: string[] = [];
+    const tabBranchs: { name: string; occurrence: number }[] = [];
+    const tabClientsIds: string[] = [];
+    const tabClients: { name: string; occurrence: number }[] = [];
+
+    orders.map((order) => {
+      order.items.map(
+        (item) => {
+          if (!tabItemsIds.includes(item.id)) {
+            tabItemsIds.push(item.id);
+            tabItems.push({ name: item.title, occurrence: 1 });
+          } else {
+            tabItems[tabItemsIds.indexOf(item.id)].occurrence += 1;
+          }
+          return [tabItemsIds, tabItems];
+        },
+        order.menus.map((item) => {
+          if (!tabMenusIds.includes(item.id)) {
+            tabMenusIds.push(item.id);
+            tabMenus.push({ name: item.name, occurrence: 1 });
+          } else {
+            tabMenus[tabMenusIds.indexOf(item.id)].occurrence += 1;
+          }
+          return [tabMenusIds, tabMenus];
+        })
+      );
+
+      if (!tabBranchsIds.includes(order.branch.id)) {
+        tabBranchsIds.push(order.branch.id);
+        tabBranchs.push({ name: order.branch.name, occurrence: 1 });
+      } else {
+        tabBranchs[tabBranchsIds.indexOf(order.branch.id)].occurrence += 1;
+      }
+
+      if (!tabClientsIds.includes(order.client.id)) {
+        tabClientsIds.push(order.client.id);
+        tabClients.push({
+          name: order.client.firstName + "  " + order.client.lastName,
+          occurrence: 1,
+        });
+      } else {
+        tabClients[tabClientsIds.indexOf(order.client.id)].occurrence += 1;
+      }
+    });
+
+    const result = {
+      items: tabItems,
+      menus: tabMenus,
+      clients: tabClients,
+      branchs: tabBranchs,
+    };
+
+    return result;
   }
 }

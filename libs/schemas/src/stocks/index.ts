@@ -1,2 +1,2 @@
 export * from "./stock.entity";
-export { default as stocks } from "./stock.fixture";
+export { default as stocks } from "./stock.fixtures";

@@ -302,7 +302,7 @@ const DriverForm = ({ onSubmit, item, onClose }: DriverFormProps) => {
           <Input
             value={formik.values.firstName}
             label="First Name"
-            name="First Name"
+            name="firstName"
             placeholder="First Name"
             onChange={formik.handleChange}
             errorText={formik.errors.firstName}
@@ -312,7 +312,7 @@ const DriverForm = ({ onSubmit, item, onClose }: DriverFormProps) => {
           <Input
             value={formik.values.lastName}
             label="Last Name"
-            name="Last Name"
+            name="lastName"
             placeholder="Last Name"
             onChange={formik.handleChange}
             errorText={formik.errors.lastName}
@@ -322,7 +322,7 @@ const DriverForm = ({ onSubmit, item, onClose }: DriverFormProps) => {
             value={formik.values.email}
             label="Email"
             placeholder="Email"
-            name="Email"
+            name="email"
             onChange={formik.handleChange}
             errorText={formik.errors.email}
             required
@@ -365,7 +365,7 @@ const DriverForm = ({ onSubmit, item, onClose }: DriverFormProps) => {
               label="Password"
               placeholder="Password"
               onChange={formik.handleChange}
-              name="Password"
+              name="password"
               errorText={formik.errors.password}
               required
             />

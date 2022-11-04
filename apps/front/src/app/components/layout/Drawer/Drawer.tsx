@@ -39,6 +39,8 @@ import Country from "@assets/svg/Country.svg";
 import CountryAlt from "@assets/svg/CountryAlt.svg";
 import City from "@assets/svg/City.svg";
 import CityAlt from "@assets/svg/CityAlt.svg";
+import Stats from "@assets/svg/Stats.svg";
+import StatsAlt from "@assets/svg/StatsAlt.svg";
 
 export const superadminResources = [
   { name: "Companies", icon: Company, iconAlt: CompanyAlt, path: "Companies" },
@@ -51,6 +53,7 @@ export const superadminResources = [
   { name: "Countries", icon: Country, iconAlt: CountryAlt, path: "Countries" },
   { name: "Cities", icon: City, iconAlt: CityAlt, path: "Cities" },
   { name: "Zones", icon: zone, iconAlt: ZoneAlt, path: "zones" },
+  { name: "Stats", icon: Stats, iconAlt: StatsAlt, path: "Stats" },
   // { name: "Users", icon: users, iconAlt: UserAlt, path: "users" },
 ];
 
@@ -126,7 +129,7 @@ const Drawer = ({ show = false }) => {
     show = true;
   } else if (user?.role === ROLE.SUPER_ADMIN) {
     items = superadminResources;
-    role = "/super-admin/";
+    role = "/superadmin/";
     show = true;
   }
   const logout = useLogout();

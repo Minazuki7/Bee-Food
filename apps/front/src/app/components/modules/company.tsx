@@ -19,7 +19,7 @@ const Company = () => (
       { title: "description", dataIndex: "description", key: "description" },
       {
         title: "Delivery Fee",
-        dataIndex: "deliveryFee",
+        render: (row) => row.deliveryFee + "Dt ",
         key: "Delivery Fee",
       },
     ]}

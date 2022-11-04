@@ -11,6 +11,7 @@ import NotFound from "@assets/png/NotFound.png";
 const ClientBranch = () => {
   const [zoneName, setZoneName] = useState<any>("");
   const [zoneID, setZoneId] = useState<any>("");
+  let navigate = useNavigate();
   const { data: branchData, refetch } = useBranchesByZone({
     variables: { id: zoneID },
   });
@@ -31,10 +32,13 @@ const ClientBranch = () => {
   return (
     <div className="w-full">
       <div className="flex h-12">
-        <button className="h-full w-1/3 ml-auto">
+        <button
+          className="h-full w-1/3 ml-auto"
+          onClick={() => navigate("../FoodSuggestion")}
+        >
           {" "}
           <div className="ml-auto font-bold rounded-xl text-white bg-[#752a1c] h-full w- flex items-center justify-center text-[24px]">
-            Try Our Premimum Order
+            Let us guess your meal
           </div>
         </button>
       </div>

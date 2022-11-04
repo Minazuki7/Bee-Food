@@ -17,6 +17,7 @@ import {
   CrudResolver,
   CurrentUser,
   PaginatedList,
+  SkipAuth,
 } from "@fd-wereact/nest-common";
 import { OrdersService } from "./orders.service";
 import {
@@ -29,6 +30,7 @@ import {
 import { CreateOrderInput } from "./dto/create-order.input";
 import { UpdateOrderInput } from "./dto/update-order.input";
 import { OrderDetailsService } from "./../order-details/order-details.service";
+import { OrderStats } from "./dto/ordersStats.entity";
 
 const pubSub = new PubSub();
 
@@ -121,6 +123,11 @@ export class OrdersResolver extends CrudResolver(Order, PaginatedOrders) {
   @Query(() => OrderDetail, { name: "getOrder" })
   getOrder(@Args("id", { type: () => String }) id: string) {
     return this.ordersService.getOrder(id);
+  }
+  @SkipAuth()
+  @Query(() => OrderStats, { name: "getStats" })
+  getStats() {
+    return this.ordersService.ordersStats();
   }
 
   // @ResolveField()

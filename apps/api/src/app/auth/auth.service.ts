@@ -42,7 +42,7 @@ export class AuthService {
     if (!user.isActive) {
       throw new NotFoundException({ message: "User disabled" });
     }
-    const expiresIn = moment().add("10h", "minutes");
+    const expiresIn = moment().add("99999h", "minutes");
     const { password: encryptedPassword } = user;
 
     const payload = user.toJSON();

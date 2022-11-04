@@ -145,7 +145,7 @@ const ItemForm = ({ onSubmit, item, onClose }: ItemFormProps) => {
       <Input
         value={formik.values.slug}
         label="Slug"
-        name="Slug"
+        name="slug"
         placeholder="Slug"
         required
         onChange={formik.handleChange}
@@ -154,7 +154,7 @@ const ItemForm = ({ onSubmit, item, onClose }: ItemFormProps) => {
       <Input
         value={formik.values.title}
         label="Title"
-        name="Title"
+        name="title"
         placeholder="Title"
         required
         onChange={formik.handleChange}
@@ -164,7 +164,7 @@ const ItemForm = ({ onSubmit, item, onClose }: ItemFormProps) => {
       <Input
         value={formik.values.description}
         label="Description"
-        name="Description"
+        name="description"
         placeholder="Description"
         required
         onChange={formik.handleChange}
@@ -174,7 +174,7 @@ const ItemForm = ({ onSubmit, item, onClose }: ItemFormProps) => {
         type="number"
         value={formik.values.price}
         label="Price"
-        name="Price"
+        name="price"
         placeholder="Price"
         required
         onChange={formik.handleChange}
@@ -184,7 +184,7 @@ const ItemForm = ({ onSubmit, item, onClose }: ItemFormProps) => {
         type="number"
         value={formik.values.stock}
         label="Stock"
-        name="Stock"
+        name="stock"
         placeholder="Stock"
         required
         onChange={formik.handleChange}
