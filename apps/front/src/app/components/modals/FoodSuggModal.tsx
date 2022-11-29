@@ -400,7 +400,7 @@ const FoodSuggModal = ({
             We Suggest :
             <div>
               {best.name} with {((best.score / 25) * 100).toFixed(2)} %<br />
-              {secondBest.name} with
+              {secondBest.name} with{" "}
               {((secondBest.score / 25) * 100).toFixed(2)} %<br />
               {thirdBest.name} with {((thirdBest.score / 25) * 100).toFixed(2)}{" "}
               %

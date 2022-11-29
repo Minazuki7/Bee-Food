@@ -12,6 +12,7 @@ import Sweet from "@assets/svg/sweet.svg";
 import Expensive from "@assets/svg/expensive.svg";
 import Spaghetti from "@assets/svg/spaghetti.svg";
 import NotFound from "@assets/png/NotFound.png";
+import FoodResult from "@components/modals/foodModal";
 
 const FoodSuggestion = () => {
   const navigate = useNavigate();
@@ -30,10 +31,20 @@ const FoodSuggestion = () => {
   const back = () => {
     navigate("../FoodSuggestion");
   };
-  console.log("taa", values);
-  console.log("test", status);
+
   return (
     <div>
+      <FoodResult
+        open={open}
+        onClose={() => {
+          setOpen(false);
+        }}
+        onSubmit={() => {
+          setOpen(false);
+        }}
+        //values={values}
+        //rest={rest}
+      />
       <button
         onClick={back}
         className="self-start bg-[#623b1e] justify-start mt-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -41,7 +52,7 @@ const FoodSuggestion = () => {
         Back
       </button>
       <div className=" flex  font-bold justify-center text-6xl mt-6">
-        Choose your mode:
+        Choose your prefrence:
       </div>
       {status === 0 && (
         <div className="flex flex-2 justify-center text-3xl gap-12 font-bold mt-6 ">
@@ -186,6 +197,7 @@ const FoodSuggestion = () => {
             onClick={() => {
               setValues({ ...values, v4: 1 });
               setStatus(4);
+              setOpen(true);
             }}
           >
             <div>
@@ -201,6 +213,7 @@ const FoodSuggestion = () => {
             onClick={() => {
               setValues({ ...values, v4: 2 });
               setStatus(4);
+              setOpen(true);
             }}
           >
             <div>
@@ -215,7 +228,7 @@ const FoodSuggestion = () => {
       )}
       {status === 4 && (
         <div className=" flex justify-center text-center content-center w-full ml- mt-4  font-bold">
-          <img src={NotFound} width="500" height="500"></img>
+          {/* <img src={NotFound} width="500" height="500"></img> */}
         </div>
       )}
     </div>
