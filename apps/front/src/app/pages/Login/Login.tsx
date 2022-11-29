@@ -92,7 +92,7 @@ const Login = () => {
                 onChange={handleChange("email")}
                 value={values.email}
                 icon={user}
-                placeholder="Exemple : login@gamil.com"
+                placeholder="Exemple : login@gmail.com"
                 required
                 type="text"
                 errorText={touched.password && errors.email}
